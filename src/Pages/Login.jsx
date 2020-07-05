@@ -112,9 +112,9 @@ const Login = (_: void): React$Element<*> => {
           {errors.password ? (
             <p className="error-message">{errors.password.message}</p>
           ) : null}
-          <input type="submit" value="Login" className="login-button" />
+          <input type="submit" value="Login" className="button" />
           <Link to="/signup">
-            <button className="login-button">Sign up</button>
+            <button className="button">Sign up</button>
           </Link>
         </form>
       </div>

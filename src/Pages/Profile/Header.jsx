@@ -11,11 +11,11 @@ const Header = () => {
     <div className="header-container">
       <Particles
         width={`${window.innerWidth}px`}
-        height={`${window.innerHeight}px`}
+        height={`10vh`}
         params={{
           particles: {
             number: {
-              value: 160,
+              value: 60,
               density: {
                 enable: false,
               },
@@ -24,7 +24,7 @@ const Header = () => {
               value: 3,
               random: true,
               anim: {
-                speed: 5,
+                speed: 4,
                 size_min: 0.3,
               },
             },

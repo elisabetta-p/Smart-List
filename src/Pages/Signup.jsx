@@ -124,13 +124,13 @@ const Signup = (_: void): React$Element<*> => {
           {errors.email ? (
             <p className="error-message">{errors.email.message}</p>
           ) : null}
-          <input type="submit" value="Confirm" className="login-button" />
+          <input type="submit" value="Confirm" className="button" />
 
           <button
             onClick={() => {
               history.goBack();
             }}
-            className="login-button"
+            className="button"
           >
             Go back
           </button>
