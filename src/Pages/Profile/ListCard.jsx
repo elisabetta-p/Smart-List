@@ -18,9 +18,12 @@ const ListHeader = (props) => {
   );
 };
 
-const ListContent = () => {
+const ListContent = (props) => {
   return (
-    <div className="list-content">
+    <div
+      className="list-content"
+      style={{ height: props.showContent ? "10vh" : "0" }}
+    >
       <p>Banana</p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button className="button add-item-button">Add item</button>
@@ -44,11 +47,10 @@ const ListCard = (props) => {
       <motion.div
         animate={{
           opacity: showContent ? 1 : 0,
-          height: showContent ? "auto" : "0",
         }}
         transition={{ duration: 0.3 }}
       >
-        <ListContent />
+        <ListContent showContent={showContent} />
       </motion.div>
     </div>
   );

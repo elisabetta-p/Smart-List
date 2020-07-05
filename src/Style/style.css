@@ -122,9 +122,9 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -151,6 +151,12 @@ header {
   height: auto;
   margin: 1.5rem;
   width: 30vw;
+}
+
+.header-icon {
+  color: white;
+  font-size: 2em;
+  margin-right: 1.5rem;
 }
 
 .list-header {
@@ -208,4 +214,9 @@ header {
 .add-item-button:hover {
   -webkit-box-shadow: 0px 0px 20px rgba(221, 214, 243, 0.5);
           box-shadow: 0px 0px 20px rgba(221, 214, 243, 0.5);
+}
+
+.loading-style {
+  color: #faaca8;
+  font-size: 5em;
 }

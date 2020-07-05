@@ -1,8 +1,10 @@
 import React from "react";
 //import { useSelector, useDispatch } from "react-redux";
 import Particles from "react-particles-js";
-
+import { LogoutOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router";
 const Header = () => {
+  const history = useHistory();
   return (
     <div className="header-container">
       <Particles
@@ -65,6 +67,13 @@ const Header = () => {
           <h1 className="hello-profile">
             Hello, {localStorage.getItem("username")}
           </h1>
+          <LogoutOutlined
+            className="header-icon"
+            onClick={() => {
+              localStorage.clear();
+              history.push("/");
+            }}
+          />
         </header>
       </div>{" "}
     </div>

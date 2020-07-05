@@ -20,7 +20,19 @@ const ListContainer = () => {
         ))}
       </div>
     );
-  else return <LoadingOutlined />;
+  else
+    return (
+      <div
+        style={{
+          height: "90vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LoadingOutlined className="loading-style" />
+      </div>
+    );
 };
 
 export default ListContainer;
