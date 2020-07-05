@@ -16,4 +16,7 @@ export const signup = (name, email, username, password) => {
    * })
    */
   localStorage.setItem("username", username);
+  return {
+    type: SIGNUP,
+  };
 };

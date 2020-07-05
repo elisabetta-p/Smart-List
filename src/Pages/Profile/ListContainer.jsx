@@ -1,16 +1,26 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import { actions as notifActions } from "redux-notifications";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
 import ListCard from "./ListCard";
+import { useSelector, useDispatch } from "react-redux";
+import { loadLists } from "../../Redux";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const ListContainer = () => {
-  return (
-    <div className="list-container">
-      <ListCard />
-    </div>
-  );
+  const dispatch = useDispatch();
+  const lists = useSelector((state) => state.lists.lists);
+  useEffect(() => {
+    dispatch(loadLists());
+  }, []);
+  console.log(lists);
+
+  if (lists.length !== 0)
+    return (
+      <div className="list-container">
+        {lists.map((list) => (
+          <ListCard list={list} key={list.id} />
+        ))}
+      </div>
+    );
+  else return <LoadingOutlined />;
 };
 
 export default ListContainer;

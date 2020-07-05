@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-//import { login } from "../Redux";
-import { actions as notifActions } from "redux-notifications";
-import Particles from "react-particles-js";
-import { Link, useParams } from "react-router-dom";
-import { findByLabelText } from "@testing-library/react";
+//import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
 const ListHeader = (props) => {
@@ -17,7 +11,7 @@ const ListHeader = (props) => {
       }}
     >
       <div className="list-header-flex">
-        <h2 className="list-title">List title</h2>
+        <h2 className="list-title">{props.list.name}</h2>
         <button className="button list-button">Edit</button>
       </div>
     </div>
@@ -34,16 +28,18 @@ const ListContent = () => {
     </div>
   );
 };
-const ListCard = () => {
+const ListCard = (props) => {
   const [showContent, setShowContent] = useState(true);
 
   const handleShowContent = () => {
-    console.log(showContent);
     setShowContent(!showContent);
   };
   return (
     <div className="container-list-card">
-      <ListHeader parentCallbackShowContent={handleShowContent} />
+      <ListHeader
+        parentCallbackShowContent={handleShowContent}
+        list={props.list}
+      />
 
       <motion.div
         animate={{

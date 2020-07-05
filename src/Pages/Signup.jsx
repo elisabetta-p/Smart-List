@@ -1,23 +1,29 @@
 // @flow
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signup } from "../Redux";
-import { actions as notifActions } from "redux-notifications";
 import Particles from "react-particles-js";
 import { useHistory } from "react-router";
 
 const Signup = (_: void): React$Element<*> => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   const onSubmit = (formData) => {
     localStorage.setItem("username", formData.username);
     console.log(localStorage);
     dispatch(signup(formData.username, formData.email, formData.password));
+    history.push(
+      `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`
+    );
   };
   const history = useHistory();
-
   return (
     <div className="login-container">
       <Particles
@@ -97,10 +103,10 @@ const Signup = (_: void): React$Element<*> => {
             type="email"
             ref={register({
               required: { value: true, message: "Please insert your email" },
-              pattern: {
+              /*pattern: {
                 value: /S+@S+.S+/,
                 message: "Email format not valid",
-              },
+              },*/
             })}
             className="input"
           />
@@ -115,6 +121,7 @@ const Signup = (_: void): React$Element<*> => {
             })}
             className="input"
           />
+
           {errors.username ? (
             <p className="error-message">{errors.username.message}</p>
           ) : null}
@@ -125,7 +132,6 @@ const Signup = (_: void): React$Element<*> => {
             <p className="error-message">{errors.email.message}</p>
           ) : null}
           <input type="submit" value="Confirm" className="button" />
-
           <button
             onClick={() => {
               history.goBack();

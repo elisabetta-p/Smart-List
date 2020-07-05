@@ -138,6 +138,9 @@ header {
 
 .list-container {
   margin: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .container-list-card {
@@ -146,6 +149,8 @@ header {
           box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   height: auto;
+  margin: 1.5rem;
+  width: 30vw;
 }
 
 .list-header {

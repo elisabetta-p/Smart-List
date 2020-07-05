@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import { reducer as notifReducer } from "redux-notifications";
 import loginReducer from "./login/loginReducer";
 import signupReducer from "./signup/signupReducer";
+import listsReducer from "./lists/listsReducer";
 
 const rootReducer = combineReducers({
-  notifs: notifReducer,
   login: loginReducer,
   signup: signupReducer,
+  lists: listsReducer,
 });
 
 export default rootReducer;

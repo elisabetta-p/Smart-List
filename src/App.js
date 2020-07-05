@@ -2,15 +2,8 @@ import React from "react";
 import Login from "./Pages/Login";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
-import "redux-notifications/lib/styles.css";
-import { Notifs } from "redux-notifications";
 import "./Style/style.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile/Profile";
 
@@ -30,7 +23,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-      <Notifs store={store} />
     </Provider>
   );
 }
