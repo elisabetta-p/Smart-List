@@ -8,12 +8,14 @@ import { actions as notifActions } from "redux-notifications";
 import Particles from "react-particles-js";
 import { Link, useParams } from "react-router-dom";
 import Header from "./Header";
+import ListContainer from "./ListContainer";
 
 const Profile = (_: void): React$Element<*> => {
   const { username } = useParams();
   return (
     <div className="profile-container">
       <Header />
+      <ListContainer />
     </div>
   );
 };
