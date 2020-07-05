@@ -8,13 +8,12 @@ export const SIGNUP = "SIGNUP";
  * @param {string} password password dell'utente
  */
 export const signup = (name, email, username, password) => {
-  return (dispatch) => {
-    /**
-     * chiamate api per registrare l'utente
-     * .then( (response) => {
-     *   localStorage.setItem('token', response.data.token);
-     *   localStorage.setItem('username', response.data.username)
-     * })
-     */
-  };
+  /**
+   * chiamate api per registrare l'utente
+   * .then( (response) => {
+   *   localStorage.setItem('token', response.data.token);
+   *   localStorage.setItem('username', response.data.username)
+   * })
+   */
+  localStorage.setItem("username", username);
 };

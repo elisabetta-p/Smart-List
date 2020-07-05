@@ -6,15 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "../Redux";
 import { actions as notifActions } from "redux-notifications";
 import Particles from "react-particles-js";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = (_: void): React$Element<*> => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
+  const history = useHistory();
   const onSubmit = (formData) => {
     localStorage.setItem("username", formData.username);
     console.log(localStorage);
     dispatch(login(formData.username, formData.password));
+    history.push(
+      `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`
+    );
   };
 
   return (

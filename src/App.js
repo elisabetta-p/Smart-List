@@ -12,6 +12,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Signup from "./Pages/Signup";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <Signup />
+          </Route>
+          <Route path="/profile/:username">
+            <Profile />
           </Route>
         </Switch>
       </Router>

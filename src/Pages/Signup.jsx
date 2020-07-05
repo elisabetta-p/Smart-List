@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signup } from "../Redux";
 import { actions as notifActions } from "redux-notifications";
 import Particles from "react-particles-js";
+import { useHistory } from "react-router";
 
 const Signup = (_: void): React$Element<*> => {
   const { register, handleSubmit, errors, watch } = useForm();
@@ -15,6 +16,7 @@ const Signup = (_: void): React$Element<*> => {
     console.log(localStorage);
     dispatch(signup(formData.username, formData.email, formData.password));
   };
+  const history = useHistory();
 
   return (
     <div className="login-container">
@@ -123,6 +125,15 @@ const Signup = (_: void): React$Element<*> => {
             <p className="error-message">{errors.email.message}</p>
           ) : null}
           <input type="submit" value="Confirm" className="login-button" />
+
+          <button
+            onClick={() => {
+              history.goBack();
+            }}
+            className="login-button"
+          >
+            Go back
+          </button>
         </form>
       </div>
     </div>
