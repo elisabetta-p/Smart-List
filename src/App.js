@@ -5,13 +5,27 @@ import store from "./Redux/store";
 import "redux-notifications/lib/styles.css";
 import { Notifs } from "redux-notifications";
 import "./Style/style.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+} from "react-router-dom";
+import Signup from "./Pages/Signup";
 
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <Login />
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+        </Switch>
+      </Router>
       <Notifs store={store} />
     </Provider>
   );

@@ -3,18 +3,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../Redux";
+import { signup } from "../Redux";
 import { actions as notifActions } from "redux-notifications";
 import Particles from "react-particles-js";
-import { Link } from "react-router-dom";
 
-const Login = (_: void): React$Element<*> => {
+const Signup = (_: void): React$Element<*> => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
   const onSubmit = (formData) => {
     localStorage.setItem("username", formData.username);
     console.log(localStorage);
-    dispatch(login(formData.username, formData.password));
+    dispatch(signup(formData.username, formData.email, formData.password));
   };
 
   return (
@@ -76,7 +75,7 @@ const Login = (_: void): React$Element<*> => {
       />
       <div className="form-login-container">
         <h1 className="hello">
-          Hello{watch("username") ? `, ${watch("username")}` : null}
+          Welcome{watch("username") ? `, ${watch("username")}` : null}
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="form">
           <input
@@ -90,7 +89,19 @@ const Login = (_: void): React$Element<*> => {
             })}
             className="input"
           />
-
+          <input
+            name="email"
+            placeholder="Insert your email"
+            type="email"
+            ref={register({
+              required: { value: true, message: "Please insert your email" },
+              pattern: {
+                value: /S+@S+.S+/,
+                message: "Email format not valid",
+              },
+            })}
+            className="input"
+          />
           <input
             name="password"
             placeholder="Insert your password"
@@ -108,14 +119,14 @@ const Login = (_: void): React$Element<*> => {
           {errors.password ? (
             <p className="error-message">{errors.password.message}</p>
           ) : null}
-          <input type="submit" value="Login" className="login-button" />
-          <Link to="/signup">
-            <button className="login-button">Sign up</button>
-          </Link>
+          {errors.email ? (
+            <p className="error-message">{errors.email.message}</p>
+          ) : null}
+          <input type="submit" value="Confirm" className="login-button" />
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

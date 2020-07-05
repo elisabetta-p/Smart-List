@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Galada&display=swap");
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -72,6 +73,7 @@
 h1 {
   color: rgba(255, 255, 255, 0.8);
   font-size: 3em;
+  font-family: "Galada", cursive;
 }
 
 .hello {
