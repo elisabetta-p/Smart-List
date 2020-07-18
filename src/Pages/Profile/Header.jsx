@@ -16,6 +16,8 @@ import {
   DialogContent,
   TextField,
 } from "@material-ui/core";
+import CreateTodo from "./Modals/CreateTodoList";
+import CreateShoppingList from "./Modals/CreateShoppingList";
 
 const Header = () => {
   const history = useHistory();
@@ -121,90 +123,6 @@ const Header = () => {
         </header>
       </div>{" "}
     </div>
-  );
-};
-
-const CreateTodo = ({ createTodo, onClose, ...rest }) => {
-  const { register, handleSubmit, errors, watch } = useForm();
-  const dispatch = useDispatch();
-  const existingTodoLists = useSelector((state) => state.lists.todoLists);
-
-  const onSubmit = (formData, event) => {
-    event.preventDefault();
-    dispatch(addTodoList(existingTodoLists, formData.name));
-  };
-
-  return (
-    <Dialog {...rest} onClose={onClose}>
-      <div className="colorfulBg">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle>Add a todo list</DialogTitle>
-          <DialogContent>
-            <input
-              type="text"
-              name="name"
-              label="name"
-              placeholder="Insert the name of the new todo list"
-              ref={register({
-                required: { value: true, message: "Please insert a name" },
-                minLength: { value: 3, message: "Name too short" },
-                maxLength: { value: 32, message: "Name too long" },
-              })}
-              className="input"
-            />
-            <input
-              type="submit"
-              className="button"
-              value="Add todo list"
-              onClick={onClose}
-            />
-          </DialogContent>
-        </form>
-      </div>
-    </Dialog>
-  );
-};
-
-const CreateShoppingList = ({ createShoppingList, onClose, ...rest }) => {
-  const { register, handleSubmit, errors, watch } = useForm();
-  const dispatch = useDispatch();
-  const existingShopppingLists = useSelector(
-    (state) => state.lists.shoppingLists
-  );
-
-  const onSubmit = (formData, event) => {
-    event.preventDefault();
-    dispatch(addShoppingList(existingShopppingLists, formData.name));
-  };
-
-  return (
-    <Dialog {...rest} onClose={onClose}>
-      <div className="colorfulBg">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle>Add a shopping list</DialogTitle>
-          <DialogContent>
-            <input
-              type="text"
-              name="name"
-              label="name"
-              placeholder="Insert the name of the new todo list"
-              ref={register({
-                required: { value: true, message: "Please insert a name" },
-                minLength: { value: 3, message: "Name too short" },
-                maxLength: { value: 32, message: "Name too long" },
-              })}
-              className="input"
-            />
-            <input
-              type="submit"
-              className="button"
-              value="Add todo list"
-              onClick={onClose}
-            />
-          </DialogContent>
-        </form>
-      </div>
-    </Dialog>
   );
 };
 

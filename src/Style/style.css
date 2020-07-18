@@ -156,6 +156,8 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .container-list-card {
@@ -165,7 +167,8 @@ header {
   border-radius: 5px;
   height: auto;
   margin: 1.5rem;
-  width: 30vw;
+  min-width: 20vw;
+  /*width: 30vw;*/
 }
 
 .header-right {
