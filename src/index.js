@@ -5,12 +5,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ModalProvider } from "react-modal-hook";
 import { TransitionGroup } from "react-transition-group";
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ModalProvider rootComponent={TransitionGroup}>
-      <App />
-    </ModalProvider>
+    <Provider store={store}>
+      <ModalProvider rootComponent={TransitionGroup}>
+        <App />
+      </ModalProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

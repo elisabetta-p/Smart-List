@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { getTodoLists, addTodoList } from "../../Redux";
+
 import Particles from "react-particles-js";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
@@ -11,31 +14,19 @@ import {
   DialogActions,
   DialogTitle,
   DialogContent,
+  TextField,
 } from "@material-ui/core";
 import { createShoppingList, createTodoList } from "../../Redux";
 
 const Header = () => {
   const history = useHistory();
-  const [showModal, hideModal] = useModal(({ in: open, onExited }) => {
-    return (
-      <Dialog open={open} onExited={onExited} onClose={hideModal}>
-        <div className="colorfulBg">
-          <DialogTitle>Create a list</DialogTitle>
-          <DialogContent>
-            <button class="button" onClick={useDispatch(createTodoList)}>
-              Create to do list
-            </button>
-            <button class="button" onClick={useDispatch(createShoppingList)}>
-              Create shopping
-            </button>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={hideModal}>close</Button>
-          </DialogActions>
-        </div>
-      </Dialog>
-    );
-  });
+  const [
+    showCreateTodo,
+    hideCreateTodo,
+  ] = useModal(({ in: open, onExited }) => (
+    <CreateTodo open={open} onExited={onExited} onClose={hideCreateTodo} />
+  ));
+
   return (
     <div className="header-container">
       <Particles
@@ -101,8 +92,11 @@ const Header = () => {
             </h1>
           </span>
           <span className="header-right">
-            <button className="button" onClick={showModal}>
-              Create list
+            <button className="button header-button" onClick={showCreateTodo}>
+              Create todo list
+            </button>
+            <button className="button header-button" onClick={showCreateTodo}>
+              Create shopping list
             </button>
             <LogoutOutlined
               className="header-icon"
@@ -115,6 +109,48 @@ const Header = () => {
         </header>
       </div>{" "}
     </div>
+  );
+};
+
+const CreateTodo = ({ createTodo, onClose, ...rest }) => {
+  const { register, handleSubmit, errors, watch } = useForm();
+  const dispatch = useDispatch();
+  const existingTodoLists = useSelector((state) => state.lists.todoLists);
+
+  const onSubmit = (formData, event) => {
+    event.preventDefault();
+    dispatch(addTodoList(existingTodoLists, formData.name));
+  };
+
+  console.log(existingTodoLists);
+  return (
+    <Dialog {...rest} onClose={onClose}>
+      <div className="colorfulBg">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogTitle>Add a todo list</DialogTitle>
+          <DialogContent>
+            <input
+              type="text"
+              name="name"
+              label="name"
+              placeholder="Insert the name of the new todo list"
+              ref={register({
+                required: { value: true, message: "Please insert a name" },
+                minLength: { value: 3, message: "Name too short" },
+                maxLength: { value: 32, message: "Name too long" },
+              })}
+              className="input"
+            />
+            <input
+              type="submit"
+              className="button"
+              value="Add todo list"
+              onClick={onClose}
+            />
+          </DialogContent>
+        </form>
+      </div>
+    </Dialog>
   );
 };
 

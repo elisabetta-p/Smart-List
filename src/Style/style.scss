@@ -116,7 +116,12 @@ header {
 .list-container {
   margin: 1rem;
   display: flex;
+  flex-direction: column;
 }
+.cards {
+  display: flex;
+}
+
 .container-list-card {
   max-width: 30vw;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
@@ -183,4 +188,15 @@ header {
 .loading-style {
   color: #faaca8;
   font-size: 5em;
+}
+
+.header-button {
+  width: 10em;
+}
+.list-container-title {
+  background: -webkit-linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 0px 20px rgba(221, 214, 243, 0.5);
+  text-align: center;
 }

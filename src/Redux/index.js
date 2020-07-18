@@ -4,4 +4,6 @@ export {
   loadLists,
   createTodoList,
   createShoppingList,
+  getTodoLists,
+  addTodoList,
 } from "./lists/listsActions";
