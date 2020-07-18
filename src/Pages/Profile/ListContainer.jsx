@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import ListCard from "./ListCard";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLists, getTodoLists } from "../../Redux";
+import { loadShoppingLists, getTodoLists } from "../../Redux";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const ListContainer = () => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.lists.lists);
+  const lists = useSelector((state) => state.lists.shoppingLists);
   const todos = useSelector((state) => state.lists.todoLists);
   useEffect(() => {
-    dispatch(loadLists());
+    dispatch(loadShoppingLists());
     dispatch(getTodoLists());
   }, []);
   console.log(lists);
@@ -26,7 +26,7 @@ const ListContainer = () => {
           </div>
         </div>
         <div className="list-container list-container-flex">
-          <h1 className="list-container-title">Todo</h1>
+          <h1 className="list-container-title">To do</h1>
           <div className="cards">
             {todos.map((todo) => (
               <ListCard list={todo} key={todo.id} />

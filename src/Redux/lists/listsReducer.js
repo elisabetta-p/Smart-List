@@ -1,15 +1,12 @@
 import {
   LOAD_LISTS,
-  CREATE_TODO_LIST,
-  CREATE_SHOPPING_LIST,
+  ADD_SHOPPING_LIST,
   GET_TODOS,
   ADD_TODOLIST,
 } from "./listsActions";
 
 const initialState = {
-  lists: [],
-  createShoppingList: false,
-  createTodoList: false,
+  shoppingLists: [],
   todoLists: [],
 };
 
@@ -18,19 +15,7 @@ const listsReducer = (state = initialState, action) => {
     case LOAD_LISTS:
       return {
         ...state,
-        lists: [...action.payload],
-      };
-    case CREATE_TODO_LIST:
-      return {
-        ...state,
-        createTodoList: true,
-        createShoppingList: false,
-      };
-    case CREATE_SHOPPING_LIST:
-      return {
-        ...state,
-        createTodoList: false,
-        createShoppingList: true,
+        shoppingLists: [...action.payload],
       };
     case GET_TODOS:
       return {
@@ -41,6 +26,11 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         todoLists: [...action.payload],
+      };
+    case ADD_SHOPPING_LIST:
+      return {
+        ...state,
+        shoppingLists: [...action.payload],
       };
     default:
       return state;

@@ -1,9 +1,8 @@
 export { login } from "./login/loginActions";
 export { signup } from "./signup/signupActions";
 export {
-  loadLists,
-  createTodoList,
-  createShoppingList,
+  loadShoppingLists,
   getTodoLists,
   addTodoList,
+  addShoppingList,
 } from "./lists/listsActions";

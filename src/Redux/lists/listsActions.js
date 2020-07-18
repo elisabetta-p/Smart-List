@@ -1,10 +1,9 @@
 export const LOAD_LISTS = "LOAD_LISTS";
-export const CREATE_TODO_LIST = "CREATE_TODO_LIST";
-export const CREATE_SHOPPING_LIST = "CREATE_SHOPPING_LIST";
+export const ADD_SHOPPING_LIST = "CREATE_SHOPPING_LIST";
 export const GET_TODOS = "GET_TODOS";
 export const ADD_TODOLIST = "ADD_TODOLIST";
 
-export const loadLists = () => {
+export const loadShoppingLists = () => {
   const lists = [
     { id: 1, name: "Prima lista", items: [] },
     { id: 2, name: "Seconda lista", items: [] },
@@ -13,13 +12,6 @@ export const loadLists = () => {
   return {
     type: LOAD_LISTS,
     payload: [...lists],
-  };
-};
-
-export const createTodoList = () => {
-  return {
-    type: CREATE_TODO_LIST,
-    payload: true,
   };
 };
 
@@ -35,7 +27,6 @@ export const getTodoLists = () => {
 };
 
 export const addTodoList = (existingTodos, name) => {
-  console.log("AAA", name);
   const obj = {
     id: existingTodos.length,
     name: name,
@@ -49,9 +40,16 @@ export const addTodoList = (existingTodos, name) => {
   };
 };
 
-export const createShoppingList = () => {
+export const addShoppingList = (existingShoppingLists, name) => {
+  const obj = {
+    id: existingShoppingLists.length,
+    name: name,
+    items: {},
+  };
+  existingShoppingLists.push(obj);
+
   return {
-    type: CREATE_SHOPPING_LIST,
-    payload: true,
+    type: ADD_SHOPPING_LIST,
+    payload: [...existingShoppingLists],
   };
 };

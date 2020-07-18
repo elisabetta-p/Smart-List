@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { getTodoLists, addTodoList } from "../../Redux";
+import { addTodoList, addShoppingList } from "../../Redux";
 
 import Particles from "react-particles-js";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -16,7 +16,6 @@ import {
   DialogContent,
   TextField,
 } from "@material-ui/core";
-import { createShoppingList, createTodoList } from "../../Redux";
 
 const Header = () => {
   const history = useHistory();
@@ -25,6 +24,16 @@ const Header = () => {
     hideCreateTodo,
   ] = useModal(({ in: open, onExited }) => (
     <CreateTodo open={open} onExited={onExited} onClose={hideCreateTodo} />
+  ));
+  const [
+    showCreateShoppingList,
+    hideCreateShoppingList,
+  ] = useModal(({ in: open, onExited }) => (
+    <CreateShoppingList
+      open={open}
+      onExited={onExited}
+      onClose={hideCreateShoppingList}
+    />
   ));
 
   return (
@@ -95,7 +104,10 @@ const Header = () => {
             <button className="button header-button" onClick={showCreateTodo}>
               Create todo list
             </button>
-            <button className="button header-button" onClick={showCreateTodo}>
+            <button
+              className="button header-button"
+              onClick={showCreateShoppingList}
+            >
               Create shopping list
             </button>
             <LogoutOutlined
@@ -122,12 +134,54 @@ const CreateTodo = ({ createTodo, onClose, ...rest }) => {
     dispatch(addTodoList(existingTodoLists, formData.name));
   };
 
-  console.log(existingTodoLists);
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle>Add a todo list</DialogTitle>
+          <DialogContent>
+            <input
+              type="text"
+              name="name"
+              label="name"
+              placeholder="Insert the name of the new todo list"
+              ref={register({
+                required: { value: true, message: "Please insert a name" },
+                minLength: { value: 3, message: "Name too short" },
+                maxLength: { value: 32, message: "Name too long" },
+              })}
+              className="input"
+            />
+            <input
+              type="submit"
+              className="button"
+              value="Add todo list"
+              onClick={onClose}
+            />
+          </DialogContent>
+        </form>
+      </div>
+    </Dialog>
+  );
+};
+
+const CreateShoppingList = ({ createShoppingList, onClose, ...rest }) => {
+  const { register, handleSubmit, errors, watch } = useForm();
+  const dispatch = useDispatch();
+  const existingShopppingLists = useSelector(
+    (state) => state.lists.shoppingLists
+  );
+
+  const onSubmit = (formData, event) => {
+    event.preventDefault();
+    dispatch(addShoppingList(existingShopppingLists, formData.name));
+  };
+
+  return (
+    <Dialog {...rest} onClose={onClose}>
+      <div className="colorfulBg">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogTitle>Add a shopping list</DialogTitle>
           <DialogContent>
             <input
               type="text"
