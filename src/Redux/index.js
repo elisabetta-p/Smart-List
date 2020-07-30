@@ -3,8 +3,7 @@ export { signup } from "./signup/signupActions";
 export {
   loadShoppingLists,
   getTodoLists,
-  addTodoList,
-  addShoppingList,
+  addList,
   getCategories,
   cleanLists,
   changeCheck,

@@ -260,3 +260,17 @@ header {
   text-shadow: 0px 0px 20px rgba(206, 203, 212, 0.5);
   text-align: center;
 }
+
+.select-add-list {
+  margin: 0 0 1rem 0;
+}
+
+.text-modal {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.modal-title {
+  color: white;
+  text-transform: uppercase;
+}

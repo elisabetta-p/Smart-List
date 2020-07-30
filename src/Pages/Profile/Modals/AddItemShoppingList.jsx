@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addTodoList, addShoppingList } from "../../../Redux";
+import {} from "../../../Redux";
 
 import Particles from "react-particles-js";
 import ReactModal from "react-modal";
@@ -26,7 +26,7 @@ const AddItemShoppingList = ({ createShoppingList, onClose, ...rest }) => {
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
-    dispatch(addShoppingList(existingShopppingLists, formData.name));
+    //dispatch(addShoppingList(existingShopppingLists, formData.name));
   };
   return (
     <Dialog {...rest} onClose={onClose}>

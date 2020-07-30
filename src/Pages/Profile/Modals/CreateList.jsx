@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addTodoList, addShoppingList } from "../../../Redux";
+import { addList } from "../../../Redux";
 
 import Particles from "react-particles-js";
 import ReactModal from "react-modal";
@@ -33,15 +33,19 @@ const SelectListType = (props) => {
   }, [selected]);
 
   return (
-    <Select
-      options={listTypes}
-      onChange={(event) => {
-        changeSelected(event.value);
-      }}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-      isSearchable
-      menuPortalTarget={document.body}
-    />
+    <div>
+      <p className="text-modal">What kind of list is this?</p>
+      <Select
+        options={listTypes}
+        onChange={(event) => {
+          changeSelected(event.value);
+        }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        isSearchable
+        menuPortalTarget={document.body}
+        className="select-add-list"
+      />
+    </div>
   );
 };
 
@@ -64,19 +68,23 @@ const SelectCategories = (props) => {
     props.categories(selectedCategories);
   }, [selectedCategories]);
   return (
-    <Select
-      options={categories}
-      isMulti
-      onChange={(event) => {
-        setSelectedCategories((selectedCategories) => [
-          ...selectedCategories,
-          event[event.length - 1].value,
-        ]);
-      }}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-      isSearchable
-      menuPortalTarget={document.body}
-    />
+    <div>
+      <p className="text-modal">Select all the categories</p>
+      <Select
+        options={categories}
+        isMulti
+        onChange={(event) => {
+          setSelectedCategories((selectedCategories) => [
+            ...selectedCategories,
+            event[event.length - 1].value,
+          ]);
+        }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        isSearchable
+        menuPortalTarget={document.body}
+        className="select-add-list"
+      />{" "}
+    </div>
   );
 };
 
@@ -95,7 +103,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
-    dispatch(addShoppingList(existingShopppingLists, formData.name));
+    dispatch(addList(formData.name, typeOfList, categories, sharingWith));
   };
   /*
   useEffect(() => {
@@ -110,9 +118,10 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle>Create a new list</DialogTitle>
+          <DialogTitle className="modal-title">
+            <strong>Create a new list</strong>
+          </DialogTitle>
           <DialogContent>
-            <SelectListType type={changeTypeOfList} />
             <input
               type="text"
               name="name"
@@ -132,18 +141,22 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
                   message: "Name too long",
                 },
               })}
-              className="input"
+              className="input input-new-list"
             />
+            <SelectListType type={changeTypeOfList} />
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
             />
-            <input
-              type="submit"
-              className="button"
-              value="Add todo list"
-              onClick={onClose}
-            />
+            <span style={{ display: "flex", justifyContent: "center" }}>
+              <input
+                type="submit"
+                className="button"
+                value="Add todo list"
+                onClick={onClose}
+                style={{ display: "flex", justifyContent: "center" }}
+              />
+            </span>
           </DialogContent>
         </form>
       </div>

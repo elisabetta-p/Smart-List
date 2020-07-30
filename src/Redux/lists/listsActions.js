@@ -62,24 +62,32 @@ export const getTodoLists = () => {
   };
 };
 
-export const addTodoList = (existingTodos, name) => {
+const addTodoList = (existingTodos, name, categories, sharingWith) => {
   const obj = {
     id: existingTodos.length,
     name: name,
+    categories: [...categories],
+    sharingWith: [...sharingWith],
     items: [],
   };
   existingTodos.push(obj);
-  console.log("action", existingTodos);
   return {
     type: ADD_TODOLIST,
     payload: [...existingTodos],
   };
 };
 
-export const addShoppingList = (existingShoppingLists, name) => {
+const addShoppingList = (
+  existingShoppingLists,
+  name,
+  categories,
+  sharingWith
+) => {
   const obj = {
     id: existingShoppingLists.length,
     name: name,
+    categories: [...categories],
+    sharingWith: [...sharingWith],
     items: [],
   };
   existingShoppingLists.push(obj);
@@ -87,6 +95,27 @@ export const addShoppingList = (existingShoppingLists, name) => {
   return {
     type: ADD_SHOPPING_LIST,
     payload: [...existingShoppingLists],
+  };
+};
+
+/**
+ * It invokes the right function to add a new list according to the type of the list that is being added (@see addShoppingList and @see addTodoList)
+ * @param {string} name name of the list
+ * @param {string} typeOfList either shopping or todo
+ * @param {[number]} categories array containing the ids of the categories selected by the user
+ * @param {[]} sharingWith array containing the users the list is shared with
+ */
+
+export const addList = (name, typeOfList, categories, sharingWith) => {
+  console.log(typeOfList);
+  return (dispatch, getState) => {
+    if (typeOfList === "shopping") {
+      const existingLists = [...getState().lists.shoppingLists];
+      dispatch(addShoppingList(existingLists, name, categories, sharingWith));
+    } else if (typeOfList === "todo") {
+      const existingLists = [...getState().lists.todoLists];
+      dispatch(addTodoList(existingLists, name, categories, sharingWith));
+    }
   };
 };
 
