@@ -17,7 +17,7 @@ import {
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 
-const CreateShoppingList = ({ createShoppingList, onClose, ...rest }) => {
+const AddItemShoppingList = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
   const existingShopppingLists = useSelector(
@@ -28,7 +28,6 @@ const CreateShoppingList = ({ createShoppingList, onClose, ...rest }) => {
     event.preventDefault();
     dispatch(addShoppingList(existingShopppingLists, formData.name));
   };
-
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
@@ -60,4 +59,4 @@ const CreateShoppingList = ({ createShoppingList, onClose, ...rest }) => {
   );
 };
 
-export default CreateShoppingList;
+export default AddItemShoppingList;
