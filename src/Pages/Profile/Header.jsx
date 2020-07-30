@@ -16,18 +16,17 @@ import {
   DialogContent,
   TextField,
 } from "@material-ui/core";
-import CreateTodo from "./Modals/CreateTodoList";
-import CreateShoppingList from "./Modals/CreateShoppingList";
+import CreateList from "./Modals/CreateList";
 
 const Header = () => {
   const history = useHistory();
   const [
-    showCreateTodo,
-    hideCreateTodo,
+    showCreateList,
+    hideCreateList,
   ] = useModal(({ in: open, onExited }) => (
-    <CreateTodo open={open} onExited={onExited} onClose={hideCreateTodo} />
+    <CreateList open={open} onExited={onExited} onClose={hideCreateList} />
   ));
-  const [
+  /*const [
     showCreateShoppingList,
     hideCreateShoppingList,
   ] = useModal(({ in: open, onExited }) => (
@@ -36,7 +35,7 @@ const Header = () => {
       onExited={onExited}
       onClose={hideCreateShoppingList}
     />
-  ));
+  ));*/
 
   return (
     <div className="header-container">
@@ -103,15 +102,10 @@ const Header = () => {
             </h1>
           </span>
           <span className="header-right">
-            <button className="button header-button" onClick={showCreateTodo}>
-              Create todo list
+            <button className="button header-button" onClick={showCreateList}>
+              Create a new list
             </button>
-            <button
-              className="button header-button"
-              onClick={showCreateShoppingList}
-            >
-              Create shopping list
-            </button>
+
             <LogoutOutlined
               className="header-icon"
               onClick={() => {

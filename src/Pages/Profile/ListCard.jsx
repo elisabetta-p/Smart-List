@@ -35,7 +35,6 @@ const ListContent = (props) => {
       onClose={hideAddShoppingItem}
     />
   ));
-  console.log("list content", props);
   return (
     <div
       className="list-content"
@@ -78,7 +77,6 @@ const ListCard = (props) => {
   const handleShowContent = () => {
     setShowContent(!showContent);
   };
-  console.log("list card", props);
   return (
     <div className="container-list-card">
       <ListHeader
