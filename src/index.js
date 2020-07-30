@@ -9,13 +9,11 @@ import { Provider } from "react-redux";
 import store from "./Redux/store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ModalProvider rootComponent={TransitionGroup}>
-        <App />
-      </ModalProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ModalProvider rootComponent={TransitionGroup}>
+      <App />
+    </ModalProvider>
+  </Provider>,
   document.getElementById("root")
 );
 

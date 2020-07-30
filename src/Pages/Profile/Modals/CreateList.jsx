@@ -42,22 +42,64 @@ const SelectListType = (props) => {
   );
 };
 
+const SelectCategories = (props) => {
+  const categoriesFromRedux = useSelector((state) => state.lists.categories);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  //const [categories, selectCategories] = useState([...categoriesFromRedux]);
+  const categories = categoriesFromRedux.map((cat) => {
+    const obj = { value: cat.id, label: cat.name };
+    return obj;
+  });
+  /*useEffect(() => {
+    console.log(selectedCategories);
+	}, [selectedCategories]);
+
+	* inside selectedCategories there are the ids of the categories that the user selected
+	*/
+
+  useEffect(() => {
+    props.categories(selectedCategories);
+  }, [selectedCategories]);
+  return (
+    <Select
+      options={categories}
+      isMulti
+      onChange={(event) => {
+        setSelectedCategories((selectedCategories) => [
+          ...selectedCategories,
+          event[event.length - 1].value,
+        ]);
+      }}
+    />
+  );
+};
+
 const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
   const existingShopppingLists = useSelector(
     (state) => state.lists.shoppingLists
   );
+  // what kind of list is the user adding
   const [typeOfList, changeTypeOfList] = useState(null);
+  //which categories
+  const [categories, setCategories] = useState([]);
+  // who is this shared with
+  const [sharingWith, setSharingWith] = useState([]);
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
     dispatch(addShoppingList(existingShopppingLists, formData.name));
   };
-
+  /*
+  useEffect(() => {
+    console.log("dentro a createlist", typeOfList, categories);
+  }, [typeOfList]);
+*/
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */
+
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
@@ -71,12 +113,22 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               label="name"
               placeholder="Insert the name of the new todo list"
               ref={register({
-                required: { value: true, message: "Please insert a name" },
-                minLength: { value: 3, message: "Name too short" },
-                maxLength: { value: 32, message: "Name too long" },
+                required: {
+                  value: true,
+                  message: "Please insert a name",
+                },
+                minLength: {
+                  value: 3,
+                  message: "Name too short",
+                },
+                maxLength: {
+                  value: 32,
+                  message: "Name too long",
+                },
               })}
               className="input"
             />
+            <SelectCategories categories={setCategories} />
             <input
               type="submit"
               className="button"

@@ -83,7 +83,8 @@ const ListCard = (props) => {
         parentCallbackShowContent={handleShowContent}
         list={props.list}
       />
-
+      {/**
+ *
       <motion.div
         animate={{
           opacity: showContent ? 1 : 0,
@@ -97,6 +98,13 @@ const ListCard = (props) => {
           type={props.type}
         />
       </motion.div>
+ */}
+      <ListContent
+        showContent={showContent}
+        type={props.type}
+        items={props.list.items}
+        type={props.type}
+      />
     </div>
   );
 };
