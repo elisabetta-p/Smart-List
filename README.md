@@ -7,5 +7,5 @@ npm start
 ```
 
 Feel free to signal any bugs via opening an issue, if you feel like it! 
-You can also find me on [twitter](https://https://twitter.com/thecatempress_) 🌸
+You can also find me on [twitter](https://twitter.com/thecatempress_) 🌸
 
