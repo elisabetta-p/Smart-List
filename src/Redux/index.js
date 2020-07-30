@@ -5,4 +5,7 @@ export {
   getTodoLists,
   addTodoList,
   addShoppingList,
+  getCategories,
+  cleanLists,
+  changeCheck,
 } from "./lists/listsActions";

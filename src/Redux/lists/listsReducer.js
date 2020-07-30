@@ -3,11 +3,16 @@ import {
   ADD_SHOPPING_LIST,
   GET_TODOS,
   ADD_TODOLIST,
+  GET_CATEGORIES,
+  CLEAN_LISTS,
+  CHANGE_CHECK_TODO,
+  CHANGE_CHECK_SHOPPING,
 } from "./listsActions";
 
 const initialState = {
   shoppingLists: [],
   todoLists: [],
+  categories: [],
 };
 
 const listsReducer = (state = initialState, action) => {
@@ -31,6 +36,28 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         shoppingLists: [...action.payload],
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: [...action.payload],
+      };
+    case CLEAN_LISTS:
+      return {
+        ...state,
+        categories: [],
+        todoLists: [],
+        shoppingLists: [],
+      };
+    case CHANGE_CHECK_SHOPPING:
+      return {
+        ...state,
+        shoppingLists: [...action.payload],
+      };
+    case CHANGE_CHECK_TODO:
+      return {
+        ...state,
+        todoLists: [...action.payload],
       };
     default:
       return state;
