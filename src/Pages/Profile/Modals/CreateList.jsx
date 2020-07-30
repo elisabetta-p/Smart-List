@@ -38,6 +38,9 @@ const SelectListType = (props) => {
       onChange={(event) => {
         changeSelected(event.value);
       }}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      isSearchable
+      menuPortalTarget={document.body}
     />
   );
 };
@@ -70,6 +73,9 @@ const SelectCategories = (props) => {
           event[event.length - 1].value,
         ]);
       }}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      isSearchable
+      menuPortalTarget={document.body}
     />
   );
 };
@@ -128,7 +134,10 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               })}
               className="input"
             />
-            <SelectCategories categories={setCategories} />
+            <SelectCategories
+              categories={setCategories}
+              style={{ position: "relative", Index: "5000" }}
+            />
             <input
               type="submit"
               className="button"
