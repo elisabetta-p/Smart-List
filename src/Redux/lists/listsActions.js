@@ -151,11 +151,7 @@ export const changeCheck = (itemsList, itemId, shoppingOrTodo) => {
 };
 
 export const getUsers = () => {
-  const users = [
-    { id: 0, username: "boba" },
-    { id: 1, username: "banana" },
-    { id: 2, username: "prokkius" },
-  ];
+  const users = ["boba", "banana", "prokkius"];
   return {
     type: GET_USERS,
     payload: [...users],

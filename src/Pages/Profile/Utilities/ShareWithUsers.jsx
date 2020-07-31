@@ -8,17 +8,20 @@ const ShareWithUsers = (props) => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const users = useSelector((state) => state.lists.users);
+  const existingUsers = useSelector((state) => state.lists.users);
   const keyCodes = {
     comma: 188,
     enter: 13,
   };
   const delimiters = [keyCodes.comma, keyCodes.enter];
   // I have the tags in userTags
-  const [userTags, setUserTags] = useState([...users]);
+  const [userTags, setUserTags] = useState([]);
 
+  //error if user does not exist
+  const [errorUserDoesntExist, setErrorUser] = useState(null);
   useEffect(() => {
     props.users(userTags);
+    setErrorUser(null);
   }, [userTags]);
 
   const handleDelete = (i) => {
@@ -26,7 +29,10 @@ const ShareWithUsers = (props) => {
     setUserTags([...tags]);
   };
   const handleAddition = (tag) => {
-    setUserTags((userTags) => [...userTags, tag]);
+    console.log(tag);
+    if (existingUsers.includes(tag.text))
+      setUserTags((userTags) => [...userTags, tag]);
+    else setErrorUser(`The user ${tag.text} does not exist`);
   };
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
@@ -47,6 +53,9 @@ const ShareWithUsers = (props) => {
           }}
         />
       </span>
+      {errorUserDoesntExist ? (
+        <p className="error-message">{errorUserDoesntExist}</p>
+      ) : null}
     </div>
   );
 };
