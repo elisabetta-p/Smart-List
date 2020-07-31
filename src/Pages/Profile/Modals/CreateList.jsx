@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
+import ShareWithUsers from "../Utilities/ShareWithUsers";
 
 const SelectListType = (props) => {
   const [selected, changeSelected] = useState(null);
@@ -90,49 +91,6 @@ const SelectCategories = (props) => {
   );
 };
 
-const AddUsers = (props) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsers());
-  }, []);
-  const users = useSelector((state) => state.lists.users);
-  const keyCodes = {
-    comma: 188,
-    enter: 13,
-  };
-  const delimiters = [keyCodes.comma, keyCodes.enter];
-  // I have the tags in userTags
-  const [userTags, setUserTags] = useState([...users]);
-  const handleDelete = (i) => {
-    const tags = userTags.filter((tag, index) => index !== i);
-    setUserTags([...tags]);
-  };
-  const handleAddition = (tag) => {
-    setUserTags((userTags) => [...userTags, tag]);
-  };
-  return (
-    <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      <p className="text-modal">Share with</p>
-      <span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <ReactTags
-          tags={userTags}
-          handleDelete={handleDelete}
-          handleAddition={handleAddition}
-          delimiters={delimiters}
-          allowUnique={true}
-          classNames={{
-            tagInputField: "input input-new-list",
-            tag: "tag",
-            tagInput: "tagInput",
-            tags: "tags",
-            remove: "removeTag",
-          }}
-        />
-      </span>
-    </div>
-  );
-};
-
 const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit, errors, watch } = useForm();
   const dispatch = useDispatch();
@@ -152,9 +110,9 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   };
   /*
   useEffect(() => {
-    console.log("dentro a createlist", typeOfList, categories);
-  }, [typeOfList]);
-*/
+    console.log("dentro a createlist", sharingWith);
+  }, [sharingWith]);
+  */
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */
@@ -193,7 +151,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
             />
-            <AddUsers />
+            <ShareWithUsers users={setSharingWith} />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
                 type="submit"
