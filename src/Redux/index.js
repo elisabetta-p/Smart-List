@@ -7,4 +7,5 @@ export {
   getCategories,
   cleanLists,
   changeCheck,
+  getUsers,
 } from "./lists/listsActions";

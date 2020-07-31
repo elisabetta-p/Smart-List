@@ -7,12 +7,14 @@ import {
   CLEAN_LISTS,
   CHANGE_CHECK_TODO,
   CHANGE_CHECK_SHOPPING,
+  GET_USERS,
 } from "./listsActions";
 
 const initialState = {
   shoppingLists: [],
   todoLists: [],
   categories: [],
+  users: [],
 };
 
 const listsReducer = (state = initialState, action) => {
@@ -58,6 +60,11 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         todoLists: [...action.payload],
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: [...action.payload],
       };
     default:
       return state;

@@ -6,6 +6,7 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 export const CLEAN_LISTS = "CLEAN_LISTS";
 export const CHANGE_CHECK_SHOPPING = "CHANGE_CHECK_SHOPPING";
 export const CHANGE_CHECK_TODO = "CHANGE_CHECK_TODO";
+export const GET_USERS = "GET_USERS";
 
 export const getCategories = () => {
   const categories = [
@@ -147,4 +148,16 @@ export const changeCheck = (itemsList, itemId, shoppingOrTodo) => {
       type: CHANGE_CHECK_TODO,
       payload: [...itemsList],
     };
+};
+
+export const getUsers = () => {
+  const users = [
+    { id: 0, username: "boba" },
+    { id: 1, username: "banana" },
+    { id: 2, username: "prokkius" },
+  ];
+  return {
+    type: GET_USERS,
+    payload: [...users],
+  };
 };

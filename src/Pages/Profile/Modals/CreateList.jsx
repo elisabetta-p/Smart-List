@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addList } from "../../../Redux";
+import { addList, getUsers } from "../../../Redux";
+import { WithContext as ReactTags } from "react-tag-input";
 
 import Particles from "react-particles-js";
 import ReactModal from "react-modal";
@@ -44,6 +45,7 @@ const SelectListType = (props) => {
         isSearchable
         menuPortalTarget={document.body}
         className="select-add-list"
+        isClearable
       />
     </div>
   );
@@ -84,6 +86,38 @@ const SelectCategories = (props) => {
         menuPortalTarget={document.body}
         className="select-add-list"
       />{" "}
+    </div>
+  );
+};
+
+const AddUsers = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+  const users = useSelector((state) => state.lists.users);
+  const keyCodes = {
+    comma: 188,
+    enter: 13,
+  };
+  const delimiters = [keyCodes.comma, keyCodes.enter];
+  // I have the tags in userTags
+  const [userTags, setUserTags] = useState([...users]);
+  const handleDelete = (i) => {
+    const tags = userTags.filter((tag, index) => index !== i);
+    setUserTags([...tags]);
+  };
+  const handleAddition = (tag) => {
+    setUserTags((userTags) => [...userTags, tag]);
+  };
+  return (
+    <div>
+      <ReactTags
+        tags={userTags}
+        handleDelete={handleDelete}
+        handleAddition={handleAddition}
+        delimiters={delimiters}
+      />
     </div>
   );
 };
@@ -148,6 +182,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
             />
+            <AddUsers />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
                 type="submit"
