@@ -111,13 +111,24 @@ const AddUsers = (props) => {
     setUserTags((userTags) => [...userTags, tag]);
   };
   return (
-    <div>
-      <ReactTags
-        tags={userTags}
-        handleDelete={handleDelete}
-        handleAddition={handleAddition}
-        delimiters={delimiters}
-      />
+    <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
+      <p className="text-modal">Share with</p>
+      <span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <ReactTags
+          tags={userTags}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          delimiters={delimiters}
+          allowUnique={true}
+          classNames={{
+            tagInputField: "input input-new-list",
+            tag: "tag",
+            tagInput: "tagInput",
+            tags: "tags",
+            remove: "removeTag",
+          }}
+        />
+      </span>
     </div>
   );
 };
