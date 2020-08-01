@@ -4,8 +4,8 @@ import { getUsers } from "../../../Redux";
 import { WithContext as ReactTags } from "react-tag-input";
 
 const ShareWithUsers = (props) => {
-  const dispatch = useDispatch();
   useEffect(() => {
+    const dispatch = useDispatch();
     dispatch(getUsers());
   }, []);
   const existingUsers = useSelector((state) => state.lists.users);
