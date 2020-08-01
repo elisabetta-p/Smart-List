@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Smart-List/static/css/main.215879b1.chunk.css",
+    "main.js": "/Smart-List/static/js/main.ab1e49a6.chunk.js",
+    "main.js.map": "/Smart-List/static/js/main.ab1e49a6.chunk.js.map",
+    "runtime-main.js": "/Smart-List/static/js/runtime-main.293aa54d.js",
+    "runtime-main.js.map": "/Smart-List/static/js/runtime-main.293aa54d.js.map",
+    "static/js/2.8c6998b7.chunk.js": "/Smart-List/static/js/2.8c6998b7.chunk.js",
+    "static/js/2.8c6998b7.chunk.js.map": "/Smart-List/static/js/2.8c6998b7.chunk.js.map",
+    "index.html": "/Smart-List/index.html",
+    "precache-manifest.30ba53ed2f9600509dec07fa1c80d630.js": "/Smart-List/precache-manifest.30ba53ed2f9600509dec07fa1c80d630.js",
+    "service-worker.js": "/Smart-List/service-worker.js",
+    "static/css/main.215879b1.chunk.css.map": "/Smart-List/static/css/main.215879b1.chunk.css.map",
+    "static/js/2.8c6998b7.chunk.js.LICENSE.txt": "/Smart-List/static/js/2.8c6998b7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.293aa54d.js",
+    "static/js/2.8c6998b7.chunk.js",
+    "static/css/main.215879b1.chunk.css",
+    "static/js/main.ab1e49a6.chunk.js"
+  ]
+}
