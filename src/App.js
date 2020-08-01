@@ -9,7 +9,7 @@ import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
-    <Router>
+    <Router basename="https://elisabetta-p.github.io/Smart-List/">
       <Switch>
         <Route exact path="/">
           <Login />
