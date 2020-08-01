@@ -9,7 +9,7 @@ import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
-    <Router basename="https://elisabetta-p.github.io/Smart-List/">
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/">
           <Login />
