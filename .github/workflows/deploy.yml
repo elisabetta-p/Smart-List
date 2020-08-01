@@ -1,6 +1,4 @@
 name: Deployment
-env:
- process.env.CI: false
 on:
   push:
     branches:
@@ -20,6 +18,8 @@ jobs:
       - name: Install Packages
         run: npm install
       - name: Build page
+        env:
+         CI: false
         run: npm run build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
