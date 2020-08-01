@@ -1,4 +1,6 @@
 name: Deployment
+env:
+ process.env.CI: false
 on:
   push:
     branches:
