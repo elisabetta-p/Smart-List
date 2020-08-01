@@ -29,15 +29,16 @@ const ShareWithUsers = (props) => {
     setUserTags([...tags]);
   };
   const handleAddition = (tag) => {
-    console.log(tag);
+    /*console.log(tag);
     if (existingUsers.includes(tag.text))
       setUserTags((userTags) => [...userTags, tag]);
-    else setErrorUser(`The user ${tag.text} does not exist`);
+    else setErrorUser(`The user ${tag.text} does not exist`);*/
+    setUserTags((userTags) => [...userTags, tag]);
   };
   return (
-    <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
+    <div>
       <p className="text-modal">Share with</p>
-      <span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+      <span>
         <ReactTags
           tags={userTags}
           handleDelete={handleDelete}
@@ -50,7 +51,10 @@ const ShareWithUsers = (props) => {
             tagInput: "tagInput",
             tags: "tags",
             remove: "removeTag",
+            selected: "selected",
           }}
+          allowDragDrop={false}
+          inputFieldPosition="bottom"
         />
       </span>
       {errorUserDoesntExist ? (
