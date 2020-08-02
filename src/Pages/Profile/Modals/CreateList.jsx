@@ -156,7 +156,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               <input
                 type="submit"
                 className="button"
-                value="Add todo list"
+                value="Add the new list"
                 onClick={onClose}
                 style={{ display: "flex", justifyContent: "center" }}
               />
