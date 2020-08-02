@@ -355,6 +355,7 @@ input[type="radio"]:checked:before {
   width: 40vw;
 }
 
-.input-new-list {
-  width: 36vw;
+.input-new-list,
+.select-add-list {
+  width: 28.5vw;
 }

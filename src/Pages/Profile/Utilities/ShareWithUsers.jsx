@@ -28,13 +28,13 @@ const ShareWithUsers = (props) => {
     const tags = userTags.filter((tag, index) => index !== i);
     setUserTags([...tags]);
   };
+
   const handleAddition = (tag) => {
-    /*console.log(tag);
     if (existingUsers.includes(tag.text))
       setUserTags((userTags) => [...userTags, tag]);
-    else setErrorUser(`The user ${tag.text} does not exist`);*/
-    setUserTags((userTags) => [...userTags, tag]);
+    else setErrorUser(`The user ${tag.text} does not exist`);
   };
+
   return (
     <div>
       <p className="text-modal">Share with</p>
