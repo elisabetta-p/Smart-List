@@ -55,6 +55,7 @@ const ShareWithUsers = (props) => {
           }}
           allowDragDrop={false}
           inputFieldPosition="bottom"
+          placeholder="Write the usernames"
         />
       </span>
       {errorUserDoesntExist ? (

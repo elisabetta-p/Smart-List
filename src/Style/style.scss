@@ -9,14 +9,17 @@
   margin-inline-end: 0;
   font-family: "Roboto", sans-serif;
 }
-#tsparticles {
+#tsparticles,
+.tsparticles-canvas-el {
   max-width: 100vw;
   max-height: 100vh;
+  overflow: hidden;
 }
 
-body {
+body,
+#root {
   width: 100vw;
-  height: 10vh;
+  height: 100vh;
 }
 .error-message {
   color: red;
@@ -175,9 +178,16 @@ header {
 }
 
 .list-content {
-  /*display: flex;
-  flex-direction: column;*/
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 10vh;
+}
+.items-list {
+  height: 50%;
+  max-height: 50%;
+  overflow: scroll;
+  margin: 0.5rem;
 }
 
 .list-button {
@@ -190,7 +200,8 @@ header {
   background-image: linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
   color: white;
   font-weight: 400;
-  margin: 0;
+  //margin: 0 auto;
+  align-self: flex-end;
 }
 
 .add-item-button:hover {

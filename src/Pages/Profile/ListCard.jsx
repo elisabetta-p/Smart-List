@@ -36,15 +36,12 @@ const ListContent = (props) => {
     />
   ));
   return (
-    <div
-      className="list-content"
-      style={{ height: props.showContent ? "10vh" : "0" }}
-    >
+    <div className="list-content">
       {props.items.length !== 0 ? (
-        <ul>
+        <ul className="items-list">
           {" "}
           {props.items.map((item, index) => (
-            <li key={index}>
+            <li key={index} style={{ marginBottom: "0.15rem" }}>
               <input
                 type="radio"
                 checked={item.isChecked ? true : false}
@@ -57,9 +54,14 @@ const ListContent = (props) => {
           ))}
         </ul>
       ) : (
-        <p>Add an item</p>
+        <p style={{ height: "3vh", margin: "0.5rem" }}>Add an item</p>
       )}
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <button
           className="button add-item-button"
           onClick={props.type === "shopping" ? showAddShoppingItem : null}
