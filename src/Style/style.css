@@ -1,16 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Galada&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400&display=swap");
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-margin-after: 0;
-          margin-block-end: 0;
-  -webkit-margin-before: 0;
-          margin-block-start: 0;
-  -webkit-margin-start: 0;
-          margin-inline-start: 0;
-  -webkit-margin-end: 0;
-          margin-inline-end: 0;
+  box-sizing: border-box;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   font-family: "Roboto", sans-serif;
 }
 
@@ -47,8 +43,7 @@ body,
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -58,19 +53,10 @@ body,
 }
 
 .form {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .input {
@@ -85,8 +71,7 @@ body,
 }
 
 .input:focus {
-  -webkit-box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-          box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 h1 {
@@ -96,15 +81,14 @@ h1 {
 }
 
 .hello {
-  text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .button {
   width: 6rem;
   border-radius: 5px;
   border: none;
-  background: #fff;
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   margin: 1rem;
   height: 2rem;
   color: #683a38;
@@ -113,8 +97,7 @@ h1 {
 }
 
 .button:hover {
-  -webkit-box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-          box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .header-container {
@@ -123,8 +106,7 @@ h1 {
   position: relative;
   height: 10vh;
   top: 0;
-  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .content-header-container {
@@ -138,60 +120,70 @@ h1 {
 header {
   width: 100vw;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hello-profile {
   margin: 0 1rem 0 1rem;
   color: white;
-  text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .list-container {
   margin: 1rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .cards {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .container-list-card {
   max-width: 30vw;
-  -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   height: auto;
   margin: 1.5rem;
   min-width: 20vw;
-  /*width: 30vw;*/
+}
+
+.list-container-row {
+  width: 100%;
+  max-width: 100vw;
+  margin: 2em auto;
+}
+
+.list-columns {
+  -moz-column-count: 3;
+  -moz-column-gap: 3%;
+  -moz-column-width: calc(100vw/3);
+  -webkit-column-count: 3;
+  -webkit-column-gap: 3%;
+  -webkit-column-width: calc(100vw/3);
+  column-count: 3;
+  column-gap: 3%;
+  column-width: calc(100vw/3);
+  break-inside: avoid;
+}
+
+.card {
+  margin: 0;
+  -webkit-column-break-inside: avoid;
+  /* Chrome, Safari */
+  page-break-inside: avoid;
+  /* Theoretically FF 20+ */
+  break-inside: avoid-column;
+  /* IE 11 */
+  display: table;
 }
 
 .header-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .header-icon {
@@ -211,45 +203,60 @@ header {
 }
 
 .list-header-flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
   height: 100%;
 }
 
 .list-title {
   color: white;
-  margin: 0.3rem;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  margin-left: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0.5rem;
+}
+
+.category-name-in-list {
+  font-family: "Fira Sans", sans-serif;
+  margin: 0.5rem;
+  padding: 0.3rem;
+  letter-spacing: 1.5px;
+  background-image: linear-gradient(19deg, rgba(250, 172, 168, 0.4) 0%, rgba(221, 214, 243, 0.4) 100%);
+  border-radius: 5px;
 }
 
 .list-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 10vh;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 1 auto;
 }
 
-.items-list {
-  height: 50%;
-  max-height: 50%;
-  overflow: scroll;
+.scroll-items {
+  max-height: 8vh;
+  overflow-y: scroll;
   margin: 0.5rem;
+}
+
+.scroll-items::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-items::-webkit-scrollbar-track {
+  background: #f3f3f3;
+  border-radius: 10px;
+}
+
+/* Handle */
+.scroll-items::-webkit-scrollbar-thumb {
+  background: #ddd6f3;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scroll-items::-webkit-scrollbar-thumb:hover {
+  background: #613b80;
+  border-radius: 10px;
 }
 
 .list-button {
@@ -262,13 +269,11 @@ header {
   background-image: linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
   color: white;
   font-weight: 400;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
 }
 
 .add-item-button:hover {
-  -webkit-box-shadow: 0px 0px 20px rgba(221, 214, 243, 0.5);
-          box-shadow: 0px 0px 20px rgba(221, 214, 243, 0.5);
+  box-shadow: 0 0 20px rgba(221, 214, 243, 0.5);
 }
 
 .loading-style {
@@ -284,7 +289,7 @@ header {
   background: -webkit-linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0px 0px 20px rgba(206, 203, 212, 0.5);
+  text-shadow: 0 0 20px rgba(206, 203, 212, 0.5);
   text-align: center;
 }
 
@@ -305,15 +310,13 @@ header {
 .tag {
   border-radius: 5px;
   border: none;
-  background: #fff;
-  background-color: rgba(255, 255, 255, 0.5);
-  margin: 0.5rem 0.5rem 0.5rem 0;
+  background: rgba(255, 255, 255, 0.5);
   color: #683a38;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-size: small;
   padding: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin: 0.5rem 0.5rem 1.5rem 0;
 }
 
 .tagInput {
@@ -322,13 +325,8 @@ header {
 
 .selected {
   max-width: 500px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .tags {
@@ -354,11 +352,11 @@ ul {
   margin: 0.2rem 0 0 0.2rem;
 }
 
-input[type="radio"] {
+input[type=radio] {
   border: 1px solid #faaca8;
 }
 
-input[type="radio"]:checked:before {
+input[type=radio]:checked:before {
   content: "";
   display: block;
   position: relative;
@@ -378,3 +376,5 @@ input[type="radio"]:checked:before {
 .select-add-list {
   width: 28.5vw;
 }
+
+/*# sourceMappingURL=style.css.map */

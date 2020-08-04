@@ -1,7 +1,5 @@
 import React from "react";
 import Login from "./Pages/Login";
-import { Provider } from "react-redux";
-import store from "./Redux/store";
 import "./Style/style.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./Pages/Signup";

@@ -1,21 +1,9 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import { addTodoList, addShoppingList } from "../../Redux";
+import React from "react";
 
 import Particles from "react-particles-js";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
-import ReactModal from "react-modal";
 import { useModal } from "react-modal-hook";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  DialogContent,
-  TextField,
-} from "@material-ui/core";
 import CreateList from "./Modals/CreateList";
 
 const Header = () => {

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Header from "./Header";
 import ListContainer from "./ListContainer";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getCategories,
   loadShoppingLists,

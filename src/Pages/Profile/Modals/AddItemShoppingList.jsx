@@ -3,26 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import {} from "../../../Redux";
 
-import Particles from "react-particles-js";
-import ReactModal from "react-modal";
-import { useModal } from "react-modal-hook";
 import {
-  Button,
   Dialog,
-  DialogActions,
   DialogTitle,
   DialogContent,
-  TextField,
 } from "@material-ui/core";
-import makeAnimated from "react-select/animated";
-import Select from "react-select";
 
 const AddItemShoppingList = ({ createShoppingList, onClose, ...rest }) => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const existingShopppingLists = useSelector(
+  /*const existingShopppingLists = useSelector(
     (state) => state.lists.shoppingLists
-  );
+  );*/
 
   const onSubmit = (formData, event) => {
     event.preventDefault();

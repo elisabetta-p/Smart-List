@@ -14,7 +14,6 @@ const Login = (_: void): React$Element<*> => {
 
   const onSubmit = (formData) => {
     localStorage.setItem("username", formData.username);
-    console.log(localStorage);
     dispatch(login(formData.username, formData.password));
     history.push(
       `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`

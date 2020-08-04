@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addList, getUsers } from "../../../Redux";
-import { WithContext as ReactTags } from "react-tag-input";
+import { addList } from "../../../Redux";
 
-import Particles from "react-particles-js";
-import ReactModal from "react-modal";
-import { useModal } from "react-modal-hook";
 import {
-  Button,
   Dialog,
-  DialogActions,
   DialogTitle,
   DialogContent,
-  TextField,
 } from "@material-ui/core";
-import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import ShareWithUsers from "../Utilities/ShareWithUsers";
 
