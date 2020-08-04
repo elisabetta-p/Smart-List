@@ -2,7 +2,6 @@ import React from "react";
 import ListCard from "./ListCard";
 import { useSelector } from "react-redux";
 import { LoadingOutlined } from "@ant-design/icons";
-import MasonryLayout from "react-masonry-layout";
 
 const ListContainer = () => {
   const lists = useSelector((state) => state.lists.shoppingLists);
