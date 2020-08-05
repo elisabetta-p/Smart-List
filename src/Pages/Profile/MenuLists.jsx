@@ -7,7 +7,7 @@ import {
 } from "../../Redux";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
+import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 
 const MenuListsHeader = (props) => {
   const listTypes = [
@@ -36,14 +36,14 @@ const MenuListsHeader = (props) => {
       }}
     >
       <h2>Your lists</h2>
-      <div style={{ width: "70%" }}>
+      {/*<div style={{ width: "70%" }}>
         <Select
           options={listTypes}
           onChange={(event) => {
             setFilter(event.value);
           }}
         />
-      </div>
+        </div>*/}
     </div>
   );
 };
@@ -55,32 +55,42 @@ const ShoppingLists = () => {
     <div>
       <h3
         className="category-name-in-list"
+        style={{ cursor: "pointer" }}
         onClick={() => {
           setShowContent(!showContent);
         }}
-        style={{ cursor: "pointer" }}
       >
         Shopping lists
       </h3>
-      <motion.div
-        animate={{
+      <AnimatePresence>
+        {showContent && (
+          <motion.ul
+            /*animate={{
           height: showContent ? "auto" : "0px",
-        }}
-        transition={{ duration: 0.35 }}
-      >
-        <motion.div
-          animate={{
-            opacity: showContent ? 1 : 0,
-          }}
-          transition={{ duration: 0.15 }}
-        >
-          <ul className="scroll-items menu-items">
-            {shoppingLists.map((list) => (
-              <li className="menu-list-name menu-name-hover">{list.name}</li>
-            ))}
-          </ul>
-        </motion.div>
-      </motion.div>
+        }}*/
+            layout
+            initial={{ opacity: 0, height: "0px" }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: "0px" }}
+            transition={{ duration: 0.35 }}
+          >
+            <motion.ul
+              animate={{
+                opacity: showContent ? 1 : 0,
+              }}
+              transition={{ duration: 0.15 }}
+            >
+              <ul className="scroll-items menu-items">
+                {shoppingLists.map((list) => (
+                  <li className="menu-list-name menu-name-hover">
+                    {list.name}
+                  </li>
+                ))}
+              </ul>
+            </motion.ul>
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -92,35 +102,46 @@ const TodoLists = () => {
     <div>
       <h3
         className="category-name-in-list"
+        style={{ cursor: "pointer" }}
         onClick={() => {
           setShowContent(!showContent);
         }}
-        style={{ cursor: "pointer" }}
       >
         To do lists
       </h3>
-      <motion.div
-        animate={{
+      <AnimatePresence>
+        {showContent && (
+          <motion.ul
+            /*animate={{
           height: showContent ? "auto" : "0px",
-        }}
-        transition={{ duration: 0.35 }}
-      >
-        <motion.div
-          animate={{
-            opacity: showContent ? 1 : 0,
-          }}
-          transition={{ duration: 0.15 }}
-        >
-          <ul className="scroll-items">
-            {todoLists.map((list) => (
-              <li className="menu-list-name menu-name-hover">{list.name}</li>
-            ))}
-          </ul>
-        </motion.div>
-      </motion.div>
+        }}*/
+            layout
+            initial={{ opacity: 0, height: "0px" }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: "0px" }}
+            transition={{ duration: 0.35 }}
+          >
+            <motion.ul
+              animate={{
+                opacity: showContent ? 1 : 0,
+              }}
+              transition={{ duration: 0.15 }}
+            >
+              <ul className="scroll-items menu-items">
+                {todoLists.map((list) => (
+                  <li className="menu-list-name menu-name-hover">
+                    {list.name}
+                  </li>
+                ))}
+              </ul>
+            </motion.ul>
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+
 const MenuLists = () => {
   const [filter, setFilter] = useState(null);
   useEffect(() => {
@@ -130,8 +151,12 @@ const MenuLists = () => {
     <div className="menu-lists">
       <MenuListsHeader filter={setFilter} />
       <div className="menu-lists-container">
-        <ShoppingLists />
-        <TodoLists />
+        <AnimateSharedLayout>
+          <motion.ul layout initial={{ height: "auto" }}>
+            <ShoppingLists />
+            <TodoLists />
+          </motion.ul>
+        </AnimateSharedLayout>
       </div>
     </div>
   );

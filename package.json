@@ -12,7 +12,7 @@
     "antd": "^4.4.3",
     "axios": "^0.19.2",
     "dayjs": "^1.8.30",
-    "framer-motion": "^1.11.1",
+    "framer-motion": "^2.0.0",
     "react": "^16.13.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^3.0.2",
