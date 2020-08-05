@@ -377,4 +377,11 @@ input[type=radio]:checked:before {
   width: 28.5vw;
 }
 
+.menu-lists {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+}
+
 /*# sourceMappingURL=style.css.map */

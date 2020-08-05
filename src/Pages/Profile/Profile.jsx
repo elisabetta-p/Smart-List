@@ -10,6 +10,7 @@ import {
   getTodoLists,
   cleanLists,
 } from "../../Redux";
+import MenuLists from "./MenuLists";
 
 const Profile = (_: void): React$Element<*> => {
   const dispatch = useDispatch();
@@ -25,7 +26,11 @@ const Profile = (_: void): React$Element<*> => {
   return (
     <div className="profile-container">
       <Header />
-      <ListContainer />
+      <div style={{display: 'flex', flexDirection:"row", width:'100vw'}}>
+        <span style={{width:"30vw"}}>
+        <MenuLists />
+        </span>
+      </div>
     </div>
   );
 };
