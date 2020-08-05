@@ -132,7 +132,6 @@ header {
 .cards {
   display: flex;
   flex-wrap: wrap;
-
 }
 
 .container-list-card {
@@ -153,15 +152,14 @@ header {
 .list-columns {
   -moz-column-count: 3;
   -moz-column-gap: 3%;
-  -moz-column-width: calc(100vw/3);
+  -moz-column-width: calc(100vw / 3);
   -webkit-column-count: 3;
   -webkit-column-gap: 3%;
-  -webkit-column-width: calc(100vw/3);
+  -webkit-column-width: calc(100vw / 3);
   column-count: 3;
   column-gap: 3%;
-  column-width: calc(100vw/3);
+  column-width: calc(100vw / 3);
   break-inside: avoid;
-
 }
 
 .card {
@@ -226,7 +224,6 @@ header {
 
 .scroll-items {
   //height: 50%;
-  max-height: 8vh;
   overflow-y: scroll;
   margin: 0.5rem;
   //-ms-overflow-style: none;
@@ -238,7 +235,7 @@ header {
 }
 
 .scroll-items::-webkit-scrollbar-track {
-  background: #f3f3f3;
+  background: #f3f3f344;
   border-radius: 10px;
 }
 
@@ -371,9 +368,25 @@ input[type="radio"]:checked:before {
   width: 28.5vw;
 }
 
+.menu-items {
+  max-height: 50%;
+}
+
 .menu-lists {
   margin: 1rem;
   display: flex;
   flex-direction: column;
   height: 85vh;
+}
+
+.menu-lists-container {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.menu-list-name {
+  margin: 0 0 0.3rem 0;
+}
+.menu-list-name:hover {
+  cursor: pointer;
 }

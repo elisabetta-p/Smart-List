@@ -26,9 +26,9 @@ const Profile = (_: void): React$Element<*> => {
   return (
     <div className="profile-container">
       <Header />
-      <div style={{display: 'flex', flexDirection:"row", width:'100vw'}}>
-        <span style={{width:"30vw"}}>
-        <MenuLists />
+      <div style={{ display: "flex", flexDirection: "row", width: "100vw" }}>
+        <span style={{ width: "25vw" }}>
+          <MenuLists />
         </span>
       </div>
     </div>
