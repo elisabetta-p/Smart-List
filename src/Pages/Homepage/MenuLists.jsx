@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  getCategories,
-  loadShoppingLists,
-  getTodoLists,
-  cleanLists,
-} from "../../Redux";
+import { loadSingleListInHomepage } from "../../Redux";
 import Select from "react-select";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 
 const MenuListsHeader = (props) => {
@@ -51,6 +46,7 @@ const MenuListsHeader = (props) => {
 const ShoppingLists = () => {
   const shoppingLists = useSelector((state) => state.lists.shoppingLists);
   const [showContent, setShowContent] = useState(true);
+  const dispatch = useDispatch();
   return (
     <div>
       <h3
@@ -82,7 +78,12 @@ const ShoppingLists = () => {
             >
               <ul className="scroll-items menu-items">
                 {shoppingLists.map((list) => (
-                  <li className="menu-list-name menu-name-hover">
+                  <li
+                    className="menu-list-name menu-name-hover"
+                    onClick={() => {
+                      dispatch(loadSingleListInHomepage(list.id, "shopping"));
+                    }}
+                  >
                     {list.name}
                   </li>
                 ))}
@@ -98,6 +99,7 @@ const ShoppingLists = () => {
 const TodoLists = () => {
   const todoLists = useSelector((state) => state.lists.todoLists);
   const [showContent, setShowContent] = useState(true);
+  const dispatch = useDispatch();
   return (
     <div>
       <h3
@@ -129,7 +131,12 @@ const TodoLists = () => {
             >
               <ul className="scroll-items menu-items">
                 {todoLists.map((list) => (
-                  <li className="menu-list-name menu-name-hover">
+                  <li
+                    className="menu-list-name menu-name-hover"
+                    onClick={() => {
+                      dispatch(loadSingleListInHomepage(list.id, "todo"));
+                    }}
+                  >
                     {list.name}
                   </li>
                 ))}

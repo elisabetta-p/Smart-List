@@ -12,6 +12,7 @@ import {
 } from "../../Redux";
 import MenuLists from "./MenuLists";
 import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
+import HomepageContent from "./HomepageContent";
 
 const Homepage = (_: void): React$Element<*> => {
   const dispatch = useDispatch();
@@ -62,18 +63,7 @@ const Homepage = (_: void): React$Element<*> => {
         <span style={{ width: "25vw" }}>
           <MenuLists />
         </span>
-        <span
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            flexDirection: "column",
-          }}
-        >
-          <Image style={{ width: "25vw" }} />
-          {loadRightText()}
-        </span>
+        <HomepageContent />
       </div>
     </div>
   );
