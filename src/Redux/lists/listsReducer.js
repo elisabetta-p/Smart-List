@@ -8,6 +8,8 @@ import {
   CHANGE_CHECK_TODO,
   CHANGE_CHECK_SHOPPING,
   GET_USERS,
+  LOAD_SHOPPING_LIST_IN_HOMEPAGE,
+  LOAD_TODO_LIST_IN_HOMEPAGE,
 } from "./listsActions";
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   todoLists: [],
   categories: [],
   users: [],
+  listDisplayed: {},
 };
 
 const listsReducer = (state = initialState, action) => {
@@ -65,6 +68,16 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         users: [...action.payload],
+      };
+    case LOAD_SHOPPING_LIST_IN_HOMEPAGE:
+      return {
+        ...state,
+        listDisplayed: { ...action.payload },
+      };
+    case LOAD_TODO_LIST_IN_HOMEPAGE:
+      return {
+        ...state,
+        listDisplayed: { ...action.payload },
       };
     default:
       return state;

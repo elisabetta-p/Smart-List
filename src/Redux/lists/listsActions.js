@@ -7,6 +7,8 @@ export const CLEAN_LISTS = "CLEAN_LISTS";
 export const CHANGE_CHECK_SHOPPING = "CHANGE_CHECK_SHOPPING";
 export const CHANGE_CHECK_TODO = "CHANGE_CHECK_TODO";
 export const GET_USERS = "GET_USERS";
+export const LOAD_SHOPPING_LIST_IN_HOMEPAGE = "LOAD_SHOPPING_LIST_IN_HOMEPAGE";
+export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
 
 export const getCategories = () => {
   const categories = [
@@ -403,5 +405,56 @@ export const getUsers = () => {
   return {
     type: GET_USERS,
     payload: [...users],
+  };
+};
+
+/**
+ * Loads the right shopping list in the store so that the user can see it on their homnepace
+ * @param {number}  listId id of the list
+ * @param {Array} shoppingLists array of existing shopping lists
+ * @returns the list object if found, otherwise undefined
+ */
+const loadShoppingList = (listId, shoppingLists) => {
+  const rightList = shoppingLists.find((list) => list.id === listId);
+  if (rightList) {
+    return {
+      type: LOAD_SHOPPING_LIST_IN_HOMEPAGE,
+      payload: { ...rightList },
+    };
+  }
+};
+/**
+ * Loads the right todo list in the store so that the user can see it on their homepage
+ * @param {number} listId id of tthe list
+ * @param {Array} todoLists array of existing todo lists
+ * @returns the list object if found, otherwise undefined
+ */
+const loadTodoList = (listId, todoLists) => {
+  const rightList = todoLists.find((list) => list.id === listId);
+  if (rightList) {
+    return {
+      type: LOAD_TODO_LIST_IN_HOMEPAGE,
+      payload: { ...rightList },
+    };
+  }
+};
+
+/**
+ * Loads a specific list in the store after the user clicked it from the sidebar.
+ * This function is invoked after the user has clicked one of the lists on the homepage's sidebar. To load the correct list,
+ * it invokes the right function: @see loadShoppingList() @see loadTodoList
+ * @param {number} listId id of the list the user has chosen to display
+ * @param {string} type type of list, whether it'' a shopping or a todo list
+ */
+export const loadSingleListInHomepage = (listId, type) => {
+  return (dispatch, getState) => {
+    if (type === "shopping") {
+      const shoppingLists = [...getState().lists.shoppingLists];
+      dispatch(loadShoppingList(listId, shoppingLists));
+    }
+    if (type === "todo") {
+      const todoLists = [...getState().lists.todoLists];
+      dispatch(loadTodoList(listId, todoLists));
+    }
   };
 };
