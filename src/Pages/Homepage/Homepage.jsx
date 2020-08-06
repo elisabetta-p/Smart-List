@@ -13,7 +13,7 @@ import {
 import MenuLists from "./MenuLists";
 import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
 
-const Profile = (_: void): React$Element<*> => {
+const Homepage = (_: void): React$Element<*> => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
@@ -78,4 +78,4 @@ const Profile = (_: void): React$Element<*> => {
     </div>
   );
 };
-export default Profile;
+export default Homepage;
