@@ -77,9 +77,10 @@ const ShoppingLists = () => {
               transition={{ duration: 0.15 }}
             >
               <ul className="scroll-items menu-items">
-                {shoppingLists.map((list) => (
+                {shoppingLists.map((list, index) => (
                   <li
-                    className="menu-list-name menu-name-hover"
+                    key={index}
+                    className="menu-list-name"
                     onClick={() => {
                       dispatch(loadSingleListInHomepage(list.id, "shopping"));
                     }}
@@ -130,9 +131,10 @@ const TodoLists = () => {
               transition={{ duration: 0.15 }}
             >
               <ul className="scroll-items menu-items">
-                {todoLists.map((list) => (
+                {todoLists.map((list, index) => (
                   <li
-                    className="menu-list-name menu-name-hover"
+                    key={index}
+                    className="menu-list-name"
                     onClick={() => {
                       dispatch(loadSingleListInHomepage(list.id, "todo"));
                     }}
@@ -156,7 +158,7 @@ const MenuLists = () => {
   }, [filter]);
   return (
     <div className="menu-lists">
-      <MenuListsHeader filter={setFilter} />
+      {/* <MenuListsHeader filter={setFilter} />*/}
       <div className="menu-lists-container">
         <AnimateSharedLayout>
           <motion.ul layout initial={{ height: "auto" }}>

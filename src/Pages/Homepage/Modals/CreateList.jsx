@@ -3,11 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { addList } from "../../../Redux";
 
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-} from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent } from "@material-ui/core";
 import Select from "react-select";
 import ShareWithUsers from "../Utilities/ShareWithUsers";
 
@@ -100,11 +96,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
     event.preventDefault();
     dispatch(addList(formData.name, typeOfList, categories, sharingWith));
   };
-  /*
-  useEffect(() => {
-    console.log("dentro a createlist", sharingWith);
-  }, [sharingWith]);
-  */
+
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */

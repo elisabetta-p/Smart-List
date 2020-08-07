@@ -24,7 +24,7 @@ export const getCategories = () => {
 export const loadShoppingLists = () => {
   const lists = [
     {
-      id: 1,
+      id: 0,
       name: "Cibo da comprare",
       items: [
         {
@@ -93,9 +93,9 @@ export const loadShoppingLists = () => {
         },
       ],
     },
-    { id: 2, name: "Seconda lista", items: [] },
+    { id: 1, name: "Seconda lista", items: [] },
     {
-      id: 3,
+      id: 2,
       name: "AAA",
       items: [
         {
@@ -165,7 +165,7 @@ export const loadShoppingLists = () => {
       ],
     },
     {
-      id: 4,
+      id: 3,
       name: "BBB",
       items: [
         {
@@ -211,7 +211,7 @@ export const loadShoppingLists = () => {
       ],
     },
     {
-      id: 5,
+      id: 4,
       name: "CCC",
       items: [
         {
@@ -249,7 +249,7 @@ export const loadShoppingLists = () => {
       ],
     },
     {
-      id: 6,
+      id: 5,
       name: "DDD",
       items: [
         {
@@ -304,8 +304,8 @@ export const loadShoppingLists = () => {
 
 export const getTodoLists = () => {
   const todos = [
-    { id: 1, name: "todo list 1", items: [] },
-    { id: 2, name: "todo list 2", items: [] },
+    { id: 0, name: "todo list 1", items: [] },
+    { id: 1, name: "todo list 2", items: [] },
   ];
   return {
     type: GET_TODOS,

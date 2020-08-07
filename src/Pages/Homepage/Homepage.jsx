@@ -60,9 +60,9 @@ const Homepage = (_: void): React$Element<*> => {
           maxHeight: "100vh",
         }}
       >
-        <span style={{ width: "25vw" }}>
+        <div style={{ width: "25vw", maxWidth: "25vw" }}>
           <MenuLists />
-        </span>
+        </div>
         <HomepageContent />
       </div>
     </div>

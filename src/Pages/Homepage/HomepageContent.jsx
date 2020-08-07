@@ -65,7 +65,7 @@ const HomepageContent = () => {
   const selectedList = useSelector((store) => store.lists.listDisplayed);
 
   return (
-    <React.Fragment>
+    <div style={{ width: "75vw" }}>
       {shoppingLists.length === 0 ||
       todoLists.length === 0 ||
       // checks if object is empty
@@ -74,7 +74,7 @@ const HomepageContent = () => {
       ) : (
         <DisplayList />
       )}
-    </React.Fragment>
+    </div>
   );
 };
 export default HomepageContent;

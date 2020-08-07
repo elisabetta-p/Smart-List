@@ -53,6 +53,7 @@ const listsReducer = (state = initialState, action) => {
         categories: [],
         todoLists: [],
         shoppingLists: [],
+        listDisplayed: {},
       };
     case CHANGE_CHECK_SHOPPING:
       return {
