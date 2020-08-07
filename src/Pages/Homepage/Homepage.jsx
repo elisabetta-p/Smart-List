@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import Header from "./Header";
-import ListContainer from "./ListContainer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategories,

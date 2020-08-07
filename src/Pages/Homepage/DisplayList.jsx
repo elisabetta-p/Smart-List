@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../../Redux";
+import DisplayListContent from "./DisplayListContent";
 
 const DisplayListHeader = (props) => {
   return (
@@ -18,6 +19,7 @@ const DisplayList = () => {
   return (
     <div>
       <DisplayListHeader listName={selectedList.name} />
+      <DisplayListContent list={selectedList} />
     </div>
   );
 };

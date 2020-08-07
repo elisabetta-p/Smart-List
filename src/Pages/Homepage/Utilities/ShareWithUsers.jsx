@@ -7,7 +7,7 @@ const ShareWithUsers = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
   const existingUsers = useSelector((state) => state.lists.users);
   const keyCodes = {
     comma: 188,
