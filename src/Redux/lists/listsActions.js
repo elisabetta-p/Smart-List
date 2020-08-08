@@ -358,7 +358,6 @@ const addShoppingList = (
  */
 
 export const addList = (name, typeOfList, categories, sharingWith) => {
-  console.log(typeOfList);
   return (dispatch, getState) => {
     if (typeOfList === "shopping") {
       const existingLists = [...getState().lists.shoppingLists];

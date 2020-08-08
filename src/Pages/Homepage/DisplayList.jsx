@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {} from "../../Redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import DisplayListContent from "./DisplayListContent";
 
 const DisplayListHeader = (props) => {

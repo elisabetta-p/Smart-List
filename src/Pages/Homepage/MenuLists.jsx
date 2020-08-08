@@ -1,47 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { loadSingleListInHomepage } from "../../Redux";
-import Select from "react-select";
+//import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-
-const MenuListsHeader = (props) => {
-  const listTypes = [
-    { value: "shopping", label: "Show only shopping lists" },
-    { value: "todo", label: "Show only to do lists" },
-  ];
-
-  const [filter, setFilter] = useState(null);
-
-  useEffect(() => {
-    props.filter(filter);
-  }, [filter]);
-
-  return (
-    <div
-      className="header-container"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        color: "white",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
-        borderRadius: "10px",
-      }}
-    >
-      <h2>Your lists</h2>
-      {/*<div style={{ width: "70%" }}>
-        <Select
-          options={listTypes}
-          onChange={(event) => {
-            setFilter(event.value);
-          }}
-        />
-        </div>*/}
-    </div>
-  );
-};
 
 const ShoppingLists = () => {
   const shoppingLists = useSelector((state) => state.lists.shoppingLists);
@@ -152,13 +113,8 @@ const TodoLists = () => {
 };
 
 const MenuLists = () => {
-  const [filter, setFilter] = useState(null);
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
   return (
     <div className="menu-lists">
-      {/* <MenuListsHeader filter={setFilter} />*/}
       <div className="menu-lists-container">
         <AnimateSharedLayout>
           <motion.ul layout initial={{ height: "auto" }}>

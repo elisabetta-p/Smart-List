@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Header from "./Header";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getCategories,
   loadShoppingLists,
@@ -10,7 +10,6 @@ import {
   cleanLists,
 } from "../../Redux";
 import MenuLists from "./MenuLists";
-import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
 import HomepageContent from "./HomepageContent";
 
 const Homepage = (_: void): React$Element<*> => {
@@ -22,31 +21,7 @@ const Homepage = (_: void): React$Element<*> => {
     return () => {
       dispatch(cleanLists());
     };
-  }, []);
-
-  const shoppingLists = useSelector((store) => store.lists.shoppingLists);
-  const todoLists = useSelector((store) => store.lists.todoLists);
-
-  const loadRightText = () => {
-    if (shoppingLists.length === 0 && todoLists.length === 0) {
-      return (
-        <h1 style={{ color: "#ddd6f3", textShadow: " 0 0 20px #ddd6f3" }}>
-          Create a list to start
-        </h1>
-      );
-    } else {
-      return (
-        <h1
-          style={{
-            color: "#ddd6f3",
-            textShadow: "0 0 20px rgba(221,214,243,0.7)",
-          }}
-        >
-          Select a list to start
-        </h1>
-      );
-    }
-  };
+  }, [dispatch]);
 
   return (
     <div className="profile-container">

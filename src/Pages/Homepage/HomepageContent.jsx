@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategories,
@@ -7,7 +6,6 @@ import {
   getTodoLists,
   cleanLists,
 } from "../../Redux";
-import MenuLists from "./MenuLists";
 import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
 import DisplayList from "./DisplayList";
 
@@ -57,7 +55,7 @@ const HomepageContent = () => {
     return () => {
       dispatch(cleanLists());
     };
-  }, []);
+  }, [dispatch]);
 
   const shoppingLists = useSelector((store) => store.lists.shoppingLists);
   const todoLists = useSelector((store) => store.lists.todoLists);

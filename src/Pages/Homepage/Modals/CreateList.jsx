@@ -18,9 +18,11 @@ const SelectListType = (props) => {
    * Callback to pass data from the child component SelectListType to parent component CreateList!
    * I used the useEffect hook that gets called every time *selected* changes, and it calls the type function inside the props.
    */
+
+  const { type } = props;
   useEffect(() => {
-    props.type(selected);
-  }, [selected]);
+    type(selected);
+  }, [selected, type]);
 
   return (
     <div>
@@ -44,7 +46,7 @@ const SelectCategories = (props) => {
   const categoriesFromRedux = useSelector((state) => state.lists.categories);
   const [selectedCategories, setSelectedCategories] = useState([]);
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
-  const categories = categoriesFromRedux.map((cat) => {
+  const reduxCategories = categoriesFromRedux.map((cat) => {
     const obj = { value: cat.id, label: cat.name };
     return obj;
   });
@@ -55,14 +57,16 @@ const SelectCategories = (props) => {
 	* inside selectedCategories there are the ids of the categories that the user selected
 	*/
 
+  const { categories } = props;
   useEffect(() => {
-    props.categories(selectedCategories);
-  }, [selectedCategories]);
+    categories(selectedCategories);
+  }, [selectedCategories, categories]);
+
   return (
     <div>
       <p className="text-modal">Select all the categories</p>
       <Select
-        options={categories}
+        options={reduxCategories}
         isMulti
         onChange={(event) => {
           setSelectedCategories((selectedCategories) => [
@@ -80,10 +84,13 @@ const SelectCategories = (props) => {
 };
 
 const CreateList = ({ createShoppingList, onClose, ...rest }) => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const existingShopppingLists = useSelector(
-    (state) => state.lists.shoppingLists
+  const existingShopppingListsNames = useSelector((state) =>
+    state.lists.shoppingLists.map((list) => list.name)
+  );
+  const existingTodoListsNames = useSelector((state) =>
+    state.lists.todoLists.map((list) => list.name)
   );
   // what kind of list is the user adding
   const [typeOfList, changeTypeOfList] = useState(null);
@@ -91,12 +98,59 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const [categories, setCategories] = useState([]);
   // who is this shared with
   const [sharingWith, setSharingWith] = useState([]);
+  // error: name already used
+  const [errorListName, setErrorListName] = useState(null);
+  // error a category wasnt selected
+  const [errorTypeOfList, setErrorTypeOfList] = useState(null);
+
+  useEffect(() => {
+    if (!categories) setErrorTypeOfList("Seleziona delle categorie");
+  }, [categories, typeOfList]);
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
+    console.log("onSubmit. type of list:", typeOfList);
+
     dispatch(addList(formData.name, typeOfList, categories, sharingWith));
   };
 
+  function checkIfThereAreErrors() {
+    let errors = false;
+    if (document.getElementById("name").value === "") {
+      setErrorListName("Please write a name");
+      errors = true;
+    }
+    if (!typeOfList) {
+      setErrorTypeOfList("Select a type of list to add");
+      errors = true;
+    }
+    if (typeOfList === "shopping") {
+      const alreadyThere = existingShopppingListsNames.includes(
+        document.getElementById("name").value
+      );
+      if (alreadyThere) {
+        setErrorListName("A shopping list with this name already exists");
+        errors = true;
+      } else if (!alreadyThere) {
+        setErrorListName(null);
+        errors = false;
+      }
+    }
+    if (typeOfList === "todo") {
+      const alreadyThere = existingTodoListsNames.includes(
+        document.getElementById("name").value
+      );
+      if (alreadyThere) {
+        setErrorListName("A shopping list with this name already exists");
+        errors = true;
+      } else {
+        setErrorListName(null);
+        errors = false;
+      }
+    }
+
+    return errors;
+  }
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */
@@ -104,12 +158,17 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={
+            !errorListName && !errorTypeOfList ? handleSubmit(onSubmit) : null
+          }
+        >
           <DialogTitle className="modal-title">
             <strong>Create a new list</strong>
           </DialogTitle>
           <DialogContent>
             <input
+              id="name"
               type="text"
               name="name"
               label="name"
@@ -130,7 +189,13 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               })}
               className="input input-new-list"
             />
+            <p className="error-message" style={{ marginBottom: "1rem" }}>
+              {errorListName}
+            </p>
             <SelectListType type={changeTypeOfList} />
+            <p className="error-message" style={{ marginBottom: "1rem" }}>
+              {errorTypeOfList}
+            </p>
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
@@ -141,7 +206,11 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
                 type="submit"
                 className="button"
                 value="Add the new list"
-                onClick={onClose}
+                onClick={(e) => {
+                  const error = checkIfThereAreErrors();
+                  if (error) e.preventDefault();
+                  else onClose();
+                }}
                 style={{ display: "flex", justifyContent: "center" }}
               />
             </span>

@@ -19,10 +19,12 @@ const ShareWithUsers = (props) => {
 
   //error if user does not exist
   const [errorUserDoesntExist, setErrorUser] = useState(null);
+
+  const { users } = props;
   useEffect(() => {
-    props.users(userTags);
+    users(userTags);
     setErrorUser(null);
-  }, [userTags]);
+  }, [userTags, users]);
 
   const handleDelete = (i) => {
     const tags = userTags.filter((tag, index) => index !== i);
