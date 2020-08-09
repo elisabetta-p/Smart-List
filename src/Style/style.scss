@@ -94,10 +94,26 @@ h1 {
   font-weight: 300;
 }
 
+.button-list {
+  background: rgba(221, 214, 243, 0.4);
+}
+
 .button:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
+.button-list:hover {
+  box-shadow: 0 0 20px rgba(221, 214, 243, 0.4);
+}
+.button-inside-td {
+  margin: 0 5rem 0 5rem;
 
+}
+.delete-button {
+  background: rgba(231, 165, 171, 0.4);
+}
+.delete-button:hover {
+  background: rgba(231, 165, 171,0.4);
+}
 .header-container {
   background-color: #faaca8;
   background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
@@ -217,17 +233,14 @@ header {
   border-radius: 5px;
 }
 
-#display-list ul:not(:first-child) .category-name-display{
+#display-list ul:not(:first-child) .category-name-display {
   border-top: 2px solid;
   border-image-slice: 1;
   border-image-source: linear-gradient(
-                  19deg,
-                  rgba(250, 172, 168, 0.4) 0%,
-                  rgba(221, 214, 243, 0.4) 100%);
-}
-
-.category-name-display{
-  padding-top: 1rem;
+    19deg,
+    rgba(250, 172, 168, 0.4) 0%,
+    rgba(221, 214, 243, 0.4) 100%
+  );
 }
 
 .category-name-in-homepage {
@@ -247,11 +260,16 @@ header {
 .list-items {
   max-height: 30vh;
 }
-.single-item-in-list{
+.single-item-in-list {
   margin-bottom: 0.25rem;
 }
-.inside-li{
-  margin-right: 3rem;
+table {
+  width: 100%;
+}
+
+.inside-td {
+  text-align: left;
+  //padding: 5rem;
 }
 .scroll-items {
   //height: 50%;
@@ -396,7 +414,7 @@ input[type="radio"]:checked:before {
 
 .input-new-list,
 .select-add-list {
-  width: 100%
+  width: 100%;
 }
 
 .menu-items {
@@ -431,6 +449,11 @@ input[type="radio"]:checked:before {
   font-family: "Galada", cursive;
   letter-spacing: normal;
   padding-left: 1rem;
+  font-size: 1.9em;
+}
+.category-name-display {
+  padding-top: 1rem;
+  font-size: 1.5em;
 }
 
 .lds-heart {
