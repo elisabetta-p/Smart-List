@@ -217,6 +217,19 @@ header {
   border-radius: 5px;
 }
 
+#display-list ul:not(:first-child) .category-name-display{
+  border-top: 2px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+                  19deg,
+                  rgba(250, 172, 168, 0.4) 0%,
+                  rgba(221, 214, 243, 0.4) 100%);
+}
+
+.category-name-display{
+  padding-top: 1rem;
+}
+
 .category-name-in-homepage {
   background-image: linear-gradient(
     19deg,
@@ -231,6 +244,15 @@ header {
   flex: 0 1 auto;
 }
 
+.list-items {
+  max-height: 30vh;
+}
+.single-item-in-list{
+  margin-bottom: 0.25rem;
+}
+.inside-li{
+  margin-right: 3rem;
+}
 .scroll-items {
   //height: 50%;
   overflow-y: scroll;
@@ -374,7 +396,7 @@ input[type="radio"]:checked:before {
 
 .input-new-list,
 .select-add-list {
-  width: 28.5vw;
+  width: 100%
 }
 
 .menu-items {
@@ -408,6 +430,7 @@ input[type="radio"]:checked:before {
   color: #8377a6;
   font-family: "Galada", cursive;
   letter-spacing: normal;
+  padding-left: 1rem;
 }
 
 .lds-heart {
@@ -425,7 +448,7 @@ input[type="radio"]:checked:before {
   width: 32px;
   height: 32px;
   background: $purple;
-  filter: drop-shadow(1px 2px 3px $purple);
+  filter: drop-shadow(0 0 5px $purple);
   animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .lds-heart div:after,
@@ -436,7 +459,7 @@ input[type="radio"]:checked:before {
   width: 32px;
   height: 32px;
   background: $purple;
-  filter: drop-shadow(1px 2px 3px $purple);
+  filter: drop-shadow(0 0 5px $purple);
 }
 .lds-heart div:before {
   left: -24px;

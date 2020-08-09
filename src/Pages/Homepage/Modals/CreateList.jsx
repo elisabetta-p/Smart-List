@@ -47,8 +47,7 @@ const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
   const reduxCategories = categoriesFromRedux.map((cat) => {
-    const obj = { value: cat.id, label: cat.name };
-    return obj;
+    return { value: cat.id, label: cat.name };
   });
   /*useEffect(() => {
     console.log(selectedCategories);
@@ -100,7 +99,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const [sharingWith, setSharingWith] = useState([]);
   // error: name already used
   const [errorListName, setErrorListName] = useState(null);
-  // error a category wasnt selected
+  // error a category wasn't selected
   const [errorTypeOfList, setErrorTypeOfList] = useState(null);
 
   useEffect(() => {
@@ -171,7 +170,6 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               id="name"
               type="text"
               name="name"
-              label="name"
               placeholder="Insert the name of the new todo list"
               ref={register({
                 required: {
