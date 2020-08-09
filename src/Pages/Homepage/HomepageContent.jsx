@@ -6,7 +6,7 @@ import {
   getTodoLists,
   cleanLists,
 } from "../../Redux";
-import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
+//import { ReactComponent as Image } from "../../img/undraw_conceptual_idea_xw7k.svg";
 import DisplayList from "./DisplayList";
 
 const ListNotSelected = (props) => {
@@ -30,6 +30,7 @@ const ListNotSelected = (props) => {
       );
     }
   };
+
   return (
     <span
       style={{
@@ -37,10 +38,14 @@ const ListNotSelected = (props) => {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
+        height: "100%",
         flexDirection: "column",
       }}
     >
-      <Image style={{ width: "25vw" }} />
+      {/*<Image style={{ width: "25vw" }} />*/}
+      <div className="lds-heart">
+        <div>{""}</div>
+      </div>
       {loadRightText()}
     </span>
   );
