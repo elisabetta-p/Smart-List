@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { HeartTwoTone } from "@ant-design/icons";
-import CreateList from "./Modals/CreateList";
-import { useModal } from "react-modal-hook";
 
 const DisplayListContent = (props) => {
   const allCategories = useSelector((store) => store.lists.categories);
@@ -66,7 +64,6 @@ const DisplayListContent = (props) => {
 
   const categories = removeDuplicatesFromCategories(props.list);
   const categoryNames = [...getTheNamesOfTheCategories(categories)];
-  console.log(categoryNames);
 
   return (
     <div id="display-list">

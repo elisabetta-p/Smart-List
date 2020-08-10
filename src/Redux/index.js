@@ -9,5 +9,4 @@ export {
   changeCheck,
   getUsers,
   loadSingleListInHomepage,
-  clearDisplayedList,
 } from "./lists/listsActions";

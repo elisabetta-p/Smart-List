@@ -107,7 +107,6 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
 
   useEffect(() => {
     if (!categories) setErrorTypeOfList("Seleziona delle categorie");
-    console.log(categories);
   }, [categories, typeOfList]);
 
   const onSubmit = (formData, event) => {

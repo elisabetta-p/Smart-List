@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
 
@@ -11,7 +11,6 @@ const SelectCategories = (props) => {
   const categoriesFromRedux = useSelector((store) => [
     ...store.lists.listDisplayed.categories,
   ]);
-  console.log(categoriesFromRedux);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.label };
   });
@@ -44,7 +43,6 @@ const SelectCategories = (props) => {
 
 const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
-  const dispatch = useDispatch();
   // what kind of list is the user adding
   //which categories
   const [categories, setCategories] = useState([]);
