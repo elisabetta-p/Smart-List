@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Smart-List/static/css/main.df8841ce.chunk.css",
-    "main.js": "/Smart-List/static/js/main.64edd53c.chunk.js",
-    "main.js.map": "/Smart-List/static/js/main.64edd53c.chunk.js.map",
+    "main.js": "/Smart-List/static/js/main.3fc80cf9.chunk.js",
+    "main.js.map": "/Smart-List/static/js/main.3fc80cf9.chunk.js.map",
     "runtime-main.js": "/Smart-List/static/js/runtime-main.293aa54d.js",
     "runtime-main.js.map": "/Smart-List/static/js/runtime-main.293aa54d.js.map",
     "static/js/2.670dced5.chunk.js": "/Smart-List/static/js/2.670dced5.chunk.js",
     "static/js/2.670dced5.chunk.js.map": "/Smart-List/static/js/2.670dced5.chunk.js.map",
     "index.html": "/Smart-List/index.html",
-    "precache-manifest.55c10f4356f2c1efb0320a6ab68d3543.js": "/Smart-List/precache-manifest.55c10f4356f2c1efb0320a6ab68d3543.js",
+    "precache-manifest.009cdccda14b08823f150ae4e186746a.js": "/Smart-List/precache-manifest.009cdccda14b08823f150ae4e186746a.js",
     "service-worker.js": "/Smart-List/service-worker.js",
     "static/css/main.df8841ce.chunk.css.map": "/Smart-List/static/css/main.df8841ce.chunk.css.map",
     "static/js/2.670dced5.chunk.js.LICENSE.txt": "/Smart-List/static/js/2.670dced5.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.293aa54d.js",
     "static/js/2.670dced5.chunk.js",
     "static/css/main.df8841ce.chunk.css",
-    "static/js/main.64edd53c.chunk.js"
+    "static/js/main.3fc80cf9.chunk.js"
   ]
 }
