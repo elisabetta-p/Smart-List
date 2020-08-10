@@ -70,10 +70,7 @@ const SelectCategories = (props) => {
         onChange={(event) => {
           setSelectedCategories((selectedCategories) => [
             ...selectedCategories,
-            {
-              id: event[event.length - 1].value,
-              label: event[event.length - 1].label,
-            },
+            event[event.length - 1].value,
           ]);
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
@@ -85,7 +82,7 @@ const SelectCategories = (props) => {
   );
 };
 
-const CreateList = ({ createShoppingList, onClose, ...rest }) => {
+const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const existingShopppingListsNames = useSelector((state) =>
@@ -107,12 +104,10 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
 
   useEffect(() => {
     if (!categories) setErrorTypeOfList("Seleziona delle categorie");
-    console.log(categories);
   }, [categories, typeOfList]);
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
-    console.log("onSubmit. type of list:", typeOfList);
 
     dispatch(addList(formData.name, typeOfList, categories, sharingWith));
   };
@@ -167,7 +162,7 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
           }
         >
           <DialogTitle className="modal-title">
-            <strong>Create a new list</strong>
+            <strong>Add a todo item</strong>
           </DialogTitle>
           <DialogContent>
             <input
@@ -223,4 +218,4 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   );
 };
 
-export default CreateList;
+export default AddTodoItem;

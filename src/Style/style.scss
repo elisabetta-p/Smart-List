@@ -10,6 +10,7 @@ $purple: rgb(221, 214, 243);
   margin-inline-start: 0;
   margin-inline-end: 0;
   font-family: "Roboto", sans-serif;
+
 }
 #tsparticles,
 .tsparticles-canvas-el {
@@ -20,6 +21,7 @@ $purple: rgb(221, 214, 243);
 
 body,
 #root {
+  background-color: #282c34;
   width: 100vw;
   height: 100vh;
 }
@@ -106,13 +108,12 @@ h1 {
 }
 .button-inside-td {
   margin: 0 5rem 0 5rem;
-
 }
 .delete-button {
   background: rgba(231, 165, 171, 0.4);
 }
 .delete-button:hover {
-  background: rgba(231, 165, 171,0.4);
+  background: rgba(231, 165, 171, 0.4);
 }
 .header-container {
   background-color: #faaca8;
@@ -413,8 +414,18 @@ input[type="radio"]:checked:before {
 }
 
 .input-new-list,
-.select-add-list {
+.select-add-list,
+.input-new-item {
   width: 100%;
+}
+
+.input-new-item {
+  margin: 0;
+}
+
+.input-description {
+  height: 7vh;
+  margin-bottom: 1.5rem;
 }
 
 .menu-items {

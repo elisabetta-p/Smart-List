@@ -19,6 +19,7 @@
 
 body,
 #root {
+  background-color: #282c34;
   width: 100vw;
   height: 100vh;
 }
@@ -418,8 +419,18 @@ input[type=radio]:checked:before {
 }
 
 .input-new-list,
-.select-add-list {
+.select-add-list,
+.input-new-item {
   width: 100%;
+}
+
+.input-new-item {
+  margin: 0;
+}
+
+.input-description {
+  height: 7vh;
+  margin-bottom: 1.5rem;
 }
 
 .menu-items {

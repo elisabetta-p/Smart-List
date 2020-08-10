@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { HeartTwoTone } from "@ant-design/icons";
+import CreateList from "./Modals/CreateList";
+import { useModal } from "react-modal-hook";
 
 const DisplayListContent = (props) => {
   const allCategories = useSelector((store) => store.lists.categories);
@@ -69,14 +71,12 @@ const DisplayListContent = (props) => {
   return (
     <div id="display-list">
       <table>
-        {categoryNames.map((cat) => (
-          <React.Fragment>
-            <thead>
-              <span className="list-name-homepage category-name-display">
-                {cat.name}
-              </span>
+        {categoryNames.map((cat, index) => (
+          <React.Fragment key={index}>
+            <thead className="list-name-homepage category-name-display">
+              {cat.name}
             </thead>
-            {loadTheItems(cat.id)}
+            <tbody>{loadTheItems(cat.id)}</tbody>
           </React.Fragment>
         ))}
       </table>

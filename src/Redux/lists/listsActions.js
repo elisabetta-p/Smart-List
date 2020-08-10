@@ -9,12 +9,14 @@ export const CHANGE_CHECK_TODO = "CHANGE_CHECK_TODO";
 export const GET_USERS = "GET_USERS";
 export const LOAD_SHOPPING_LIST_IN_HOMEPAGE = "LOAD_SHOPPING_LIST_IN_HOMEPAGE";
 export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
+export const CLEAR_DISPLAYED_LIST = "CLEAR_DISPLAYED_LIST";
 
 export const getCategories = () => {
   const categories = [
     { id: 0, name: "Food" },
     { id: 1, name: "Clothes" },
     { id: 2, name: "Stuff" },
+    { id: 3, name: "AAA" },
   ];
   return {
     type: GET_CATEGORIES,
@@ -92,11 +94,21 @@ export const loadShoppingLists = () => {
           isChecked: false,
         },
       ],
+      categories: [
+        { id: 0, label: "Food" },
+        { id: 1, label: "Clothes" },
+        { id: 2, label: "Stuff" },
+      ],
     },
-    { id: 1, name: "Seconda lista", items: [] },
+    { id: 1, name: "Seconda lista", items: [], categories: [] },
     {
       id: 2,
       name: "AAA",
+      categories: [
+        { id: 0, label: "Food" },
+        { id: 1, label: "Clothes" },
+        { id: 2, label: "Stuff" },
+      ],
       items: [
         {
           id: 0,
@@ -167,6 +179,7 @@ export const loadShoppingLists = () => {
     {
       id: 3,
       name: "BBB",
+      categories: [{ id: 0, label: "Food" }],
       items: [
         {
           id: 0,
@@ -213,6 +226,7 @@ export const loadShoppingLists = () => {
     {
       id: 4,
       name: "CCC",
+      categories: [{ id: 0, label: "Food" }],
       items: [
         {
           id: 0,
@@ -251,6 +265,11 @@ export const loadShoppingLists = () => {
     {
       id: 5,
       name: "DDD",
+      categories: [
+        { id: 0, label: "Food" },
+        { id: 1, label: "Clothes" },
+        { id: 2, label: "Stuff" },
+      ],
       items: [
         {
           id: 0,
@@ -415,6 +434,7 @@ export const getUsers = () => {
  */
 const loadShoppingList = (listId, shoppingLists) => {
   const rightList = shoppingLists.find((list) => list.id === listId);
+  rightList.type = "shopping";
   if (rightList) {
     return {
       type: LOAD_SHOPPING_LIST_IN_HOMEPAGE,
@@ -424,12 +444,13 @@ const loadShoppingList = (listId, shoppingLists) => {
 };
 /**
  * Loads the right todo list in the store so that the user can see it on their homepage
- * @param {number} listId id of tthe list
+ * @param {number} listId id of the list
  * @param {Array} todoLists array of existing todo lists
  * @returns the list object if found, otherwise undefined
  */
 const loadTodoList = (listId, todoLists) => {
   const rightList = todoLists.find((list) => list.id === listId);
+  rightList.type = "todo";
   if (rightList) {
     return {
       type: LOAD_TODO_LIST_IN_HOMEPAGE,
@@ -447,6 +468,14 @@ const loadTodoList = (listId, todoLists) => {
  */
 export const loadSingleListInHomepage = (listId, type) => {
   return (dispatch, getState) => {
+    // if listDisplayed is empty, we don't need to clean it
+    const isAListAlreadySelected = { ...getState().lists.listDisplayed };
+    if (
+      Object.keys(isAListAlreadySelected).length !== 0 &&
+      isAListAlreadySelected.constructor === Object
+    ) {
+      dispatch(clearDisplayedList());
+    }
     if (type === "shopping") {
       const shoppingLists = [...getState().lists.shoppingLists];
       dispatch(loadShoppingList(listId, shoppingLists));
@@ -455,5 +484,11 @@ export const loadSingleListInHomepage = (listId, type) => {
       const todoLists = [...getState().lists.todoLists];
       dispatch(loadTodoList(listId, todoLists));
     }
+  };
+};
+
+export const clearDisplayedList = () => {
+  return {
+    type: CLEAR_DISPLAYED_LIST,
   };
 };

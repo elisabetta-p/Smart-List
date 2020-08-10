@@ -10,6 +10,7 @@ import {
   GET_USERS,
   LOAD_SHOPPING_LIST_IN_HOMEPAGE,
   LOAD_TODO_LIST_IN_HOMEPAGE,
+  CLEAR_DISPLAYED_LIST,
 } from "./listsActions";
 
 const initialState = {
@@ -79,6 +80,11 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         listDisplayed: { ...action.payload },
+      };
+    case CLEAR_DISPLAYED_LIST:
+      return {
+        ...state,
+        listDisplayed: {},
       };
     default:
       return state;
