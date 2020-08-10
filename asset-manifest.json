@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Smart-List/static/css/main.2cf46499.chunk.css",
-    "main.js": "/Smart-List/static/js/main.832dd261.chunk.js",
-    "main.js.map": "/Smart-List/static/js/main.832dd261.chunk.js.map",
+    "main.css": "/Smart-List/static/css/main.df8841ce.chunk.css",
+    "main.js": "/Smart-List/static/js/main.64edd53c.chunk.js",
+    "main.js.map": "/Smart-List/static/js/main.64edd53c.chunk.js.map",
     "runtime-main.js": "/Smart-List/static/js/runtime-main.293aa54d.js",
     "runtime-main.js.map": "/Smart-List/static/js/runtime-main.293aa54d.js.map",
     "static/js/2.670dced5.chunk.js": "/Smart-List/static/js/2.670dced5.chunk.js",
     "static/js/2.670dced5.chunk.js.map": "/Smart-List/static/js/2.670dced5.chunk.js.map",
     "index.html": "/Smart-List/index.html",
-    "precache-manifest.98eb6cd3f7fa6173988f17c7dd870779.js": "/Smart-List/precache-manifest.98eb6cd3f7fa6173988f17c7dd870779.js",
+    "precache-manifest.55c10f4356f2c1efb0320a6ab68d3543.js": "/Smart-List/precache-manifest.55c10f4356f2c1efb0320a6ab68d3543.js",
     "service-worker.js": "/Smart-List/service-worker.js",
-    "static/css/main.2cf46499.chunk.css.map": "/Smart-List/static/css/main.2cf46499.chunk.css.map",
+    "static/css/main.df8841ce.chunk.css.map": "/Smart-List/static/css/main.df8841ce.chunk.css.map",
     "static/js/2.670dced5.chunk.js.LICENSE.txt": "/Smart-List/static/js/2.670dced5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.293aa54d.js",
     "static/js/2.670dced5.chunk.js",
-    "static/css/main.2cf46499.chunk.css",
-    "static/js/main.832dd261.chunk.js"
+    "static/css/main.df8841ce.chunk.css",
+    "static/js/main.64edd53c.chunk.js"
   ]
 }
