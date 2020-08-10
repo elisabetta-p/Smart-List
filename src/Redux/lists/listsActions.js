@@ -10,7 +10,7 @@ export const GET_USERS = "GET_USERS";
 export const LOAD_SHOPPING_LIST_IN_HOMEPAGE = "LOAD_SHOPPING_LIST_IN_HOMEPAGE";
 export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
 export const CLEAR_DISPLAYED_LIST = "CLEAR_DISPLAYED_LIST";
-
+export const ADD_ITEM_TO_SHOPPING_LIST = "ADD_ITEM_TO_SHOPPING_LIST";
 export const getCategories = () => {
   const categories = [
     { id: 0, name: "Food" },
@@ -100,7 +100,12 @@ export const loadShoppingLists = () => {
         { id: 2, label: "Stuff" },
       ],
     },
-    { id: 1, name: "Seconda lista", items: [], categories: [] },
+    {
+      id: 1,
+      name: "Seconda lista",
+      items: [],
+      categories: [{ id: 0, name: "Food" }],
+    },
     {
       id: 2,
       name: "AAA",
@@ -487,8 +492,41 @@ export const loadSingleListInHomepage = (listId, type) => {
   };
 };
 
-export const clearDisplayedList = () => {
+const clearDisplayedList = () => {
   return {
     type: CLEAR_DISPLAYED_LIST,
+  };
+};
+/**
+ * Add an item to a shopping list.
+ * @param {number} id list id
+ * @param {string} name name of the item
+ * @param {string} description description of the item
+ * @param {boolean} isFav is favourite
+ * @param {number }category
+ */
+export const addShoppingItem = (id, name, description, isFav, category) => {
+  console.log(id, name, description, isFav, category);
+  const newItem = {
+    name,
+    description,
+    isFav,
+    category,
+  };
+  return (dispatch, getState) => {
+    const shoppingList = [...getState().lists.shoppingLists];
+    shoppingList.forEach((list) => {
+      if (list.id === id) {
+        list.items = [...list.items, newItem];
+      }
+    });
+    dispatch(executeAddShoppingItem([...shoppingList]));
+  };
+};
+
+const executeAddShoppingItem = (newShoppingList) => {
+  return {
+    type: ADD_ITEM_TO_SHOPPING_LIST,
+    payload: [...newShoppingList],
   };
 };

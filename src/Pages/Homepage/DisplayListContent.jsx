@@ -36,6 +36,7 @@ const DisplayListContent = (props) => {
   };
 
   const loadTheItems = (id) => {
+    console.log("items in list", props.list.items);
     return props.list.items.map((item, index) =>
       item.category === id ? (
         <tr key={index} className="single-item-in-list">

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
-
+import { addShoppingItem } from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Select from "react-select";
 
 const SelectCategories = (props) => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(null);
   const categoriesFromRedux = useSelector((store) => [
     ...store.lists.listDisplayed.categories,
   ]);
@@ -25,12 +25,8 @@ const SelectCategories = (props) => {
       <p className="text-modal">Select all the categories</p>
       <Select
         options={categoriesInsideList}
-        isMulti
         onChange={(event) => {
-          setSelectedCategories((selectedCategories) => [
-            ...selectedCategories,
-            event[event.length - 1].value,
-          ]);
+          setSelectedCategories(event.value);
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
@@ -45,7 +41,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
   // what kind of list is the user adding
   //which categories
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(null);
   // who is this shared with
   // error: name already used
   const [errorListName, setErrorListName] = useState(null);
@@ -54,20 +50,23 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
 
   const [isFav, setFav] = useState(false);
 
+  const listId = useSelector((store) => store.lists.listDisplayed.id);
   useEffect(() => {
     if (!categories) setErrorTypeOfList("Seleziona delle categorie");
   }, [categories]);
 
-  useEffect(() => {
-    return () => {
-      setCategories([]);
-    };
-  }, []);
-
+  const dispatch = useDispatch();
   const onSubmit = (formData, event) => {
     event.preventDefault();
-
-    //dispatch(addList(formData.name, , categories, sharingWith));
+    dispatch(
+      addShoppingItem(
+        listId,
+        formData.name,
+        formData.description,
+        isFav,
+        categories
+      )
+    );
   };
 
   function checkIfThereAreErrors() {
@@ -86,11 +85,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
-        <form
-          onSubmit={
-            !errorListName && !errorTypeOfList ? handleSubmit(onSubmit) : null
-          }
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle className="modal-title">
             <strong>Add a shopping item</strong>
           </DialogTitle>
@@ -159,7 +154,6 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                   const error = checkIfThereAreErrors();
                   if (error) e.preventDefault();
                   else {
-                    setCategories([]);
                     onClose();
                   }
                 }}
