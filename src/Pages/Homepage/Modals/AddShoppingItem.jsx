@@ -14,7 +14,7 @@ const SelectCategories = (props) => {
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.label };
   });
-
+  console.log(categoriesInsideList);
   const { categories } = props;
   useEffect(() => {
     categories(selectedCategories);

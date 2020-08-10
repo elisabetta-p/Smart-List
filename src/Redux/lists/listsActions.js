@@ -104,7 +104,7 @@ export const loadShoppingLists = () => {
       id: 1,
       name: "Seconda lista",
       items: [],
-      categories: [{ id: 0, name: "Food" }],
+      categories: [{ id: 0, label: "Food" }],
     },
     {
       id: 2,
@@ -515,18 +515,21 @@ export const addShoppingItem = (id, name, description, isFav, category) => {
   };
   return (dispatch, getState) => {
     const shoppingList = [...getState().lists.shoppingLists];
+    const listDisplayed = { ...getState().lists.listDisplayed };
+    listDisplayed.items.push(newItem);
     shoppingList.forEach((list) => {
       if (list.id === id) {
         list.items = [...list.items, newItem];
       }
     });
-    dispatch(executeAddShoppingItem([...shoppingList]));
+    dispatch(executeAddShoppingItem([...shoppingList], { ...listDisplayed }));
   };
 };
 
-const executeAddShoppingItem = (newShoppingList) => {
+const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
   return {
     type: ADD_ITEM_TO_SHOPPING_LIST,
-    payload: [...newShoppingList],
+    newShoppingList: [...newShoppingList],
+    newListDisplayed: { ...listDisplayed },
   };
 };

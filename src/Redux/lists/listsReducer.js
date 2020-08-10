@@ -90,7 +90,8 @@ const listsReducer = (state = initialState, action) => {
     case ADD_ITEM_TO_SHOPPING_LIST:
       return {
         ...state,
-        shoppingLists: [...action.payload],
+        shoppingLists: [...action.newShoppingList],
+        listDisplayed: { ...action.newListDisplayed },
       };
     default:
       return state;

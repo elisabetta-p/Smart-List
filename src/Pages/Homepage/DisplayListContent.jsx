@@ -4,6 +4,8 @@ import { HeartTwoTone } from "@ant-design/icons";
 
 const DisplayListContent = (props) => {
   const allCategories = useSelector((store) => store.lists.categories);
+  const items = useSelector((store) => [...store.lists.listDisplayed.items]);
+  console.log("items", items);
   /**
    * Removes any duplicates from the category array I get from the items inside the list
    * @returns {number[]} contains the ids of the categories that are present inside this list
@@ -35,10 +37,9 @@ const DisplayListContent = (props) => {
     return names;
   };
 
-  const loadTheItems = (id) => {
-    console.log("items in list", props.list.items);
-    return props.list.items.map((item, index) =>
-      item.category === id ? (
+  const loadTheItems = (categoryId) => {
+    return items.map((item, index) =>
+      item.category === categoryId ? (
         <tr key={index} className="single-item-in-list">
           <td style={{ width: "1rem" }}>
             <input type="checkbox" className="inside-td" />
@@ -65,7 +66,6 @@ const DisplayListContent = (props) => {
 
   const categories = removeDuplicatesFromCategories(props.list);
   const categoryNames = [...getTheNamesOfTheCategories(categories)];
-
   return (
     <div id="display-list">
       <table>
