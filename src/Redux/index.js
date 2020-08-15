@@ -10,4 +10,5 @@ export {
   getUsers,
   loadSingleListInHomepage,
   addShoppingItem,
+  addNewCategory,
 } from "./lists/listsActions";

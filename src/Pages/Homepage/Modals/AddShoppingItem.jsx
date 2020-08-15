@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
-import { addShoppingItem } from "../../../Redux";
+import { addShoppingItem, addNewCategory } from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
+  const dispatch = useDispatch();
+  const userCategoriesLength = useSelector(
+    (store) => store.lists.categories.length
+  );
   const categoriesFromRedux = useSelector((store) => [
     ...store.lists.listDisplayed.categories,
   ]);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.label };
   });
-  console.log(categoriesInsideList);
   const { categories } = props;
   useEffect(() => {
     categories(selectedCategories);
@@ -23,10 +26,15 @@ const SelectCategories = (props) => {
   return (
     <div>
       <p className="text-modal">Select all the categories</p>
-      <Select
+      <CreatableSelect
         options={categoriesInsideList}
         onChange={(event) => {
-          setSelectedCategories(event.value);
+          if (!event.__isNew__) setSelectedCategories(event.value);
+          else {
+            // create new category with id categories.length, name event.label
+            dispatch(addNewCategory(event.label));
+            setSelectedCategories(userCategoriesLength);
+          }
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable

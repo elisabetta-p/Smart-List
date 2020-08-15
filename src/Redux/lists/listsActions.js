@@ -11,6 +11,8 @@ export const LOAD_SHOPPING_LIST_IN_HOMEPAGE = "LOAD_SHOPPING_LIST_IN_HOMEPAGE";
 export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
 export const CLEAR_DISPLAYED_LIST = "CLEAR_DISPLAYED_LIST";
 export const ADD_ITEM_TO_SHOPPING_LIST = "ADD_ITEM_TO_SHOPPING_LIST";
+export const ADD_NEW_CATEGORY = "ADD_NEW_CATEGORY";
+
 export const getCategories = () => {
   const categories = [
     { id: 0, name: "Food" },
@@ -531,5 +533,31 @@ const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
     type: ADD_ITEM_TO_SHOPPING_LIST,
     newShoppingList: [...newShoppingList],
     newListDisplayed: { ...listDisplayed },
+  };
+};
+
+/**
+ * Adds new category to the user and also associates it to the list currently on display
+ * @param {string} categoryName name of the new category
+ * @returns {function(*): {payload: *[], type: string}}
+ */
+
+export const addNewCategory = (categoryName) => {
+  console.log(categoryName);
+  return (dispatch, getState) => {
+    const allCategories = [
+      ...getState().lists.categories,
+      { id: getState().lists.categories.length, name: categoryName },
+    ];
+    const listDisplayed = { ...getState().lists.listDisplayed };
+    listDisplayed.categories = [
+      ...getState().lists.listDisplayed.categories,
+      { id: getState().lists.categories.length, label: categoryName },
+    ];
+    dispatch({
+      type: ADD_NEW_CATEGORY,
+      payload: [...allCategories],
+      newListDisplayed: { ...listDisplayed },
+    });
   };
 };

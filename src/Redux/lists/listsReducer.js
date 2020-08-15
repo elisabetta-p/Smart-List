@@ -12,6 +12,7 @@ import {
   LOAD_TODO_LIST_IN_HOMEPAGE,
   CLEAR_DISPLAYED_LIST,
   ADD_ITEM_TO_SHOPPING_LIST,
+  ADD_NEW_CATEGORY,
 } from "./listsActions";
 
 const initialState = {
@@ -91,6 +92,12 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         shoppingLists: [...action.newShoppingList],
+        listDisplayed: { ...action.newListDisplayed },
+      };
+    case ADD_NEW_CATEGORY:
+      return {
+        ...state,
+        categories: [...action.payload],
         listDisplayed: { ...action.newListDisplayed },
       };
     default:
