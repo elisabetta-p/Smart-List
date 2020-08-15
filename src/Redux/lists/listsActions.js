@@ -545,19 +545,29 @@ const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
 export const addNewCategory = (categoryName) => {
   console.log(categoryName);
   return (dispatch, getState) => {
+    /**
+     * adding to all catergories in redux is useless.
+     * I'll replace this with an api call to add this in the db
+     */
     const allCategories = [
       ...getState().lists.categories,
       { id: getState().lists.categories.length, name: categoryName },
     ];
-    const listDisplayed = { ...getState().lists.listDisplayed };
-    listDisplayed.categories = [
-      ...getState().lists.listDisplayed.categories,
-      { id: getState().lists.categories.length, label: categoryName },
-    ];
+    const newListDisplayed = { ...getState().lists.listDisplayed };
+    if (getState().lists.listDisplayed.categories) {
+      newListDisplayed.categories = [
+        ...getState().lists.listDisplayed.categories,
+        { id: getState().lists.categories.length, label: categoryName },
+      ];
+    } else {
+      newListDisplayed.categories = [
+        { id: getState().lists.categories.length, label: categoryName },
+      ];
+    }
     dispatch({
       type: ADD_NEW_CATEGORY,
       payload: [...allCategories],
-      newListDisplayed: { ...listDisplayed },
+      newListDisplayed: { ...newListDisplayed },
     });
   };
 };

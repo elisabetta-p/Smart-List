@@ -39,7 +39,11 @@ const DisplayListHeader = (props) => {
           props.listType === "shopping" ? showAddShoppingItem : showAddTodoItem
         }
       >
-        Add item
+        {props.listType === "shopping" ? (
+          <span>Add item</span>
+        ) : (
+          <span>Add task</span>
+        )}
       </button>
     </div>
   );
