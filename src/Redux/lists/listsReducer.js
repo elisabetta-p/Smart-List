@@ -13,6 +13,7 @@ import {
   CLEAR_DISPLAYED_LIST,
   ADD_ITEM_TO_SHOPPING_LIST,
   ADD_NEW_CATEGORY,
+  CHECK_ITEM,
 } from "./listsActions";
 
 const initialState = {
@@ -100,6 +101,8 @@ const listsReducer = (state = initialState, action) => {
         categories: [...action.payload],
         listDisplayed: { ...action.newListDisplayed },
       };
+    case CHECK_ITEM:
+      return { ...state, listDisplayed: { ...action.payload } };
     default:
       return state;
   }

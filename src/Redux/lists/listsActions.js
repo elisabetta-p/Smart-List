@@ -12,6 +12,7 @@ export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
 export const CLEAR_DISPLAYED_LIST = "CLEAR_DISPLAYED_LIST";
 export const ADD_ITEM_TO_SHOPPING_LIST = "ADD_ITEM_TO_SHOPPING_LIST";
 export const ADD_NEW_CATEGORY = "ADD_NEW_CATEGORY";
+export const CHECK_ITEM = "CHECK_ITEM";
 
 export const getCategories = () => {
   const categories = [
@@ -37,7 +38,7 @@ export const loadShoppingLists = () => {
           description: "molto buone",
           isFav: true,
           category: 0,
-          isChecked: false,
+          isChecked: true,
         },
         {
           id: 1,
@@ -401,28 +402,20 @@ export const cleanLists = () => {
   };
 };
 
-export const changeCheck = (itemsList, itemId, shoppingOrTodo) => {
-  console.log(
-    "cose che arrivano all'action ",
-    itemsList,
-    itemId,
-    shoppingOrTodo
-  );
-  itemsList.forEach((element) => {
-    if (element.id === itemId) {
-      element.isChecked = !element.isChecked;
-    }
-  });
-  if (shoppingOrTodo === "shopping")
-    return {
-      type: CHANGE_CHECK_SHOPPING,
-      payload: [...itemsList],
-    };
-  else
-    return {
-      type: CHANGE_CHECK_TODO,
-      payload: [...itemsList],
-    };
+export const checkItem = (itemId) => {
+  return (dispatch, getState) => {
+    // here there will also be an API call
+    const newListDisplayed = { ...getState().lists.listDisplayed };
+    newListDisplayed.items.forEach((item) => {
+      if (item.id === itemId) {
+        item.isChecked = !item.isChecked;
+      }
+    });
+    dispatch({
+      type: CHECK_ITEM,
+      payload: { ...newListDisplayed },
+    });
+  };
 };
 
 export const getUsers = () => {
@@ -508,7 +501,6 @@ const clearDisplayedList = () => {
  * @param {number }category
  */
 export const addShoppingItem = (id, name, description, isFav, category) => {
-  console.log(id, name, description, isFav, category);
   const newItem = {
     name,
     description,
@@ -543,7 +535,6 @@ const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
  */
 
 export const addNewCategory = (categoryName) => {
-  console.log(categoryName);
   return (dispatch, getState) => {
     /**
      * adding to all catergories in redux is useless.

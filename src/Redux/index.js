@@ -6,7 +6,7 @@ export {
   addList,
   getCategories,
   cleanLists,
-  changeCheck,
+  checkItem,
   getUsers,
   loadSingleListInHomepage,
   addShoppingItem,

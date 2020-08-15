@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { HeartTwoTone } from "@ant-design/icons";
+import { checkItem } from "../../Redux";
+import { useDispatch } from "react-redux";
 
 const DisplayListContent = (props) => {
   const allCategories = useSelector((store) => store.lists.categories);
+  const dispatch = useDispatch();
   const items = useSelector((store) => [...store.lists.listDisplayed.items]);
-  console.log("items", items);
   /**
    * Removes any duplicates from the category array I get from the items inside the list
    * @returns {number[]} contains the ids of the categories that are present inside this list
@@ -42,7 +44,14 @@ const DisplayListContent = (props) => {
       item.category === categoryId ? (
         <tr key={index} className="single-item-in-list">
           <td style={{ width: "1rem" }}>
-            <input type="checkbox" className="inside-td" />
+            <input
+              type="checkbox"
+              className="inside-td"
+              checked={item.isChecked}
+              onClick={() => {
+                dispatch(checkItem(item.id));
+              }}
+            />
           </td>
           <td>
             {" "}
