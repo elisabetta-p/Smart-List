@@ -2,7 +2,6 @@ export const LOAD_LISTS = "LOAD_LISTS";
 export const ADD_SHOPPING_LIST = "CREATE_SHOPPING_LIST";
 export const GET_TODOS = "GET_TODOS";
 export const ADD_TODOLIST = "ADD_TODOLIST";
-export const GET_CATEGORIES = "GET_CATEGORIES";
 export const CLEAN_LISTS = "CLEAN_LISTS";
 export const CHANGE_CHECK_SHOPPING = "CHANGE_CHECK_SHOPPING";
 export const CHANGE_CHECK_TODO = "CHANGE_CHECK_TODO";
@@ -11,21 +10,10 @@ export const LOAD_SHOPPING_LIST_IN_HOMEPAGE = "LOAD_SHOPPING_LIST_IN_HOMEPAGE";
 export const LOAD_TODO_LIST_IN_HOMEPAGE = "LOAD_TODO_LIST_IN_HOMEPAGE";
 export const CLEAR_DISPLAYED_LIST = "CLEAR_DISPLAYED_LIST";
 export const ADD_ITEM_TO_SHOPPING_LIST = "ADD_ITEM_TO_SHOPPING_LIST";
-export const ADD_NEW_CATEGORY = "ADD_NEW_CATEGORY";
+export const ADD_NEW_CATEGORY_TO_LIST_DISPLAYED =
+  "ADD_NEW_CATEGORY_TO_LIST_DISPLAYED";
 export const CHECK_ITEM = "CHECK_ITEM";
 
-export const getCategories = () => {
-  const categories = [
-    { id: 0, name: "Food" },
-    { id: 1, name: "Clothes" },
-    { id: 2, name: "Stuff" },
-    { id: 3, name: "AAA" },
-  ];
-  return {
-    type: GET_CATEGORIES,
-    payload: [...categories],
-  };
-};
 export const loadShoppingLists = () => {
   const lists = [
     {
@@ -528,36 +516,21 @@ const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
   };
 };
 
-/**
- * Adds new category to the user and also associates it to the list currently on display
- * @param {string} categoryName name of the new category
- * @returns {function(*): {payload: *[], type: string}}
- */
-
-export const addNewCategory = (categoryName) => {
+export const addCategoryToDisplayedList = (categoryName) => {
   return (dispatch, getState) => {
-    /**
-     * adding to all catergories in redux is useless.
-     * I'll replace this with an api call to add this in the db
-     */
-    const allCategories = [
-      ...getState().lists.categories,
-      { id: getState().lists.categories.length, name: categoryName },
-    ];
     const newListDisplayed = { ...getState().lists.listDisplayed };
     if (getState().lists.listDisplayed.categories) {
       newListDisplayed.categories = [
         ...getState().lists.listDisplayed.categories,
-        { id: getState().lists.categories.length, label: categoryName },
+        { id: getState().user.categories.length, label: categoryName },
       ];
     } else {
       newListDisplayed.categories = [
-        { id: getState().lists.categories.length, label: categoryName },
+        { id: getState().user.categories.length, label: categoryName },
       ];
     }
     dispatch({
-      type: ADD_NEW_CATEGORY,
-      payload: [...allCategories],
+      type: ADD_NEW_CATEGORY_TO_LIST_DISPLAYED,
       newListDisplayed: { ...newListDisplayed },
     });
   };

@@ -4,11 +4,10 @@ export {
   loadShoppingLists,
   getTodoLists,
   addList,
-  getCategories,
   cleanLists,
   checkItem,
   getUsers,
   loadSingleListInHomepage,
   addShoppingItem,
-  addNewCategory,
 } from "./lists/listsActions";
+export { addNewCategory, getCategories } from "./user/userActions";

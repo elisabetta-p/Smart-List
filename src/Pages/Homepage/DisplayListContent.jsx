@@ -5,7 +5,7 @@ import { checkItem } from "../../Redux";
 import { useDispatch } from "react-redux";
 
 const DisplayListContent = (props) => {
-  const allCategories = useSelector((store) => store.lists.categories);
+  const allCategories = useSelector((store) => store.user.categories);
   const dispatch = useDispatch();
   const items = useSelector((store) => [...store.lists.listDisplayed.items]);
   /**
@@ -48,7 +48,7 @@ const DisplayListContent = (props) => {
               type="checkbox"
               className="inside-td"
               checked={item.isChecked}
-              onClick={() => {
+              onChange={() => {
                 dispatch(checkItem(item.id));
               }}
             />

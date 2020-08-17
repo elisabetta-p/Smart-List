@@ -43,7 +43,7 @@ const SelectListType = (props) => {
 };
 
 const SelectCategories = (props) => {
-  const categoriesFromRedux = useSelector((state) => state.lists.categories);
+  const categoriesFromRedux = useSelector((state) => state.user.categories);
   const [selectedCategories, setSelectedCategories] = useState([]);
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
   const reduxCategories = categoriesFromRedux.map((cat) => {

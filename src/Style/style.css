@@ -8,6 +8,7 @@
   margin-inline-start: 0;
   margin-inline-end: 0;
   font-family: "Roboto", sans-serif;
+  font-size: 1em;
 }
 
 #tsparticles,
@@ -327,7 +328,7 @@ table {
 }
 
 .header-button {
-  width: 10em;
+  width: 13em;
 }
 
 .list-container-title {
@@ -535,6 +536,9 @@ input[type=radio]:checked:before {
   100% {
     transform: scale(0.9);
   }
+}
+.MuiDialogContent-root {
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

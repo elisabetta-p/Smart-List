@@ -10,7 +10,7 @@ const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const dispatch = useDispatch();
   const userCategoriesLength = useSelector(
-    (store) => store.lists.categories.length
+    (store) => store.user.categories.length
   );
   const categoriesFromRedux = useSelector((store) =>
     store.lists.listDisplayed.categories
@@ -110,7 +110,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                 id="name"
                 type="text"
                 name="name"
-                placeholder="Insert the name of the new todo list"
+                placeholder="Insert the name of the new task"
                 ref={register({
                   required: {
                     value: true,

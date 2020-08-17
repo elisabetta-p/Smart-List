@@ -10,7 +10,7 @@ const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const dispatch = useDispatch();
   const userCategoriesLength = useSelector(
-    (store) => store.lists.categories.length
+    (store) => store.user.categories.length
   );
   const categoriesFromRedux = useSelector((store) => [
     ...store.lists.listDisplayed.categories,

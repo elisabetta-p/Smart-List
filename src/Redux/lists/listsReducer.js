@@ -3,7 +3,6 @@ import {
   ADD_SHOPPING_LIST,
   GET_TODOS,
   ADD_TODOLIST,
-  GET_CATEGORIES,
   CLEAN_LISTS,
   CHANGE_CHECK_TODO,
   CHANGE_CHECK_SHOPPING,
@@ -12,14 +11,14 @@ import {
   LOAD_TODO_LIST_IN_HOMEPAGE,
   CLEAR_DISPLAYED_LIST,
   ADD_ITEM_TO_SHOPPING_LIST,
-  ADD_NEW_CATEGORY,
+  ADD_NEW_CATEGORY_TO_LIST_DISPLAYED,
   CHECK_ITEM,
 } from "./listsActions";
 
 const initialState = {
   shoppingLists: [],
   todoLists: [],
-  categories: [],
+  //categories: [],
   users: [],
   listDisplayed: {},
 };
@@ -46,11 +45,7 @@ const listsReducer = (state = initialState, action) => {
         ...state,
         shoppingLists: [...action.payload],
       };
-    case GET_CATEGORIES:
-      return {
-        ...state,
-        categories: [...action.payload],
-      };
+
     case CLEAN_LISTS:
       return {
         ...state,
@@ -95,10 +90,10 @@ const listsReducer = (state = initialState, action) => {
         shoppingLists: [...action.newShoppingList],
         listDisplayed: { ...action.newListDisplayed },
       };
-    case ADD_NEW_CATEGORY:
+    case ADD_NEW_CATEGORY_TO_LIST_DISPLAYED:
       return {
         ...state,
-        categories: [...action.payload],
+        //categories: [...action.payload],
         listDisplayed: { ...action.newListDisplayed },
       };
     case CHECK_ITEM:

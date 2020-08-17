@@ -5,6 +5,7 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
 import { useModal } from "react-modal-hook";
 import CreateList from "./Modals/CreateList";
+import ManageCategories from "./Modals/ManageCategories";
 
 const Header = () => {
   const history = useHistory();
@@ -13,6 +14,16 @@ const Header = () => {
     hideCreateList,
   ] = useModal(({ in: open, onExited }) => (
     <CreateList open={open} onExited={onExited} onClose={hideCreateList} />
+  ));
+  const [
+    showManageCategories,
+    hideManageCategories,
+  ] = useModal(({ in: open, onExited }) => (
+    <ManageCategories
+      open={open}
+      onExited={onExited}
+      onClose={hideManageCategories}
+    />
   ));
   /*const [
     showCreateShoppingList,
@@ -90,6 +101,12 @@ const Header = () => {
             </h1>
           </span>
           <span className="header-right">
+            <button
+              className="button header-button"
+              onClick={showManageCategories}
+            >
+              Manage the categories
+            </button>
             <button className="button header-button" onClick={showCreateList}>
               Create a new list
             </button>
