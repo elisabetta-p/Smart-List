@@ -9,7 +9,9 @@ import {
 } from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import CreatableSelect from "react-select/creatable";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
 const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const dispatch = useDispatch();
@@ -61,15 +63,21 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   // error: name already used
   const [errorListName, setErrorListName] = useState(null);
   // error a category wasn't selected
-  const [errorTypeOfList, setErrorTypeOfList] = useState(null);
+  //const [errorTypeOfList, setErrorTypeOfList] = useState(null);
 
   const [isFav, setFav] = useState(false);
 
   const listId = useSelector((store) => store.lists.listDisplayed.id);
+
+  const [startDate, setStartDate] = useState(
+    //setHours(setMinutes(new Date(), 30), 17)
+    null
+  );
+  /*
   useEffect(() => {
     if (!categories) setErrorTypeOfList("Seleziona delle categorie");
-  }, [categories]);
-
+  }, []);
+  */
   const dispatch = useDispatch();
   const onSubmit = (formData, event) => {
     event.preventDefault();
@@ -159,6 +167,16 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
+            />
+            <DatePicker
+              selected={startDate}
+              onChange={(event) => setStartDate(event)}
+              showTimeSelect
+              //minTime={setHours(setMinutes(new Date(), 0), 17)}
+              //maxTime={setHours(setMinutes(new Date(), 30), 20)}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              style={{ position: "relative", zIndex: "9999" }}
+              withPortal
             />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
