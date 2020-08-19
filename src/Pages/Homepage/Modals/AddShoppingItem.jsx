@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
-import { addShoppingItem, addNewCategory } from "../../../Redux";
+import {
+  addShoppingItem,
+  addNewCategory,
+  addCategoryToDisplayedList,
+} from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import CreatableSelect from "react-select/creatable";
 
@@ -33,6 +37,7 @@ const SelectCategories = (props) => {
           else {
             // create new category with id categories.length, name event.label
             dispatch(addNewCategory(event.label));
+            dispatch(addCategoryToDisplayedList(event.label));
             setSelectedCategories(userCategoriesLength);
           }
         }}

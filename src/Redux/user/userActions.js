@@ -34,10 +34,50 @@ export const addNewCategory = (categoryName) => {
       ...getState().user.categories,
       { id: getState().user.categories.length, name: categoryName },
     ];
-    dispatch(addCategoryToDisplayedList(categoryName));
+    //dispatch(addCategoryToDisplayedList(categoryName));
     dispatch({
       type: ADD_CATEGORY,
       payload: [...allCategories],
+    });
+  };
+};
+
+/**
+ * Edits the name of an existing category
+ * @param {number} id id of the category to edit
+ * @param {string} newName new name of the category
+ * @returns {function(...[*]=)}
+ */
+export const editCategory = (id, newName) => {
+  return (dispatch, getState) => {
+    const existingCategories = [...getState().user.categories];
+    existingCategories.forEach((cat) => {
+      if (cat.id === id) {
+        cat.name = newName;
+      }
+    });
+    dispatch({
+      type: EDIT_CATEGORY,
+      payload: [...existingCategories],
+    });
+  };
+};
+
+/**
+ * Deletes an existing category
+ * @param {number} id id of the category to delete
+ * @returns {function(...[*]=)}
+ */
+
+export const deleteCategory = (id) => {
+  return (dispatch, getState) => {
+    const existingCategories = [...getState().user.categories];
+    const filteredCategories = existingCategories.filter(
+      (cat) => cat.id !== id
+    );
+    dispatch({
+      type: DELETE_CATEGORY,
+      payload: [...filteredCategories],
     });
   };
 };

@@ -9,5 +9,11 @@ export {
   getUsers,
   loadSingleListInHomepage,
   addShoppingItem,
+  addCategoryToDisplayedList,
 } from "./lists/listsActions";
-export { addNewCategory, getCategories } from "./user/userActions";
+export {
+  addNewCategory,
+  getCategories,
+  editCategory,
+  deleteCategory,
+} from "./user/userActions";

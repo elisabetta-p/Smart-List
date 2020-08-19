@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { HeartTwoTone } from "@ant-design/icons";
-import { addShoppingItem, addNewCategory } from "../../../Redux";
+import { addNewCategory, deleteCategory, editCategory } from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Select from "react-select";
 import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 
 const EditCategory = (props) => {
+  // selectedCategory contains the id of the category selected
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [newName, setNewName] = useState(null);
   const categoriesFromRedux = useSelector((store) => [
@@ -18,11 +16,11 @@ const EditCategory = (props) => {
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.name };
   });
-  const { category, newCategoryName } = props;
+  const { category, editedCategoryName, idToEdit } = props;
   useEffect(() => {
     category(selectedCategory);
-    newCategoryName(newName);
-  }, [selectedCategory, category, newCategoryName]);
+    editedCategoryName(newName);
+  }, [selectedCategory, category, editedCategoryName, idToEdit, newName]);
 
   return (
     <div>
@@ -45,8 +43,41 @@ const EditCategory = (props) => {
         className="input input-new-item"
         style={{ margin: "0" }}
         onChange={(event) => {
+          console.log(event.target.value);
           setNewName(event.target.value);
+          console.log(newName);
         }}
+      />
+    </div>
+  );
+};
+
+const DeleteCategory = (props) => {
+  // selectedCategory contains the id of the category selected
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const categoriesFromRedux = useSelector((store) => [
+    ...store.user.categories,
+  ]);
+  const categoriesInsideList = categoriesFromRedux.map((cat) => {
+    return { value: cat.id, label: cat.name };
+  });
+  const { category } = props;
+  useEffect(() => {
+    category(selectedCategory);
+  }, [selectedCategory, category]);
+
+  return (
+    <div>
+      <Select
+        options={categoriesInsideList}
+        onChange={(event) => {
+          setSelectedCategory(event.value);
+        }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        isSearchable
+        menuPortalTarget={document.body}
+        className="select-add-list"
+        placeholder="Select the category you want to edit"
       />
     </div>
   );
@@ -54,13 +85,32 @@ const EditCategory = (props) => {
 
 const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
-  const [categories, setCategories] = useState(null);
+
+  const [newCategory, setNewCategory] = useState(null);
   //edit the category name
-  const [newName, setNewName] = useState(null);
+  const [newEditedName, setNewEditedName] = useState(null);
+  const [idToEdit, setIdToEdit] = useState(null);
+  // delete a category
+  const [idToDelete, setIdToDelete] = useState(null);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(idToDelete);
+  }, [idToDelete]);
+
   const onSubmit = (formData, event) => {
     event.preventDefault();
+    if (newCategory) {
+      dispatch(addNewCategory(newCategory));
+    }
+    if (idToEdit) {
+      dispatch(editCategory(idToEdit, newEditedName));
+    }
+    if (idToDelete) {
+      console.log("s");
+      dispatch(deleteCategory(idToDelete));
+    }
   };
 
   function checkIfThereAreErrors() {
@@ -102,6 +152,9 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                   placeholder="Insert the name of the new category"
                   className="input input-new-item"
                   style={{ margin: "0" }}
+                  onChange={(event) => {
+                    setNewCategory(event.target.value);
+                  }}
                 />
               </Accordion.Collapse>
               <Accordion.Toggle eventKey="1" className="button header-button ">
@@ -109,9 +162,10 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="1">
                 <div>
+                  {/*category contains the id of the category i'm editing*/}
                   <EditCategory
-                    category={setCategories}
-                    newCategoryName={setNewName}
+                    category={setIdToEdit}
+                    editedCategoryName={setNewEditedName}
                   />
                 </div>
               </Accordion.Collapse>
@@ -119,7 +173,7 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 Delete an existing category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="2">
-                <div>Hello! I'm another body</div>
+                <DeleteCategory category={setIdToDelete} />
               </Accordion.Collapse>
             </Accordion>
             <span style={{ display: "flex", justifyContent: "center" }}>
@@ -128,11 +182,11 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 className="button"
                 value="Confirm"
                 onClick={(e) => {
-                  const error = checkIfThereAreErrors();
+                  /*const error = checkIfThereAreErrors();
                   if (error) e.preventDefault();
-                  else {
-                    onClose();
-                  }
+                  else {*/
+                  onClose();
+                  //}
                 }}
                 style={{ display: "flex", justifyContent: "center" }}
               />
