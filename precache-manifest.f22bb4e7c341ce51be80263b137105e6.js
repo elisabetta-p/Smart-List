@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "24678f7f524621c51a66bae6fcd9326a",
+    "revision": "1ad15ae1f67f4092eec7c1b797a35d7f",
     "url": "/Smart-List/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Smart-List/static/css/2.761498e4.chunk.css"
   },
   {
-    "revision": "6653132155f9d82705dd",
+    "revision": "d81c11a6ad7955bb5b30",
     "url": "/Smart-List/static/css/main.167477b2.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Smart-List/static/js/2.4ecea04d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6653132155f9d82705dd",
-    "url": "/Smart-List/static/js/main.51bcd6f0.chunk.js"
+    "revision": "d81c11a6ad7955bb5b30",
+    "url": "/Smart-List/static/js/main.c3a83e76.chunk.js"
   },
   {
     "revision": "596fa89958bcbb9c2ae0",
