@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
@@ -52,40 +52,42 @@ const SelectCategories = (props) => {
 
 const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
-  // what kind of list is the user adding
-  //which categories
-  const [categories, setCategories] = useState(null);
-  // who is this shared with
-  // error: name already used
-  const [errorListName, setErrorListName] = useState(null);
-  // error a category wasn't selected
-  const [errorTypeOfList, setErrorTypeOfList] = useState(null);
 
+  const [itemName, setItemName] = useState(null);
+  const [categories, setCategories] = useState(null);
+  const [errorItemName, setErrorItemName] = useState(null);
+  const [errorItemNameLength, setErrorItemLength] = useState(null);
   const [isFav, setFav] = useState(false);
 
   const listId = useSelector((store) => store.lists.listDisplayed.id);
+
+  const itemNameRef = useCallback((node) => {
+    if (node !== null) {
+      node.focus();
+    }
+  }, []);
+
   useEffect(() => {
-    if (!categories) setErrorTypeOfList("Seleziona delle categorie");
-  }, [categories]);
+    if (itemName) {
+      if (itemName.length < 3) setErrorItemLength("The item name is too short");
+      if (itemName.length > 32) setErrorItemLength("The item name is too long");
+      if (itemName.length >= 3 && itemName.length <= 32)
+        setErrorItemLength(null);
+    }
+  }, [itemName]);
 
   const dispatch = useDispatch();
   const onSubmit = (formData, event) => {
     event.preventDefault();
     dispatch(
-      addShoppingItem(
-        listId,
-        formData.name,
-        formData.description,
-        isFav,
-        categories
-      )
+      addShoppingItem(listId, itemName, formData.description, isFav, categories)
     );
   };
 
   function checkIfThereAreErrors() {
     let errors = false;
     if (document.getElementById("name").value === "") {
-      setErrorListName("Please write a name");
+      setErrorItemName("Please write a name");
       errors = true;
     }
 
@@ -114,22 +116,12 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                 type="text"
                 name="name"
                 placeholder="Insert the name of the new todo list"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please insert a name",
-                  },
-                  minLength: {
-                    value: 3,
-                    message: "Name too short",
-                  },
-                  maxLength: {
-                    value: 32,
-                    message: "Name too long",
-                  },
-                })}
+                ref={itemNameRef}
                 className="input input-new-item"
                 style={{ margin: "0" }}
+                onChange={(event) => {
+                  setItemName(event.target.value);
+                }}
               />
               <HeartTwoTone
                 twoToneColor={isFav ? "#faaca8" : "#fff"}
@@ -140,9 +132,11 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
               />
             </div>
             <p className="error-message" style={{ marginBottom: "1rem" }}>
-              {errorListName}
+              {errorItemName}
             </p>
-
+            <p className="error-message" style={{ marginBottom: "1rem" }}>
+              {errorItemNameLength}
+            </p>
             <textarea
               id="description"
               name="description"
@@ -165,7 +159,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                 value="Add the new item"
                 onClick={(e) => {
                   const error = checkIfThereAreErrors();
-                  if (error) e.preventDefault();
+                  if (error && !errorItemNameLength) e.preventDefault();
                   else {
                     onClose();
                   }

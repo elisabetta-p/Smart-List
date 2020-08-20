@@ -1,6 +1,4 @@
-// @flow
-
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { signup } from "../Redux";
@@ -8,17 +6,53 @@ import Particles from "react-particles-js";
 import { useHistory } from "react-router";
 
 const Signup = (_: void): React$Element<*> => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const [username, setUsername] = useState(null);
+  const [errorUsername, setErrorUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+  const usernameRef = useRef();
 
   useEffect(() => {
     localStorage.clear();
+    usernameRef.current.focus();
   }, []);
 
-  const onSubmit = (formData) => {
-    localStorage.setItem("username", formData.username);
-    console.log(localStorage);
-    dispatch(signup(formData.username, formData.email, formData.password));
+  useEffect(() => {
+    if (email) {
+      const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!regex.test(String(email).toLowerCase())) {
+        setErrorEmail("Email format not valid");
+      } else {
+        setErrorEmail(null);
+      }
+    }
+  }, [email]);
+  useEffect(() => {
+    if (username) {
+      if (username.length < 3)
+        setErrorUsername("The chosen username is too short");
+      if (username.length > 32)
+        setErrorUsername("The chosen username is too long");
+      if (username.length >= 3 && username.length <= 32) setErrorUsername(null);
+    }
+  }, [username]);
+  useEffect(() => {
+    if (password) {
+      if (password.length < 3)
+        setErrorPassword("The chosen password is too short");
+      if (password.length > 32)
+        setErrorPassword("The chosen password is too long");
+      if (password.length >= 3 && password.length <= 32) setErrorPassword(null);
+    }
+  }, [password]);
+
+  const onSubmit = () => {
+    localStorage.setItem("username", username);
+    dispatch(signup(username, email, password));
     history.push(
       `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`
     );
@@ -82,55 +116,51 @@ const Signup = (_: void): React$Element<*> => {
         }}
       />
       <div className="form-login-container">
-        <h1 className="hello">
-          Welcome{watch("username") ? `, ${watch("username")}` : null}
-        </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <h1 className="hello">Welcome{username ? `, ${username}` : null}</h1>
+        <form
+          onSubmit={
+            !errorUsername &&
+            !errorEmail &&
+            !errorPassword &&
+            username &&
+            password &&
+            email
+              ? handleSubmit(onSubmit)
+              : null
+          }
+          className="form"
+        >
           <input
             name="username"
             placeholder="Insert your username"
             type="text"
-            ref={register({
-              required: { value: true, message: "Please insert your username" },
-              minLength: { value: 3, message: "Username too short" },
-              maxLength: { value: 32, message: "Username too long" },
-            })}
+            ref={usernameRef}
             className="input"
+            onChange={(event) => setUsername(event.target.value)}
           />
+          <p className="error-message">{errorUsername}</p>
           <input
             name="email"
             placeholder="Insert your email"
             type="email"
-            ref={register({
-              required: { value: true, message: "Please insert your email" },
-              /*pattern: {
-                value: /S+@S+.S+/,
-                message: "Email format not valid",
-              },*/
-            })}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
             className="input"
           />
+          <p className="error-message">{errorEmail}</p>
           <input
             name="password"
             placeholder="Insert your password"
             type="password"
-            ref={register({
-              required: { value: true, message: "Please insert your password" },
-              minLength: { value: 3, message: "Password too short" },
-              maxLength: { value: 32, message: "Password too long" },
-            })}
+            onChange={(event) => {
+              setPassword(event.target.value);
+              console.log(password);
+            }}
             className="input"
           />
+          <p className="error-message">{errorPassword}</p>
 
-          {errors.username ? (
-            <p className="error-message">{errors.username.message}</p>
-          ) : null}
-          {errors.password ? (
-            <p className="error-message">{errors.password.message}</p>
-          ) : null}
-          {errors.email ? (
-            <p className="error-message">{errors.email.message}</p>
-          ) : null}
           <input type="submit" value="Confirm" className="button" />
           <button
             onClick={() => {

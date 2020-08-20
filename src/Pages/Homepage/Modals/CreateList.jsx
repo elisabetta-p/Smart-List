@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { addList } from "../../../Redux";
@@ -86,7 +86,7 @@ const SelectCategories = (props) => {
 };
 
 const CreateList = ({ createShoppingList, onClose, ...rest }) => {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const existingShopppingListsNames = useSelector((state) =>
     state.lists.shoppingLists.map((list) => list.name)
@@ -94,6 +94,8 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const existingTodoListsNames = useSelector((state) =>
     state.lists.todoLists.map((list) => list.name)
   );
+
+  const [listName, setListName] = useState(null);
   // what kind of list is the user adding
   const [typeOfList, changeTypeOfList] = useState(null);
   //which categories
@@ -102,26 +104,52 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
   const [sharingWith, setSharingWith] = useState([]);
   // error: name already used
   const [errorListName, setErrorListName] = useState(null);
+  // error: name length not right
+  const [errorListNameLength, setErrorListNameLength] = useState(null);
   // error a category wasn't selected
   const [errorTypeOfList, setErrorTypeOfList] = useState(null);
 
+  const listNameRef = useCallback((node) => {
+    if (node !== null) {
+      node.focus();
+    }
+  }, []);
+
   useEffect(() => {
-    if (!categories) setErrorTypeOfList("Seleziona delle categorie");
+    if (!categories) setErrorTypeOfList("Select at least one category");
   }, [categories, typeOfList]);
+
+  useEffect(() => {
+    if (listName === "") {
+      setErrorListName("Please write a name");
+    } else if (listName) {
+      if (listName.length < 3) {
+        setErrorListNameLength("List name is too short");
+      }
+      if (listName.length > 32) {
+        setErrorListNameLength("List name is too long");
+      }
+      if (listName.length <= 32 && listName.length >= 3) {
+        setErrorListNameLength(null);
+      }
+    }
+  }, [listName]);
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
-    console.log("onSubmit. type of list:", typeOfList);
 
-    dispatch(addList(formData.name, typeOfList, categories, sharingWith));
+    dispatch(addList(listName, typeOfList, categories, sharingWith));
   };
 
+  /**
+   * Called when the user clicks the button to confirm they want to add a new list.
+   * Checks if:
+   * 1. the user selected the type of list
+   * 2. a list with that name already exists
+   * @returns {boolean}
+   */
   function checkIfThereAreErrors() {
     let errors = false;
-    if (document.getElementById("name").value === "") {
-      setErrorListName("Please write a name");
-      errors = true;
-    }
     if (!typeOfList) {
       setErrorTypeOfList("Select a type of list to add");
       errors = true;
@@ -143,14 +171,13 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
         document.getElementById("name").value
       );
       if (alreadyThere) {
-        setErrorListName("A shopping list with this name already exists");
+        setErrorListName("A todo list with this name already exists");
         errors = true;
       } else {
         setErrorListName(null);
         errors = false;
       }
     }
-
     return errors;
   }
   /**
@@ -162,7 +189,9 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
       <div className="colorfulBg">
         <form
           onSubmit={
-            !errorListName && !errorTypeOfList ? handleSubmit(onSubmit) : null
+            !errorListName && !errorTypeOfList && !errorListNameLength
+              ? handleSubmit(onSubmit)
+              : null
           }
         >
           <DialogTitle className="modal-title">
@@ -174,24 +203,15 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               type="text"
               name="name"
               placeholder="Insert the name of the new todo list"
-              ref={register({
-                required: {
-                  value: true,
-                  message: "Please insert a name",
-                },
-                minLength: {
-                  value: 3,
-                  message: "Name too short",
-                },
-                maxLength: {
-                  value: 32,
-                  message: "Name too long",
-                },
-              })}
+              ref={listNameRef}
               className="input input-new-list"
+              onChange={(event) => setListName(event.target.value)}
             />
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorListName}
+            </p>
+            <p className="error-message" style={{ marginBottom: "1rem" }}>
+              {errorListNameLength}
             </p>
             <SelectListType type={changeTypeOfList} />
             <p className="error-message" style={{ marginBottom: "1rem" }}>
@@ -209,7 +229,8 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
                 value="Add the new list"
                 onClick={(e) => {
                   const error = checkIfThereAreErrors();
-                  if (error) e.preventDefault();
+                  if (error || errorListNameLength || errorListName)
+                    e.preventDefault();
                   else onClose();
                 }}
                 style={{ display: "flex", justifyContent: "center" }}

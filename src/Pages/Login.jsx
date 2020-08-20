@@ -1,6 +1,4 @@
-// @flow
-
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux";
@@ -8,16 +6,33 @@ import Particles from "react-particles-js";
 import { Link, useHistory } from "react-router-dom";
 
 const Login = (_: void): React$Element<*> => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onSubmit = (formData) => {
-    localStorage.setItem("username", formData.username);
-    dispatch(login(formData.username, formData.password));
-    history.push(
-      `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`
-    );
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const usernameRef = useRef(null);
+
+  const [errorMessage, setErrorMessage] = useState(null);
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    if (username && password) setErrorMessage(null);
+  }, [username, password]);
+
+  const onSubmit = () => {
+    localStorage.setItem("username", username);
+    if (username && password && !errorMessage) {
+      dispatch(login(username, password));
+      history.push(
+        `/profile/${localStorage.getItem("username").toLocaleLowerCase()}`
+      );
+    } else {
+      setErrorMessage("Please insert username and password");
+    }
   };
 
   return (
@@ -78,39 +93,29 @@ const Login = (_: void): React$Element<*> => {
         }}
       />
       <div className="form-login-container">
-        <h1 className="hello">
-          Hello{watch("username") ? `, ${watch("username")}` : null}
-        </h1>
+        <h1 className="hello">Hello{username ? `, ${username}` : null}</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="form">
           <input
             name="username"
             placeholder="Insert your username"
             type="text"
-            ref={register({
-              required: { value: true, message: "Please insert your username" },
-              minLength: { value: 3, message: "Username too short" },
-              maxLength: { value: 32, message: "Username too long" },
-            })}
+            ref={usernameRef}
             className="input"
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }}
           />
 
           <input
             name="password"
             placeholder="Insert your password"
             type="password"
-            ref={register({
-              required: { value: true, message: "Please insert your password" },
-              minLength: { value: 3, message: "Password too short" },
-              maxLength: { value: 32, message: "Password too long" },
-            })}
             className="input"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
           />
-          {errors.username ? (
-            <p className="error-message">{errors.username.message}</p>
-          ) : null}
-          {errors.password ? (
-            <p className="error-message">{errors.password.message}</p>
-          ) : null}
+          <p className="error-message">{errorMessage}</p>
           <input type="submit" value="Login" className="button" />
           <Link to="/signup">
             <button className="button">Sign up</button>
