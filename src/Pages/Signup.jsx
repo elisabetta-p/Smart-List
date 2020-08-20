@@ -163,7 +163,8 @@ const Signup = (_: void): React$Element<*> => {
 
           <input type="submit" value="Confirm" className="button" />
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               history.goBack();
             }}
             className="button"
