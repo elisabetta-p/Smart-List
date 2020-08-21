@@ -30,7 +30,7 @@ body,
 
 .colorfulBg {
   background-color: #faaca8;
-  background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
+  background-image: radial-gradient(circle at top right, #faaca8, transparent), radial-gradient(circle at bottom left, #ddd6f3, transparent);
 }
 
 .login-container {
@@ -86,10 +86,9 @@ h1 {
 }
 
 .button {
-  width: 6rem;
   border-radius: 5px;
   border: none;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   margin: 1rem;
   height: 2rem;
   color: #683a38;
@@ -102,11 +101,13 @@ h1 {
 }
 
 .button:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(221, 214, 243, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .button-list:hover {
   box-shadow: 0 0 20px rgba(221, 214, 243, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .button-inside-td {
@@ -118,12 +119,13 @@ h1 {
 }
 
 .delete-button:hover {
-  background: rgba(231, 165, 171, 0.4);
+  box-shadow: 0 0 20px rgba(231, 165, 171, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .header-container {
   background-color: #faaca8;
-  background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
+  background-image: radial-gradient(circle at top right, #faaca8, transparent), radial-gradient(circle at bottom left, #ddd6f3, transparent);
   position: relative;
   height: 10vh;
   top: 0;
@@ -178,6 +180,7 @@ header {
   margin: 2em auto;
 }
 
+/*
 .list-columns {
   -moz-column-count: 3;
   -moz-column-gap: 3%;
@@ -193,15 +196,11 @@ header {
 
 .card {
   margin: 0;
-  -webkit-column-break-inside: avoid;
-  /* Chrome, Safari */
-  page-break-inside: avoid;
-  /* Theoretically FF 20+ */
-  break-inside: avoid-column;
-  /* IE 11 */
+  -webkit-column-break-inside: avoid;  Chrome, Safari
+  page-break-inside: avoid;  Theoretically FF 20+
+  break-inside: avoid-column; IE 11
   display: table;
-}
-
+}*/
 .header-right {
   display: flex;
   align-items: center;
@@ -216,7 +215,7 @@ header {
 
 .list-header {
   background-color: #faaca8;
-  background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
+  background-image: radial-gradient(circle at top right, #faaca8, transparent), radial-gradient(circle at bottom left, #ddd6f3, transparent);
   position: relative;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -242,18 +241,18 @@ header {
   margin: 0.5rem;
   padding: 0.3rem;
   letter-spacing: 1.5px;
-  background-image: linear-gradient(19deg, rgba(250, 172, 168, 0.4) 0%, rgba(221, 214, 243, 0.4) 100%);
+  background-image: radial-gradient(circle at top right, rgba(250, 172, 168, 0.4), transparent), radial-gradient(circle at bottom left, rgba(221, 214, 243, 0.4), transparent);
   border-radius: 5px;
 }
 
 #display-list ul:not(:first-child) .category-name-display {
   border-top: 2px solid;
   border-image-slice: 1;
-  border-image-source: linear-gradient(19deg, rgba(250, 172, 168, 0.4) 0%, rgba(221, 214, 243, 0.4) 100%);
+  border-image-source: radial-gradient(circle at top right, rgba(250, 172, 168, 0.4), transparent), radial-gradient(circle at bottom left, rgba(221, 214, 243, 0.4), transparent);
 }
 
 .category-name-in-homepage {
-  background-image: linear-gradient(19deg, rgba(221, 214, 243, 0.4) 0%, rgba(250, 172, 168, 0.4) 100%);
+  background-image: radial-gradient(circle at top right, rgba(221, 214, 243, 0.4), transparent), radial-gradient(circle at bottom left, rgba(250, 172, 168, 0.4), transparent);
 }
 
 .list-content {
@@ -312,14 +311,15 @@ table {
 
 .add-item-button {
   background-color: #faaca8;
-  background-image: linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
+  background-image: radial-gradient(circle at bottom left, #ddd6f3, transparent), radial-gradient(circle at top right, #faaca8, transparent);
   color: white;
   font-weight: 400;
   align-self: flex-end;
 }
 
 .add-item-button:hover {
-  box-shadow: 0 0 20px rgba(221, 214, 243, 0.5);
+  box-shadow: 0 0 20px rgba(221, 214, 243, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .loading-style {
@@ -332,7 +332,7 @@ table {
 }
 
 .list-container-title {
-  background: -webkit-linear-gradient(199deg, #faaca8 0%, #ddd6f3 100%);
+  background: -webkit-radial-gradient(circle at top left, #ddd6f3, transparent), radial-gradient(circle at bottom right, #faaca8, transparent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 20px rgba(206, 203, 212, 0.5);
@@ -356,7 +356,7 @@ table {
 .tag {
   border-radius: 5px;
   border: none;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   color: #683a38;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
