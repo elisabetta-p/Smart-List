@@ -18,16 +18,7 @@ const ListNotSelected = (props) => {
         </h1>
       );
     } else {
-      return (
-        <h1
-          style={{
-            color: "#ddd6f3",
-            textShadow: "0 0 20px rgba(221,214,243,0.7)",
-          }}
-        >
-          Select a list to start
-        </h1>
-      );
+      return <h1 className="select-list-text">Select a list to start</h1>;
     }
   };
 

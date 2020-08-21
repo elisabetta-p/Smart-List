@@ -23,7 +23,7 @@ const EditCategory = (props) => {
   }, [selectedCategory, category, editedCategoryName, idToEdit, newName]);
 
   return (
-    <div>
+    <div className="select-manage-categories">
       <Select
         options={categoriesInsideList}
         onChange={(event) => {
@@ -32,7 +32,7 @@ const EditCategory = (props) => {
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
         menuPortalTarget={document.body}
-        className="select-add-list"
+        className="select-add-list "
         placeholder="Select the category you want to edit"
       />
       <input
@@ -67,24 +67,22 @@ const DeleteCategory = (props) => {
   }, [selectedCategory, category]);
 
   return (
-    <div>
-      <Select
-        options={categoriesInsideList}
-        onChange={(event) => {
-          setSelectedCategory(event.value);
-        }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-        isSearchable
-        menuPortalTarget={document.body}
-        className="select-add-list"
-        placeholder="Select the category you want to edit"
-      />
-    </div>
+    <Select
+      options={categoriesInsideList}
+      onChange={(event) => {
+        setSelectedCategory(event.value);
+      }}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      isSearchable
+      menuPortalTarget={document.body}
+      className="select-add-list"
+      placeholder="Select the category you want to delete"
+    />
   );
 };
 
 const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
 
   const [newCategory, setNewCategory] = useState(null);
   //edit the category name
@@ -145,17 +143,19 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 Add a new category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="Insert the name of the new category"
-                  className="input input-new-item"
-                  style={{ margin: "0" }}
-                  onChange={(event) => {
-                    setNewCategory(event.target.value);
-                  }}
-                />
+                <div className="select-manage-categories">
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Insert the name of the new category"
+                    className="input input-new-item"
+                    style={{ margin: "0" }}
+                    onChange={(event) => {
+                      setNewCategory(event.target.value);
+                    }}
+                  />
+                </div>
               </Accordion.Collapse>
               <Accordion.Toggle eventKey="1" className="button header-button ">
                 Edit an existing category
@@ -173,7 +173,9 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 Delete an existing category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="2">
-                <DeleteCategory category={setIdToDelete} />
+                <div className="select-manage-categories">
+                  <DeleteCategory category={setIdToDelete} />
+                </div>
               </Accordion.Collapse>
             </Accordion>
             <span style={{ display: "flex", justifyContent: "center" }}>

@@ -2,15 +2,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400&display=swap");
 
+
+
 $normal-purple: rgb(221, 214, 243);
-$normal-pink: #faaca8;
+$normal-blue: rgba(159,227,255,1);
+$normal-hotter-pink: #faaca8;
+$normal-pink: rgba(255,177,219,1);
 
 $medium-purple: #8377a6;
 $dark-purple: rgb(97, 59, 128);
 $dark-red: #683a38;
 
 $opacity-pink: rgba(250, 172, 168, 0.4);
+$opacity-hotter-pink: rgba(255,177,219,0.4);
 $opacity-purple: rgba(221, 214, 243, 0.4);
+$opacity-blue: rgba(159,227,255,0.4);
+
 $opacity-red: rgba(231, 165, 171, 0.4);
 $opacity-white: rgba(255, 255, 255, 0.4);
 $opacity-black: rgba(0, 0, 0, 0.4);
@@ -40,6 +47,11 @@ body,
   color: red;
 }
 
+.select-list-text{
+  color: $normal-blue;
+  text-shadow: 0 0 20px $opacity-blue;
+}
+
 .colorfulBg {
   background-color: $normal-pink;
   background-image: radial-gradient(
@@ -47,7 +59,7 @@ body,
       $normal-pink,
       transparent
     ),
-    radial-gradient(circle at bottom left, $normal-purple, transparent);
+    radial-gradient(circle at bottom left, $normal-blue, transparent);
   //background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
 }
 
@@ -56,7 +68,7 @@ body,
   background-image: linear-gradient(
     19deg,
     $normal-pink 0%,
-    $normal-purple 100%
+    $normal-blue 100%
   );
   position: relative;
   height: 100vh;
@@ -72,6 +84,7 @@ body,
   padding: 3rem;
   background-color: rgba(255, 255, 255, 0.1);
   width: 45vw;
+
 }
 .form {
   display: flex;
@@ -118,18 +131,23 @@ h1 {
 }
 
 .button-list {
-  background: $opacity-purple;
+  background: $opacity-blue;
 }
 
 .button:hover {
-  box-shadow: 0 0 20px $opacity-purple;
+  box-shadow: 0 0 20px $opacity-blue;
   transition: box-shadow 0.3s ease-in-out;
 }
 .button-list:hover {
-  box-shadow: 0 0 20px $opacity-purple;
+  box-shadow: 0 0 20px $opacity-blue;
   transition: box-shadow 0.3s ease-in-out;
 }
+.header-icon:hover{
+  filter: drop-shadow(0 0 5px $normal-blue);
+  transition: drop-shadow 0.3s ease-in-out;
+}
 .button-inside-td {
+  width: 6rem;
   margin: 0 5rem 0 5rem;
 }
 .delete-button {
@@ -147,7 +165,7 @@ h1 {
       $normal-pink,
       transparent
     ),
-    radial-gradient(circle at bottom left, $normal-purple, transparent);
+    radial-gradient(circle at bottom left, $normal-blue, transparent);
   position: relative;
   height: 10vh;
   top: 0;
@@ -237,7 +255,7 @@ header {
       $normal-pink,
       transparent
     ),
-    radial-gradient(circle at bottom left, $normal-purple, transparent);
+    radial-gradient(circle at bottom left, $normal-blue, transparent);
   position: relative;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -263,10 +281,10 @@ header {
   //background-color: #faaca8;
   background-image: radial-gradient(
       circle at top right,
-      $opacity-pink,
+      $opacity-hotter-pink,
       transparent
     ),
-    radial-gradient(circle at bottom left, $opacity-purple, transparent);
+    radial-gradient(circle at bottom left, $opacity-blue, transparent);
   border-radius: 5px;
 }
 
@@ -275,19 +293,19 @@ header {
   border-image-slice: 1;
   border-image-source: radial-gradient(
       circle at top right,
-      $opacity-pink,
+      $opacity-hotter-pink,
       transparent
     ),
-    radial-gradient(circle at bottom left, $opacity-purple, transparent);
+    radial-gradient(circle at bottom left, $opacity-blue, transparent);
 }
 
 .category-name-in-homepage {
   background-image: radial-gradient(
       circle at top right,
-      $opacity-purple,
+      $opacity-blue,
       transparent
     ),
-    radial-gradient(circle at bottom left, $opacity-pink, transparent);
+    radial-gradient(circle at bottom left, $opacity-hotter-pink, transparent);
 }
 .list-content {
   display: flex;
@@ -329,7 +347,7 @@ table {
 
 /* Handle */
 .scroll-items::-webkit-scrollbar-thumb {
-  background: $normal-purple;
+  background: $normal-blue;
   border-radius: 10px;
 }
 
@@ -348,7 +366,7 @@ table {
   background-color: $normal-pink;
   background-image: radial-gradient(
       circle at bottom left,
-      $normal-purple,
+      $normal-blue,
       transparent
     ),
     radial-gradient(circle at top right, $normal-pink, transparent);
@@ -359,7 +377,7 @@ table {
 }
 
 .add-item-button:hover {
-  box-shadow: 0 0 20px $opacity-purple;
+  box-shadow: 0 0 20px $opacity-blue;
   transition: box-shadow 0.3s ease-in-out;
 }
 
@@ -373,11 +391,11 @@ table {
 }
 .list-container-title {
   background: -webkit-radial-gradient(
-                  circle at top left,
-                  $normal-purple,
-                  transparent
-  ),
-  radial-gradient(circle at bottom right, $normal-pink, transparent);;
+      circle at top left,
+      $normal-blue,
+      transparent
+    ),
+    radial-gradient(circle at bottom right, $normal-pink, transparent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 20px rgba(206, 203, 212, 0.5);
@@ -530,8 +548,8 @@ input[type="radio"]:checked:before {
   position: absolute;
   width: 32px;
   height: 32px;
-  background: $normal-purple;
-  filter: drop-shadow(0 0 5px $normal-purple);
+  background: $normal-blue;
+  filter: drop-shadow(0 0 5px $normal-blue);
   animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .lds-heart div:after,
@@ -541,8 +559,8 @@ input[type="radio"]:checked:before {
   display: block;
   width: 32px;
   height: 32px;
-  background: $normal-purple;
-  filter: drop-shadow(0 0 5px $normal-purple);
+  background: $normal-blue;
+  filter: drop-shadow(0 0 5px $normal-blue);
 }
 .lds-heart div:before {
   left: -24px;
@@ -573,6 +591,10 @@ input[type="radio"]:checked:before {
   }
 }
 
+.select-manage-categories{
+
+  margin: 0 1rem 0 1rem;
+}
 .MuiDialogContent-root {
   height: 100%;
 }
