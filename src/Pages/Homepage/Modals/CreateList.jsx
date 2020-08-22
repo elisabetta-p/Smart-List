@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { addList } from "../../../Redux";
@@ -30,7 +30,9 @@ const SelectListType = (props) => {
       <Select
         options={listTypes}
         onChange={(event) => {
-          changeSelected(event.value);
+          if (event) {
+            changeSelected(event.value);
+          }
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
@@ -68,18 +70,21 @@ const SelectCategories = (props) => {
         options={reduxCategories}
         isMulti
         onChange={(event) => {
-          setSelectedCategories((selectedCategories) => [
-            ...selectedCategories,
-            {
-              id: event[event.length - 1].value,
-              label: event[event.length - 1].label,
-            },
-          ]);
+          if (event && event.length !== 0) {
+            setSelectedCategories((selectedCategories) => [
+              ...selectedCategories,
+              {
+                id: event[event.length - 1].value,
+                label: event[event.length - 1].label,
+              },
+            ]);
+          }
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
         menuPortalTarget={document.body}
         className="select-add-list"
+        isClearable
       />{" "}
     </div>
   );

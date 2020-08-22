@@ -116,9 +116,16 @@ const Login = (_: void): React$Element<*> => {
             }}
           />
           <p className="error-message">{errorMessage}</p>
-          <input type="submit" value="Login" className="button" />
+          <input
+            type="submit"
+            value="Login"
+            className="button"
+            style={{ width: "5.5rem" }}
+          />
           <Link to="/signup">
-            <button className="button">Sign up</button>
+            <button className="button" style={{ width: "5.5rem" }}>
+              Sign up
+            </button>
           </Link>
         </form>
       </div>

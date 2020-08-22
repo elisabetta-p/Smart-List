@@ -27,10 +27,13 @@ const EditCategory = (props) => {
       <Select
         options={categoriesInsideList}
         onChange={(event) => {
-          setSelectedCategory(event.value);
+          if (event) {
+            setSelectedCategory(event.value);
+          }
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
+        isClearable
         menuPortalTarget={document.body}
         className="select-add-list "
         placeholder="Select the category you want to edit"
@@ -70,10 +73,13 @@ const DeleteCategory = (props) => {
     <Select
       options={categoriesInsideList}
       onChange={(event) => {
-        setSelectedCategory(event.value);
+        if (event) {
+          setSelectedCategory(event.value);
+        }
       }}
       styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       isSearchable
+      isClearable
       menuPortalTarget={document.body}
       className="select-add-list"
       placeholder="Select the category you want to delete"

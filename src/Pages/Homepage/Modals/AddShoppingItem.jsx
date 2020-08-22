@@ -12,10 +12,14 @@ import CreatableSelect from "react-select/creatable";
 
 const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
+  const [errorCategoryAlreadyExists, setError] = useState(null);
   const dispatch = useDispatch();
   const userCategoriesLength = useSelector(
     (store) => store.user.categories.length
   );
+  const categoryNames = useSelector((store) => [
+    ...store.user.categories.map((cat) => cat.name),
+  ]);
   const categoriesFromRedux = useSelector((store) => [
     ...store.lists.listDisplayed.categories,
   ]);
@@ -23,9 +27,10 @@ const SelectCategories = (props) => {
     return { value: cat.id, label: cat.label };
   });
   const { categories } = props;
+
   useEffect(() => {
     categories(selectedCategories);
-  }, [selectedCategories, categories]);
+  }, [selectedCategories, categories, categoryNames]);
 
   return (
     <div>
@@ -33,19 +38,30 @@ const SelectCategories = (props) => {
       <CreatableSelect
         options={categoriesInsideList}
         onChange={(event) => {
-          if (!event.__isNew__) setSelectedCategories(event.value);
-          else {
-            // create new category with id categories.length, name event.label
-            dispatch(addNewCategory(event.label));
-            dispatch(addCategoryToDisplayedList(event.label));
-            setSelectedCategories(userCategoriesLength);
+          if (event) {
+            if (!event.__isNew__) setSelectedCategories(event.value);
+            else {
+              const alreadyThere = categoryNames.includes(event.label);
+              if (!alreadyThere) {
+                setError(null);
+                dispatch(addNewCategory(event.label));
+                dispatch(addCategoryToDisplayedList(event.label));
+                setSelectedCategories(userCategoriesLength);
+              } else {
+                setError(
+                  "A category with that name already exists! Please link it to this list, if needed."
+                );
+              }
+            }
           }
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
+        isClearable
         menuPortalTarget={document.body}
         className="select-add-list"
-      />{" "}
+      />
+      <p className="error-message">{errorCategoryAlreadyExists}</p>
     </div>
   );
 };

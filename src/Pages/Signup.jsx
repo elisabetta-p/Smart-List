@@ -161,13 +161,19 @@ const Signup = (_: void): React$Element<*> => {
           />
           <p className="error-message">{errorPassword}</p>
 
-          <input type="submit" value="Confirm" className="button" />
+          <input
+            type="submit"
+            value="Confirm"
+            className="button"
+            style={{ width: "5.5rem" }}
+          />
           <button
             onClick={(e) => {
               e.preventDefault();
               history.goBack();
             }}
             className="button"
+            style={{ width: "5.5rem" }}
           >
             Go back
           </button>
