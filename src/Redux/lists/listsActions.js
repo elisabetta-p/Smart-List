@@ -319,8 +319,8 @@ export const loadShoppingLists = () => {
 
 export const getTodoLists = () => {
   const todos = [
-    { id: 0, name: "todo list 1", items: [] },
-    { id: 1, name: "todo list 2", items: [] },
+    { id: 0, name: "todo list 1", items: [], categories: [] },
+    { id: 1, name: "todo list 2", items: [], categories: [] },
   ];
   return {
     type: GET_TODOS,
@@ -423,6 +423,7 @@ export const getUsers = () => {
 const loadShoppingList = (listId, shoppingLists) => {
   const rightList = shoppingLists.find((list) => list.id === listId);
   rightList.type = "shopping";
+  console.log(rightList);
   if (rightList) {
     return {
       type: LOAD_SHOPPING_LIST_IN_HOMEPAGE,
@@ -439,6 +440,7 @@ const loadShoppingList = (listId, shoppingLists) => {
 const loadTodoList = (listId, todoLists) => {
   const rightList = todoLists.find((list) => list.id === listId);
   rightList.type = "todo";
+  console.log(rightList);
   if (rightList) {
     return {
       type: LOAD_TODO_LIST_IN_HOMEPAGE,
@@ -498,21 +500,17 @@ export const addShoppingItem = (id, name, description, isFav, category) => {
   return (dispatch, getState) => {
     const shoppingList = [...getState().lists.shoppingLists];
     const listDisplayed = { ...getState().lists.listDisplayed };
-    listDisplayed.items.push(newItem);
+    listDisplayed.items = [...listDisplayed.items, newItem];
     shoppingList.forEach((list) => {
       if (list.id === id) {
         list.items = [...list.items, newItem];
       }
     });
-    dispatch(executeAddShoppingItem([...shoppingList], { ...listDisplayed }));
-  };
-};
-
-const executeAddShoppingItem = (newShoppingList, listDisplayed) => {
-  return {
-    type: ADD_ITEM_TO_SHOPPING_LIST,
-    newShoppingList: [...newShoppingList],
-    newListDisplayed: { ...listDisplayed },
+    dispatch({
+      type: ADD_ITEM_TO_SHOPPING_LIST,
+      newShoppingList: [...shoppingList],
+      newListDisplayed: { ...listDisplayed },
+    });
   };
 };
 
