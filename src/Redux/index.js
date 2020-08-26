@@ -11,6 +11,7 @@ export {
   addShoppingItem,
   addCategoryToDisplayedList,
   deleteItem,
+  addTask,
 } from "./lists/listsActions";
 export {
   addNewCategory,

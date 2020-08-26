@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { HeartTwoTone } from "@ant-design/icons";
 import {
-  addShoppingItem,
+  addTask,
   addNewCategory,
   addCategoryToDisplayedList,
 } from "../../../Redux";
@@ -35,7 +35,7 @@ const SelectCategories = (props) => {
   useEffect(() => {
     categories(selectedCategories);
   }, [selectedCategories, categories]);
-
+  console.log(categoriesInsideList, categoriesFromRedux);
   return (
     <div>
       <CreatableSelect
@@ -70,7 +70,7 @@ const SelectCategories = (props) => {
   );
 };
 
-const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
+const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
   const { register, handleSubmit } = useForm();
   // what kind of list is the user adding
   //which categories
@@ -83,7 +83,6 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
 
   const [isFav, setFav] = useState(false);
 
-  const listId = useSelector((store) => store.lists.listDisplayed.id);
   const listName = useSelector((store) => store.lists.listDisplayed.name);
   const [startDate, setStartDate] = useState(
     //setHours(setMinutes(new Date(), 30), 17)
@@ -97,15 +96,18 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   }, []);
   */
   const dispatch = useDispatch();
+
   const onSubmit = (formData, event) => {
+    console.log(formData, isFav, startDate, sharingWith);
     event.preventDefault();
     dispatch(
-      addShoppingItem(
-        listId,
+      addTask(
         formData.name,
-        formData.description,
         isFav,
-        categories
+        formData.description,
+        categories,
+        startDate,
+        sharingWith
       )
     );
   };
@@ -227,4 +229,4 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   );
 };
 
-export default AddShoppingItem;
+export default AddTodoItem;

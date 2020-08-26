@@ -14,6 +14,7 @@ export const ADD_NEW_CATEGORY_TO_LIST_DISPLAYED =
   "ADD_NEW_CATEGORY_TO_LIST_DISPLAYED";
 export const CHECK_ITEM = "CHECK_ITEM";
 export const DELETE_ITEM = "DELETE ITEM";
+export const ADD_TASK = "ADD_TASK";
 
 export const loadShoppingLists = () => {
   const lists = [
@@ -320,8 +321,30 @@ export const loadShoppingLists = () => {
 
 export const getTodoLists = () => {
   const todos = [
-    { id: 0, name: "todo list 1", items: [], categories: [] },
-    { id: 1, name: "todo list 2", items: [], categories: [] },
+    {
+      id: 0,
+      name: "todo list 1",
+      items: [
+        {
+          name: "nome 1",
+          isFav: true,
+          description: "descrizione",
+          dueDate: new Date(2020, 8, 27, 10, 33, 30, 0),
+          sharedWith: ["prokkius"],
+          category: 0,
+        },
+      ],
+      categories: [
+        { id: 0, label: "Food" },
+        { id: 1, label: "AAA" },
+      ],
+    },
+    {
+      id: 1,
+      name: "todo list 2",
+      items: [],
+      categories: [{ id: 0, label: "Food" }],
+    },
   ];
   return {
     type: GET_TODOS,
@@ -554,5 +577,48 @@ export const deleteItem = (itemId, typeOfList) => {
 
       console.log(list);
     }
+  };
+};
+
+/**
+ * Adds a task to a to do list
+ * @param {string} name of the task
+ * @param {boolean} isFav if the task is favourite or not
+ * @param {string} description of the task
+ * @param {number} category
+ * @param {Date} dateAndTime
+ * @param {String[]}sharedWith
+ */
+
+export const addTask = (
+  name,
+  isFav,
+  description,
+  category,
+  dateAndTime,
+  sharedWith
+) => {
+  const newTask = {
+    name,
+    isFav,
+    description,
+    category,
+    dueDate: dateAndTime,
+    sharedWith,
+  };
+  return (dispatch, getState) => {
+    const todoDisplayed = { ...getState().lists.listDisplayed };
+    const todoLists = [...getState().lists.todoLists];
+    todoDisplayed.items = [...todoDisplayed.items, newTask];
+    todoLists.forEach((list) => {
+      if (list.id === todoDisplayed.id) {
+        list.items = [...list.items, newTask];
+      }
+    });
+    dispatch({
+      type: ADD_TASK,
+      newTodoList: [...todoLists],
+      newListDisplayed: { ...todoDisplayed },
+    });
   };
 };

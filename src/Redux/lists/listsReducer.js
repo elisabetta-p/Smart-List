@@ -13,6 +13,7 @@ import {
   ADD_ITEM_TO_SHOPPING_LIST,
   ADD_NEW_CATEGORY_TO_LIST_DISPLAYED,
   CHECK_ITEM,
+  ADD_TASK,
 } from "./listsActions";
 
 const initialState = {
@@ -98,6 +99,12 @@ const listsReducer = (state = initialState, action) => {
       };
     case CHECK_ITEM:
       return { ...state, listDisplayed: { ...action.payload } };
+    case ADD_TASK:
+      return {
+        ...state,
+        listDisplayed: { ...action.newListDisplayed },
+        todoLists: [...action.newTodoList],
+      };
     default:
       return state;
   }

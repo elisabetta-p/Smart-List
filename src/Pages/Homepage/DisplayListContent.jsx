@@ -55,11 +55,19 @@ const DisplayListContent = (props) => {
             />
           </td>
           <td>
-            {" "}
             <span className="inside-td">{item.name}</span>
           </td>
           <td>{item.isFav ? <HeartTwoTone twoToneColor="#faaca8" /> : null}</td>
-          <td style={{ width: "4rem" }}>
+          {typeOfList === "todo" ? (
+            <td>
+              <span className="inside-td">
+                {item.dueDate.getDate()}-{item.dueDate.getMonth() + 1}-
+                {item.dueDate.getFullYear()} {item.dueDate.getHours()}:
+                {item.dueDate.getMinutes()}
+              </span>
+            </td>
+          ) : null}
+          <td style={{ width: "4rem", textAlign: "center" }}>
             <button className="button button-list button-inside-td">
               Edit item
             </button>
