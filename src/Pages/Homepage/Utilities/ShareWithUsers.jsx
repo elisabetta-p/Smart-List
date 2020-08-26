@@ -39,7 +39,7 @@ const ShareWithUsers = (props) => {
 
   return (
     <div>
-      <p className="text-modal">Share with</p>
+      {/*<p className="text-modal">Share with</p>*/}
       <span>
         <ReactTags
           tags={userTags}
@@ -57,7 +57,9 @@ const ShareWithUsers = (props) => {
           }}
           allowDragDrop={false}
           inputFieldPosition="bottom"
-          placeholder="Write the usernames"
+          placeholder={
+            props.type === "todo" ? "Share task with..." : "Share list with..."
+          }
           autofocus={false}
         />
       </span>

@@ -10,6 +10,7 @@ export {
   loadSingleListInHomepage,
   addShoppingItem,
   addCategoryToDisplayedList,
+  deleteItem,
 } from "./lists/listsActions";
 export {
   addNewCategory,

@@ -13,6 +13,7 @@ export const ADD_ITEM_TO_SHOPPING_LIST = "ADD_ITEM_TO_SHOPPING_LIST";
 export const ADD_NEW_CATEGORY_TO_LIST_DISPLAYED =
   "ADD_NEW_CATEGORY_TO_LIST_DISPLAYED";
 export const CHECK_ITEM = "CHECK_ITEM";
+export const DELETE_ITEM = "DELETE ITEM";
 
 export const loadShoppingLists = () => {
   const lists = [
@@ -423,7 +424,6 @@ export const getUsers = () => {
 const loadShoppingList = (listId, shoppingLists) => {
   const rightList = shoppingLists.find((list) => list.id === listId);
   rightList.type = "shopping";
-  console.log(rightList);
   if (rightList) {
     return {
       type: LOAD_SHOPPING_LIST_IN_HOMEPAGE,
@@ -531,5 +531,28 @@ export const addCategoryToDisplayedList = (categoryName) => {
       type: ADD_NEW_CATEGORY_TO_LIST_DISPLAYED,
       newListDisplayed: { ...newListDisplayed },
     });
+  };
+};
+
+/**
+ * Deletes an item from a shopping or a to do list, given the item id
+ * @param {number} itemId
+ * @param {string} typeOfList can be either "shopping" or "todo"
+ * @returns {function(...[*]=)}
+ */
+
+export const deleteItem = (itemId, typeOfList) => {
+  return (dispatch, getState) => {
+    const listId = getState().lists.listDisplayed.id;
+    var list = [];
+    if (typeOfList === "shopping") {
+      getState().lists.shoppingLists.forEach((shoppingList) => {
+        if (shoppingList.id === listId) {
+          list = shoppingList;
+        }
+      });
+
+      console.log(list);
+    }
   };
 };

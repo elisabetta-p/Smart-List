@@ -17,6 +17,7 @@ const SelectCategories = (props) => {
   const userCategoriesLength = useSelector(
     (store) => store.user.categories.length
   );
+
   const categoryNames = useSelector((store) => [
     ...store.user.categories.map((cat) => cat.name),
   ]);
@@ -83,6 +84,8 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
     }
   }, []);
 
+  const listName = useSelector((store) => store.lists.listDisplayed.name);
+
   useEffect(() => {
     if (itemName) {
       if (itemName.length < 3) setErrorItemLength("The item name is too short");
@@ -118,7 +121,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle className="modal-title">
-            <strong>Add a shopping item</strong>
+            <strong>Add a shopping item to {listName}</strong>
           </DialogTitle>
           <DialogContent>
             <div

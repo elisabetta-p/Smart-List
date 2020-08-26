@@ -10,8 +10,9 @@ import {
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import CreatableSelect from "react-select/creatable";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import ShareWithUsers from "../Utilities/ShareWithUsers";
+
 const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const [errorCategoryAlreadyExists, setError] = useState(null);
@@ -37,8 +38,8 @@ const SelectCategories = (props) => {
 
   return (
     <div>
-      <p className="text-modal">Select all the categories</p>
       <CreatableSelect
+        placeholder="Select the category..."
         options={categoriesInsideList}
         onChange={(event) => {
           if (event) {
@@ -83,11 +84,13 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   const [isFav, setFav] = useState(false);
 
   const listId = useSelector((store) => store.lists.listDisplayed.id);
-
+  const listName = useSelector((store) => store.lists.listDisplayed.name);
   const [startDate, setStartDate] = useState(
     //setHours(setMinutes(new Date(), 30), 17)
     null
   );
+
+  const [sharingWith, setSharingWith] = useState([]);
   /*
   useEffect(() => {
     if (!categories) setErrorTypeOfList("Seleziona delle categorie");
@@ -125,7 +128,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle className="modal-title">
-            <strong>Add a new task</strong>
+            <strong>Add a new task to {listName}</strong>
           </DialogTitle>
           <DialogContent>
             <div
@@ -185,14 +188,23 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
             />
             <DatePicker
               selected={startDate}
-              onChange={(event) => setStartDate(event)}
+              onChange={(event) => {
+                setStartDate(event);
+                console.log(event);
+              }}
               showTimeSelect
               //minTime={setHours(setMinutes(new Date(), 0), 17)}
               //maxTime={setHours(setMinutes(new Date(), 30), 20)}
               dateFormat="MMMM d, yyyy h:mm aa"
-              style={{ position: "relative", zIndex: "9999" }}
+              style={{
+                position: "relative",
+                zIndex: "9999",
+              }}
               withPortal
+              placeholderText="Select a due date and time"
+              className="date-select input"
             />
+            <ShareWithUsers users={setSharingWith} type="todo" />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
                 type="submit"

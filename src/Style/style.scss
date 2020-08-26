@@ -593,9 +593,13 @@ input[type="radio"]:checked:before {
 }
 
 .select-manage-categories{
-
   margin: 0 1rem 0 1rem;
 }
+
 .MuiDialogContent-root {
   height: 100%;
+}
+
+.date-select{
+  width: 100%;
 }

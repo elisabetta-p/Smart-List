@@ -558,4 +558,8 @@ input[type=radio]:checked:before {
   height: 100%;
 }
 
+.date-select {
+  width: 100%;
+}
+
 /*# sourceMappingURL=style.css.map */
