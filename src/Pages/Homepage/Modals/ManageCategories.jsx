@@ -13,14 +13,32 @@ const EditCategory = (props) => {
   const categoriesFromRedux = useSelector((store) => [
     ...store.user.categories,
   ]);
+  const categoryNames = useSelector((store) =>
+    store.user.categories.map((category) => category.name)
+  );
+  const [errorNameModifiedCategory, setErrorModifiedCategory] = useState(null);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.name };
   });
-  const { category, editedCategoryName, idToEdit } = props;
+  const {
+    category,
+    editedCategoryName,
+    idToEdit,
+    errorModifiedCategory,
+  } = props;
   useEffect(() => {
     category(selectedCategory);
     editedCategoryName(newName);
-  }, [selectedCategory, category, editedCategoryName, idToEdit, newName]);
+    errorModifiedCategory(errorNameModifiedCategory);
+  }, [
+    selectedCategory,
+    category,
+    editedCategoryName,
+    idToEdit,
+    newName,
+    errorModifiedCategory,
+    errorNameModifiedCategory,
+  ]);
 
   return (
     <div className="select-manage-categories">
@@ -46,11 +64,17 @@ const EditCategory = (props) => {
         className="input input-new-item"
         style={{ margin: "0" }}
         onChange={(event) => {
-          console.log(event.target.value);
-          setNewName(event.target.value);
-          console.log(newName);
+          if (categoryNames.includes(event.target.value)) {
+            setErrorModifiedCategory(
+              "A category with that name already exists"
+            );
+          } else {
+            setErrorModifiedCategory(null);
+            setNewName(event.target.value);
+          }
         }}
       />
+      <p className="error-message">{errorNameModifiedCategory}</p>
     </div>
   );
 };
@@ -91,17 +115,21 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
   const { handleSubmit } = useForm();
 
   const [newCategory, setNewCategory] = useState(null);
+  const [errorCategoryAlreadyExists, setErrorCategoryAlreadyExists] = useState(
+    null
+  );
   //edit the category name
   const [newEditedName, setNewEditedName] = useState(null);
   const [idToEdit, setIdToEdit] = useState(null);
+  const [errorModifiedCategory, setErrorModifiedCategory] = useState(null);
   // delete a category
   const [idToDelete, setIdToDelete] = useState(null);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(idToDelete);
-  }, [idToDelete]);
+  const categoryNames = useSelector((store) =>
+    store.user.categories.map((cat) => cat.name)
+  );
 
   const onSubmit = (formData, event) => {
     event.preventDefault();
@@ -112,20 +140,10 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
       dispatch(editCategory(idToEdit, newEditedName));
     }
     if (idToDelete) {
-      console.log("s");
       dispatch(deleteCategory(idToDelete));
     }
   };
 
-  function checkIfThereAreErrors() {
-    let errors = false;
-    if (document.getElementById("name").value === "") {
-      //setErrorListName("Please write a name");
-      errors = true;
-    }
-
-    return errors;
-  }
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */
@@ -133,7 +151,13 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
   return (
     <Dialog {...rest} onClose={onClose}>
       <div className="colorfulBg">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={
+            errorCategoryAlreadyExists || errorModifiedCategory
+              ? null
+              : handleSubmit(onSubmit)
+          }
+        >
           <DialogTitle className="modal-title">
             <strong>Manage the categories</strong>
           </DialogTitle>
@@ -158,9 +182,17 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                     className="input input-new-item"
                     style={{ margin: "0" }}
                     onChange={(event) => {
-                      setNewCategory(event.target.value);
+                      if (categoryNames.includes(event.target.value)) {
+                        setErrorCategoryAlreadyExists(
+                          "A category with that name already exists!"
+                        );
+                      } else {
+                        setErrorCategoryAlreadyExists(null);
+                        setNewCategory(event.target.value);
+                      }
                     }}
                   />
+                  <p className="error-message">{errorCategoryAlreadyExists}</p>
                 </div>
               </Accordion.Collapse>
               <Accordion.Toggle eventKey="1" className="button header-button ">
@@ -172,6 +204,7 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                   <EditCategory
                     category={setIdToEdit}
                     editedCategoryName={setNewEditedName}
+                    errorModifiedCategory={setErrorModifiedCategory}
                   />
                 </div>
               </Accordion.Collapse>
@@ -190,10 +223,9 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 className="button"
                 value="Confirm"
                 onClick={(e) => {
-                  /*const error = checkIfThereAreErrors();
-                  if (error) e.preventDefault();
-                  else {*/
-                  onClose();
+                  if (!errorCategoryAlreadyExists && !errorModifiedCategory)
+                    onClose();
+                  else e.preventDefault();
                   //}
                 }}
                 style={{ display: "flex", justifyContent: "center" }}
