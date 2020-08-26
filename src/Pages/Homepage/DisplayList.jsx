@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import DisplayListContent from "./DisplayListContent";
-import CreateList from "./Modals/CreateList";
 import { useModal } from "react-modal-hook";
 import AddShoppingItem from "./Modals/AddShoppingItem";
 import AddTodoItem from "./Modals/AddTodoItem";

@@ -31,9 +31,9 @@ const DisplayListContent = (props) => {
   const getTheNamesOfTheCategories = (categories) => {
     let names = [];
     categories.forEach((category) => {
-      allCategories.map((cat) => {
+      return allCategories.map((cat) => {
         if (cat.id === category) {
-          names = [...names, { name: cat.name, id: cat.id }];
+          return (names = [...names, { name: cat.name, id: cat.id }]);
         }
       });
     });
@@ -59,20 +59,20 @@ const DisplayListContent = (props) => {
           </td>
           <td>{item.isFav ? <HeartTwoTone twoToneColor="#faaca8" /> : null}</td>
           {typeOfList === "todo" ? (
-            <td>
-              <span className="inside-td">
+            <td style={{ minWidth: "3rem" }}>
+              <span className="inside-td" style={{ width: "100%" }}>
                 {item.dueDate.getDate()}-{item.dueDate.getMonth() + 1}-
                 {item.dueDate.getFullYear()} {item.dueDate.getHours()}:
                 {item.dueDate.getMinutes()}
               </span>
             </td>
           ) : null}
-          <td style={{ width: "4rem", textAlign: "center" }}>
+          <td style={{ width: "3rem", textAlign: "center" }}>
             <button className="button button-list button-inside-td">
               Edit item
             </button>
           </td>
-          <td style={{ width: "4rem" }}>
+          <td style={{ width: "3rem" }}>
             <button
               className="button button-list button-inside-td delete-button"
               onClick={() => dispatch(deleteItem(item.id, typeOfList))}
