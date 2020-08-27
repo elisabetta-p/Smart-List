@@ -189,7 +189,11 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                 height: "100%",
               }}
             >
-              <Accordion.Toggle eventKey="0" className="button header-button ">
+              <Accordion.Toggle
+                eventKey="0"
+                className="button header-button"
+                style={{ alignSelf: "center" }}
+              >
                 Add a new category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
@@ -218,7 +222,11 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                   <p className="error-message">{errorCategoryAlreadyExists}</p>
                 </div>
               </Accordion.Collapse>
-              <Accordion.Toggle eventKey="1" className="button header-button ">
+              <Accordion.Toggle
+                eventKey="1"
+                className="button header-button"
+                style={{ alignSelf: "center" }}
+              >
                 Edit an existing category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="1">
@@ -231,7 +239,11 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                   />
                 </div>
               </Accordion.Collapse>
-              <Accordion.Toggle eventKey="2" className="button header-button ">
+              <Accordion.Toggle
+                eventKey="2"
+                className="button header-button"
+                style={{ alignSelf: "center" }}
+              >
                 Delete an existing category
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="2">

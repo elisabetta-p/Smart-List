@@ -35,7 +35,7 @@ const SelectCategories = (props) => {
   useEffect(() => {
     categories(selectedCategories);
   }, [selectedCategories, categories]);
-  console.log(categoriesInsideList, categoriesFromRedux);
+
   return (
     <div>
       <CreatableSelect
@@ -99,7 +99,6 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (formData, event) => {
-    console.log(formData, isFav, startDate, sharingWith);
     event.preventDefault();
     dispatch(
       addTask(
@@ -210,7 +209,6 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
               selected={startDate}
               onChange={(event) => {
                 setStartDate(event);
-                console.log(event);
               }}
               showTimeSelect
               //minTime={setHours(setMinutes(new Date(), 0), 17)}

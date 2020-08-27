@@ -5,15 +5,25 @@ import { WithContext as ReactTags } from "react-tag-input";
 
 const ShareWithUsers = (props) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-  const existingUsers = useSelector((state) => state.lists.users);
+
+  const existingUsers = useSelector((store) => store.lists.users);
+
+  const alreadySharingWith = useSelector((store) => {
+    if (props.newList) return [];
+    else return store.lists.listDisplayed.sharedWith;
+  });
+
   const keyCodes = {
     comma: 188,
     enter: 13,
   };
+
   const delimiters = [keyCodes.comma, keyCodes.enter];
+
   // I have the tags in userTags
   const [userTags, setUserTags] = useState([]);
 
@@ -25,6 +35,16 @@ const ShareWithUsers = (props) => {
     users(userTags);
     setErrorUser(null);
   }, [userTags, users]);
+
+  useEffect(() => {
+    if (alreadySharingWith) {
+      const formattedExistingSharedUsers = alreadySharingWith.map((user) => {
+        const obj = { id: user, text: user };
+        return { ...obj };
+      });
+      setUserTags([...formattedExistingSharedUsers]);
+    }
+  }, []);
 
   const handleDelete = (i) => {
     const tags = userTags.filter((tag, index) => index !== i);

@@ -7,57 +7,26 @@ import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Select from "react-select";
 import ShareWithUsers from "../Utilities/ShareWithUsers";
 
-const SelectListType = (props) => {
-  const [selected, changeSelected] = useState(null);
-  const listTypes = [
-    { value: "shopping", label: "Shopping list" },
-    { value: "todo", label: "Todo list" },
-  ];
-
-  /**
-   * Callback to pass data from the child component SelectListType to parent component CreateList!
-   * I used the useEffect hook that gets called every time *selected* changes, and it calls the type function inside the props.
-   */
-
-  const { type } = props;
-  useEffect(() => {
-    type(selected);
-  }, [selected, type]);
-
-  return (
-    <div>
-      <p className="text-modal">What kind of list is this?</p>
-      <Select
-        id="choose-list"
-        options={listTypes}
-        onChange={(event) => {
-          if (event) {
-            changeSelected(event.value);
-          }
-        }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-        isSearchable
-        menuPortalTarget={document.body}
-        className="select-add-list"
-        isClearable
-      />
-    </div>
-  );
-};
-
-const SelectCategories = (props) => {
+const EditSelectedCategories = (props) => {
   const categoriesFromRedux = useSelector((state) => state.user.categories);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
   const reduxCategories = categoriesFromRedux.map((cat) => {
     return { value: cat.id, label: cat.name };
   });
-  /*useEffect(() => {
-    console.log(selectedCategories);
-	}, [selectedCategories]);
-
-	* inside selectedCategories there are the ids of the categories that the user selected
-	*/
+  const categoriesAlreadyAssociated = useSelector(
+    (state) => state.lists.listDisplayed.categories
+  );
+  const defaultValues = categoriesAlreadyAssociated.map((cat) => {
+    const obj = {
+      value: cat.id,
+      label: cat.label,
+    };
+    return { ...obj };
+  });
+  const [selectedCategories, setSelectedCategories] = useState([
+    ...categoriesAlreadyAssociated,
+  ]);
 
   const { categories } = props;
   useEffect(() => {
@@ -66,21 +35,13 @@ const SelectCategories = (props) => {
 
   return (
     <div>
-      <p className="text-modal">Select all the categories</p>
       <Select
+        defaultValue={defaultValues}
         id="choose-categories"
         options={reduxCategories}
         isMulti
         onChange={(event) => {
-          if (event && event.length !== 0) {
-            setSelectedCategories((selectedCategories) => [
-              ...selectedCategories,
-              {
-                id: event[event.length - 1].value,
-                label: event[event.length - 1].label,
-              },
-            ]);
-          }
+          setSelectedCategories([...event]);
         }}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         isSearchable
@@ -92,7 +53,7 @@ const SelectCategories = (props) => {
   );
 };
 
-const CreateList = ({ createShoppingList, onClose, newList, ...rest }) => {
+const EditList = ({ createShoppingList, onClose, ...rest }) => {
   const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const existingShopppingListsNames = useSelector((state) =>
@@ -101,7 +62,7 @@ const CreateList = ({ createShoppingList, onClose, newList, ...rest }) => {
   const existingTodoListsNames = useSelector((state) =>
     state.lists.todoLists.map((list) => list.name)
   );
-
+  const listDisplayed = useSelector((store) => store.lists.listDisplayed);
   const [listName, setListName] = useState(null);
   // what kind of list is the user adding
   const [typeOfList, changeTypeOfList] = useState(null);
@@ -209,17 +170,17 @@ const CreateList = ({ createShoppingList, onClose, newList, ...rest }) => {
           }
         >
           <DialogTitle className="modal-title" id="dialog-createlist-title">
-            <strong>Create a new list</strong>
+            <strong>Edit the list {listDisplayed.name}</strong>
           </DialogTitle>
           <DialogContent id="dialog-createlist-desc">
             <label htmlFor="name" style={{ display: "none" }}>
-              Name of the item
+              New name for the list
             </label>
             <input
               id="name"
               type="text"
               name="name"
-              placeholder="Insert the name of the new todo list"
+              placeholder={`Insert the new name for ${listDisplayed.name}`}
               ref={listNameRef}
               className="input input-new-list"
               onChange={(event) => setListName(event.target.value)}
@@ -230,24 +191,20 @@ const CreateList = ({ createShoppingList, onClose, newList, ...rest }) => {
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorListNameLength}
             </p>
-            <label htmlFor="choose-list" style={{ display: "none" }}>
-              Choose if this is a to do list or a shopping list
-            </label>
-            <SelectListType type={changeTypeOfList} />
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorTypeOfList}
             </p>
             <label htmlFor="choose-categories" style={{ display: "none" }}>
-              Choose the categories associated with this list
+              Edit the categories associated with this list
             </label>
-            <SelectCategories
+            <EditSelectedCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
             />
             <label htmlFor="choose-users" style={{ display: "none" }}>
               Choose the users you want to share this list with (optional)
             </label>
-            <ShareWithUsers users={setSharingWith} newList={newList} />
+            <ShareWithUsers users={setSharingWith} />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
                 type="submit"
@@ -269,4 +226,4 @@ const CreateList = ({ createShoppingList, onClose, newList, ...rest }) => {
   );
 };
 
-export default CreateList;
+export default EditList;

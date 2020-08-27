@@ -4,6 +4,7 @@ import DisplayListContent from "./DisplayListContent";
 import { useModal } from "react-modal-hook";
 import AddShoppingItem from "./Modals/AddShoppingItem";
 import AddTodoItem from "./Modals/AddTodoItem";
+import EditList from "./Modals/EditList";
 const DisplayListHeader = (props) => {
   const [
     showAddShoppingItem,
@@ -22,6 +23,15 @@ const DisplayListHeader = (props) => {
   ] = useModal(({ in: open, onExited }) => (
     <AddTodoItem open={open} onExited={onExited} onClose={hideAddSTodoItem} />
   ));
+
+  const [showEditList, hideEditList] = useModal(({ in: open, onExited }) => (
+    <EditList
+      open={open}
+      onExited={onExited}
+      onClose={hideEditList}
+      listType={props.listType}
+    />
+  ));
   return (
     <div
       className="category-name-in-list category-name-in-homepage"
@@ -29,21 +39,29 @@ const DisplayListHeader = (props) => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        alignContent: "center",
       }}
     >
       <h2 className="list-name-homepage">{props.listName}</h2>
-      <button
-        className="button"
-        onClick={
-          props.listType === "shopping" ? showAddShoppingItem : showAddTodoItem
-        }
-      >
-        {props.listType === "shopping" ? (
-          <span>Add item</span>
-        ) : (
-          <span>Add task</span>
-        )}
-      </button>
+      <span>
+        <button className="button" onClick={showEditList}>
+          Edit list
+        </button>
+        <button
+          className="button"
+          onClick={
+            props.listType === "shopping"
+              ? showAddShoppingItem
+              : showAddTodoItem
+          }
+        >
+          {props.listType === "shopping" ? (
+            <span>Add item</span>
+          ) : (
+            <span>Add task</span>
+          )}
+        </button>
+      </span>
     </div>
   );
 };

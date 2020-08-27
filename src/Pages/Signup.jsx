@@ -155,7 +155,6 @@ const Signup = (_: void): React$Element<*> => {
             type="password"
             onChange={(event) => {
               setPassword(event.target.value);
-              console.log(password);
             }}
             className="input"
           />

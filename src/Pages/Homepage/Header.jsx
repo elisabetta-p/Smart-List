@@ -13,7 +13,12 @@ const Header = () => {
     showCreateList,
     hideCreateList,
   ] = useModal(({ in: open, onExited }) => (
-    <CreateList open={open} onExited={onExited} onClose={hideCreateList} />
+    <CreateList
+      open={open}
+      onExited={onExited}
+      onClose={hideCreateList}
+      newList={true}
+    />
   ));
   const [
     showManageCategories,

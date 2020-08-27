@@ -43,7 +43,7 @@ const DisplayListContent = (props) => {
   const loadTheItems = (categoryId) => {
     return items.map((item, index) =>
       item.category === categoryId ? (
-        <tr key={index} className="single-item-in-list">
+        <tr key={index}>
           <td style={{ width: "1rem" }}>
             <input
               type="checkbox"

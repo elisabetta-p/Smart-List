@@ -92,6 +92,7 @@ export const loadShoppingLists = () => {
         { id: 1, label: "Clothes" },
         { id: 2, label: "Stuff" },
       ],
+      sharedWith: ["prokkius", "boba"],
     },
     {
       id: 1,
@@ -173,6 +174,7 @@ export const loadShoppingLists = () => {
           isChecked: false,
         },
       ],
+      sharedWith: [],
     },
     {
       id: 3,
@@ -220,6 +222,7 @@ export const loadShoppingLists = () => {
           isChecked: false,
         },
       ],
+      sharedWith: ["banana"],
     },
     {
       id: 4,
@@ -259,6 +262,7 @@ export const loadShoppingLists = () => {
           isChecked: false,
         },
       ],
+      sharedWith: [],
     },
     {
       id: 5,
@@ -310,6 +314,7 @@ export const loadShoppingLists = () => {
           isChecked: false,
         },
       ],
+      sharedWith: [],
     },
   ];
 
@@ -463,7 +468,6 @@ const loadShoppingList = (listId, shoppingLists) => {
 const loadTodoList = (listId, todoLists) => {
   const rightList = todoLists.find((list) => list.id === listId);
   rightList.type = "todo";
-  console.log(rightList);
   if (rightList) {
     return {
       type: LOAD_TODO_LIST_IN_HOMEPAGE,
@@ -574,8 +578,6 @@ export const deleteItem = (itemId, typeOfList) => {
           list = shoppingList;
         }
       });
-
-      console.log(list);
     }
   };
 };
