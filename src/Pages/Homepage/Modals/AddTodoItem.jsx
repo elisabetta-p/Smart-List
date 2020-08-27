@@ -39,6 +39,7 @@ const SelectCategories = (props) => {
   return (
     <div>
       <CreatableSelect
+        id="select-category"
         placeholder="Select the category..."
         options={categoriesInsideList}
         onChange={(event) => {
@@ -126,19 +127,29 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
    */
 
   return (
-    <Dialog {...rest} onClose={onClose}>
+    <Dialog
+      {...rest}
+      onClose={onClose}
+      role="dialog"
+      aria-labelledby="add-task-title"
+      aria-describedby="add-task-content"
+      aria-modal="true"
+    >
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle className="modal-title">
+          <DialogTitle className="modal-title" id="add-task-title">
             <strong>Add a new task to {listName}</strong>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent id="add-task-content">
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
               }}
             >
+              <label htmlFor="name" style={{ display: "none" }}>
+                Name of the task
+              </label>
               <input
                 id="name"
                 type="text"
@@ -162,6 +173,8 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
                 style={{ margin: "0" }}
               />
               <HeartTwoTone
+                role="checkbox"
+                aria-checked="false"
                 twoToneColor={isFav ? "#faaca8" : "#fff"}
                 onClick={() => {
                   setFav(!isFav);
@@ -172,7 +185,9 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorListName}
             </p>
-
+            <label htmlFor="description" style={{ display: "none" }}>
+              Description of the task
+            </label>
             <textarea
               id="description"
               name="description"
@@ -184,6 +199,9 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
               })}
               className="input input-new-item input-description scroll-items"
             />
+            <label htmlFor="select-category" style={{ display: "none" }}>
+              Description of the task
+            </label>
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}

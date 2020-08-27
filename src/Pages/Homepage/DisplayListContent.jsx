@@ -49,6 +49,8 @@ const DisplayListContent = (props) => {
               type="checkbox"
               className="inside-td"
               checked={item.isChecked}
+              role="checkbox"
+              aria-checked="false"
               onChange={() => {
                 dispatch(checkItem(item.id));
               }}

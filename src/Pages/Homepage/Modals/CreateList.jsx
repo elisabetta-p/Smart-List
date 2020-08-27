@@ -28,6 +28,7 @@ const SelectListType = (props) => {
     <div>
       <p className="text-modal">What kind of list is this?</p>
       <Select
+        id="choose-list"
         options={listTypes}
         onChange={(event) => {
           if (event) {
@@ -67,6 +68,7 @@ const SelectCategories = (props) => {
     <div>
       <p className="text-modal">Select all the categories</p>
       <Select
+        id="choose-categories"
         options={reduxCategories}
         isMulti
         onChange={(event) => {
@@ -190,7 +192,14 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
    */
 
   return (
-    <Dialog {...rest} onClose={onClose}>
+    <Dialog
+      {...rest}
+      onClose={onClose}
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="dialog-createlist-title"
+      aria-describedby="dialog-createlist-desc"
+    >
       <div className="colorfulBg">
         <form
           onSubmit={
@@ -199,10 +208,13 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
               : null
           }
         >
-          <DialogTitle className="modal-title">
+          <DialogTitle className="modal-title" id="dialog-createlist-title">
             <strong>Create a new list</strong>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent id="dialog-createlist-desc">
+            <label htmlFor="name" style={{ display: "none" }}>
+              Name of the item
+            </label>
             <input
               id="name"
               type="text"
@@ -218,14 +230,23 @@ const CreateList = ({ createShoppingList, onClose, ...rest }) => {
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorListNameLength}
             </p>
+            <label htmlFor="choose-list" style={{ display: "none" }}>
+              Choose if this is a to do list or a shopping list
+            </label>
             <SelectListType type={changeTypeOfList} />
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorTypeOfList}
             </p>
+            <label htmlFor="choose-categories" style={{ display: "none" }}>
+              Choose the categories associated with this list
+            </label>
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
             />
+            <label htmlFor="choose-users" style={{ display: "none" }}>
+              Choose the users you want to share this list with (optional)
+            </label>
             <ShareWithUsers users={setSharingWith} />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input

@@ -37,6 +37,7 @@ const SelectCategories = (props) => {
     <div>
       <p className="text-modal">Select all the categories</p>
       <CreatableSelect
+        id="select-categories"
         options={categoriesInsideList}
         onChange={(event) => {
           if (event) {
@@ -117,19 +118,30 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
    */
 
   return (
-    <Dialog {...rest} onClose={onClose}>
+    <Dialog
+      {...rest}
+      onClose={onClose}
+      role="dialog"
+      aria-labelledby="dialog-title"
+      aria-describedby="dialog-desc"
+      aria-modal="true"
+    >
       <div className="colorfulBg">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle className="modal-title">
+          <DialogTitle className="modal-title" id="dialog-title">
             <strong>Add a shopping item to {listName}</strong>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent id="dialog-desc">
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
               }}
             >
+              <label htmlFor="name" style={{ display: "none" }}>
+                Name of the item
+              </label>
+
               <input
                 id="name"
                 type="text"
@@ -142,7 +154,13 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                   setItemName(event.target.value);
                 }}
               />
+              <label htmlFor="isFavourite" style={{ display: "none" }}>
+                Set as favourite
+              </label>
               <HeartTwoTone
+                id="isFavourite"
+                role="checkbox"
+                aria-checked="false"
                 twoToneColor={isFav ? "#faaca8" : "#fff"}
                 onClick={() => {
                   setFav(!isFav);
@@ -156,6 +174,9 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
             <p className="error-message" style={{ marginBottom: "1rem" }}>
               {errorItemNameLength}
             </p>
+            <label htmlFor="description" style={{ display: "none" }}>
+              Description of the item
+            </label>
             <textarea
               id="description"
               name="description"
@@ -167,6 +188,9 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
               })}
               className="input input-new-item input-description scroll-items"
             />
+            <label htmlFor="select-categories" style={{ display: "none" }}>
+              Select the category associated with this item
+            </label>
             <SelectCategories
               categories={setCategories}
               style={{ position: "relative", Index: "5000" }}
@@ -174,6 +198,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
             <span style={{ display: "flex", justifyContent: "center" }}>
               <input
                 type="submit"
+                role="button"
                 className="button"
                 value="Add the new item"
                 onClick={(e) => {

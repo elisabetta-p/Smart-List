@@ -42,6 +42,7 @@ const ShareWithUsers = (props) => {
       {/*<p className="text-modal">Share with</p>*/}
       <span>
         <ReactTags
+          id="choose-users"
           tags={userTags}
           handleDelete={handleDelete}
           handleAddition={handleAddition}

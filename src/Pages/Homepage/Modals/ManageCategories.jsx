@@ -42,7 +42,11 @@ const EditCategory = (props) => {
 
   return (
     <div className="select-manage-categories">
+      <label htmlFor="select-edit-category" style={{ display: "none" }}>
+        Select the category you want to edit
+      </label>
       <Select
+        id="select-edit-category"
         options={categoriesInsideList}
         onChange={(event) => {
           if (event) {
@@ -56,6 +60,9 @@ const EditCategory = (props) => {
         className="select-add-list "
         placeholder="Select the category you want to edit"
       />
+      <label htmlFor="newName" style={{ display: "none" }}>
+        Write the new name for the selected category
+      </label>
       <input
         id="newName"
         type="text"
@@ -94,20 +101,26 @@ const DeleteCategory = (props) => {
   }, [selectedCategory, category]);
 
   return (
-    <Select
-      options={categoriesInsideList}
-      onChange={(event) => {
-        if (event) {
-          setSelectedCategory(event.value);
-        }
-      }}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-      isSearchable
-      isClearable
-      menuPortalTarget={document.body}
-      className="select-add-list"
-      placeholder="Select the category you want to delete"
-    />
+    <span>
+      <label htmlFor="select-delete-category" style={{ display: "none" }}>
+        Select the category you want to delete
+      </label>
+      <Select
+        id="select-delete-category"
+        options={categoriesInsideList}
+        onChange={(event) => {
+          if (event) {
+            setSelectedCategory(event.value);
+          }
+        }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        isSearchable
+        isClearable
+        menuPortalTarget={document.body}
+        className="select-add-list"
+        placeholder="Select the category you want to delete"
+      />
+    </span>
   );
 };
 
@@ -149,7 +162,14 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
    */
 
   return (
-    <Dialog {...rest} onClose={onClose}>
+    <Dialog
+      {...rest}
+      onClose={onClose}
+      role="dialog"
+      aria-labelledby="manage-categories-title"
+      aria-describedby="manage-categories-content"
+      aria-modal="true"
+    >
       <div className="colorfulBg">
         <form
           onSubmit={
@@ -158,10 +178,10 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
               : handleSubmit(onSubmit)
           }
         >
-          <DialogTitle className="modal-title">
+          <DialogTitle className="modal-title" id="manage-categories-title">
             <strong>Manage the categories</strong>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent id="manage-categories-content">
             <Accordion
               style={{
                 display: "flex",
@@ -174,6 +194,9 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
                 <div className="select-manage-categories">
+                  <label htmlFor="name" style={{ display: "none" }}>
+                    Insert the name of the new category
+                  </label>
                   <input
                     id="name"
                     type="text"
