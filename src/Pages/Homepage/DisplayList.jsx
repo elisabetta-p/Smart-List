@@ -25,12 +25,7 @@ const DisplayListHeader = (props) => {
   ));
 
   const [showEditList, hideEditList] = useModal(({ in: open, onExited }) => (
-    <EditList
-      open={open}
-      onExited={onExited}
-      onClose={hideEditList}
-      listType={props.listType}
-    />
+    <EditList open={open} onExited={onExited} onClose={hideEditList} />
   ));
   return (
     <div

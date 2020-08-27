@@ -15,6 +15,9 @@ export const ADD_NEW_CATEGORY_TO_LIST_DISPLAYED =
 export const CHECK_ITEM = "CHECK_ITEM";
 export const DELETE_ITEM = "DELETE ITEM";
 export const ADD_TASK = "ADD_TASK";
+export const EDIT_DISPLAYED_LIST = "EDIT_DISPLAYED_LIST";
+export const EDIT_SHOPPING_LIST = "EDIT_SHOPPING_LIST";
+export const EDIT_TODO_LIST = "EDIT_TODO_LIST";
 
 export const loadShoppingLists = () => {
   const lists = [
@@ -622,5 +625,74 @@ export const addTask = (
       newTodoList: [...todoLists],
       newListDisplayed: { ...todoDisplayed },
     });
+  };
+};
+
+/**
+ * Edits the list selected by the user
+ * @param {number} listId
+ * @param {string} newName
+ * @param {number[]} newCategories
+ * @param {string[]} newUsersItIsSharedWith
+ * @param {string} listType can be "shopping" or "todo"
+ * @returns {function(...[*]=)}
+ */
+
+export const editList = (
+  listId,
+  newName,
+  newCategories,
+  newUsersItIsSharedWith,
+  listType
+) => {
+  return (dispatch, getState) => {
+    //edit the displayed list
+    const listDisplayed = { ...getState().lists.listDisplayed };
+    if (newName && listDisplayed.name !== newName) {
+      listDisplayed.name = newName;
+    }
+    if (newCategories) {
+      listDisplayed.categories = [...newCategories];
+    }
+    if (newUsersItIsSharedWith) {
+      const names = newUsersItIsSharedWith.map((user) => user.text);
+      listDisplayed.sharedWith = [...names];
+    }
+    dispatch({
+      type: EDIT_DISPLAYED_LIST,
+      payload: { ...listDisplayed },
+    });
+    let listFromRedux = [];
+    //edit the actual list
+    if (listType === "shopping") {
+      listFromRedux = getState().lists.shoppingLists;
+    } else {
+      listFromRedux = getState().lists.todoLists;
+    }
+    listFromRedux.forEach((list) => {
+      if (list.id === listId) {
+        if (newName && newName !== list.name) {
+          list.name = newName;
+        }
+        if (newCategories) {
+          list.categories = [...newCategories];
+        }
+        if (newUsersItIsSharedWith) {
+          const names = newUsersItIsSharedWith.map((user) => user.text);
+          list.sharedWith = [...names];
+        }
+      }
+    });
+    if (listType === "shopping")
+      dispatch({
+        type: EDIT_SHOPPING_LIST,
+        payload: [...listFromRedux],
+      });
+    else if (listType === "todo") {
+      dispatch({
+        type: EDIT_TODO_LIST,
+        payload: [...listFromRedux],
+      });
+    }
   };
 };

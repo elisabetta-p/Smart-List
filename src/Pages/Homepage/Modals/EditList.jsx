@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { addList } from "../../../Redux";
+import { editList } from "../../../Redux";
 
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Select from "react-select";
@@ -65,7 +65,6 @@ const EditList = ({ createShoppingList, onClose, ...rest }) => {
   const listDisplayed = useSelector((store) => store.lists.listDisplayed);
   const [listName, setListName] = useState(null);
   // what kind of list is the user adding
-  const [typeOfList, changeTypeOfList] = useState(null);
   //which categories
   const [categories, setCategories] = useState([]);
   // who is this shared with
@@ -83,71 +82,18 @@ const EditList = ({ createShoppingList, onClose, ...rest }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!categories) setErrorTypeOfList("Select at least one category");
-  }, [categories, typeOfList]);
-
-  useEffect(() => {
-    if (listName === "") {
-      setErrorListName("Please write a name");
-    } else if (listName) {
-      if (listName.length < 3) {
-        setErrorListNameLength("List name is too short");
-      }
-      if (listName.length > 32) {
-        setErrorListNameLength("List name is too long");
-      }
-      if (listName.length <= 32 && listName.length >= 3) {
-        setErrorListNameLength(null);
-      }
-    }
-  }, [listName]);
-
-  const onSubmit = (formData, event) => {
-    event.preventDefault();
-
-    dispatch(addList(listName, typeOfList, categories, sharingWith));
+  const onSubmit = () => {
+    dispatch(
+      editList(
+        listDisplayed.id,
+        listName,
+        categories,
+        sharingWith,
+        listDisplayed.type
+      )
+    );
   };
 
-  /**
-   * Called when the user clicks the button to confirm they want to add a new list.
-   * Checks if:
-   * 1. the user selected the type of list
-   * 2. a list with that name already exists
-   * @returns {boolean}
-   */
-  function checkIfThereAreErrors() {
-    let errors = false;
-    if (!typeOfList) {
-      setErrorTypeOfList("Select a type of list to add");
-      errors = true;
-    }
-    if (typeOfList === "shopping") {
-      const alreadyThere = existingShopppingListsNames.includes(
-        document.getElementById("name").value
-      );
-      if (alreadyThere) {
-        setErrorListName("A shopping list with this name already exists");
-        errors = true;
-      } else if (!alreadyThere) {
-        setErrorListName(null);
-        errors = false;
-      }
-    }
-    if (typeOfList === "todo") {
-      const alreadyThere = existingTodoListsNames.includes(
-        document.getElementById("name").value
-      );
-      if (alreadyThere) {
-        setErrorListName("A todo list with this name already exists");
-        errors = true;
-      } else {
-        setErrorListName(null);
-        errors = false;
-      }
-    }
-    return errors;
-  }
   /**
    * Inside the props of SelectedListType I'm passing the type prop: this allows for a callback to save inside typeOfList the right type of list that is being created.
    */
@@ -162,13 +108,7 @@ const EditList = ({ createShoppingList, onClose, ...rest }) => {
       aria-describedby="dialog-createlist-desc"
     >
       <div className="colorfulBg">
-        <form
-          onSubmit={
-            !errorListName && !errorTypeOfList && !errorListNameLength
-              ? handleSubmit(onSubmit)
-              : null
-          }
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle className="modal-title" id="dialog-createlist-title">
             <strong>Edit the list {listDisplayed.name}</strong>
           </DialogTitle>
@@ -185,15 +125,7 @@ const EditList = ({ createShoppingList, onClose, ...rest }) => {
               className="input input-new-list"
               onChange={(event) => setListName(event.target.value)}
             />
-            <p className="error-message" style={{ marginBottom: "1rem" }}>
-              {errorListName}
-            </p>
-            <p className="error-message" style={{ marginBottom: "1rem" }}>
-              {errorListNameLength}
-            </p>
-            <p className="error-message" style={{ marginBottom: "1rem" }}>
-              {errorTypeOfList}
-            </p>
+
             <label htmlFor="choose-categories" style={{ display: "none" }}>
               Edit the categories associated with this list
             </label>
@@ -209,12 +141,9 @@ const EditList = ({ createShoppingList, onClose, ...rest }) => {
               <input
                 type="submit"
                 className="button"
-                value="Add the new list"
+                value={`Edit ${listDisplayed.name}`}
                 onClick={(e) => {
-                  const error = checkIfThereAreErrors();
-                  if (error || errorListNameLength || errorListName)
-                    e.preventDefault();
-                  else onClose();
+                  onClose();
                 }}
                 style={{ display: "flex", justifyContent: "center" }}
               />

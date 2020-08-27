@@ -14,6 +14,9 @@ import {
   ADD_NEW_CATEGORY_TO_LIST_DISPLAYED,
   CHECK_ITEM,
   ADD_TASK,
+  EDIT_DISPLAYED_LIST,
+  EDIT_SHOPPING_LIST,
+  EDIT_TODO_LIST,
 } from "./listsActions";
 
 const initialState = {
@@ -104,6 +107,21 @@ const listsReducer = (state = initialState, action) => {
         ...state,
         listDisplayed: { ...action.newListDisplayed },
         todoLists: [...action.newTodoList],
+      };
+    case EDIT_DISPLAYED_LIST:
+      return {
+        ...state,
+        listDisplayed: { ...action.payload },
+      };
+    case EDIT_TODO_LIST:
+      return {
+        ...state,
+        todoLists: [...action.payload],
+      };
+    case EDIT_SHOPPING_LIST:
+      return {
+        ...state,
+        shoppingLists: [...action.payload],
       };
     default:
       return state;

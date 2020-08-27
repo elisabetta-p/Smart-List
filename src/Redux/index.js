@@ -12,6 +12,7 @@ export {
   addCategoryToDisplayedList,
   deleteItem,
   addTask,
+  editList,
 } from "./lists/listsActions";
 export {
   addNewCategory,
