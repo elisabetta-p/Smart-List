@@ -3,11 +3,14 @@ import { loadSingleListInHomepage } from "../../Redux";
 //import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 const ShoppingLists = () => {
-  const shoppingLists = useSelector((state) => state.lists.shoppingLists);
+  const history = useHistory();
+  const shoppingLists = useSelector((store) => store.lists.shoppingLists);
   const [showContent, setShowContent] = useState(true);
   const dispatch = useDispatch();
+  const listDisplayed = useSelector((store) => store.lists.listDisplayed);
   return (
     <div>
       <h3
@@ -43,6 +46,11 @@ const ShoppingLists = () => {
                     key={index}
                     className="menu-list-name"
                     onClick={() => {
+                      history.push(
+                        `/profile/${localStorage
+                          .getItem("username")
+                          .toLocaleLowerCase()}/shopping/${list.id}`
+                      );
                       dispatch(loadSingleListInHomepage(list.id, "shopping"));
                     }}
                   >
@@ -59,6 +67,8 @@ const ShoppingLists = () => {
 };
 
 const TodoLists = () => {
+  const history = useHistory();
+
   const todoLists = useSelector((state) => state.lists.todoLists);
   const [showContent, setShowContent] = useState(true);
   const dispatch = useDispatch();
@@ -97,6 +107,11 @@ const TodoLists = () => {
                     key={index}
                     className="menu-list-name"
                     onClick={() => {
+                      history.push(
+                        `/profile/${localStorage
+                          .getItem("username")
+                          .toLocaleLowerCase()}/todo/${list.id}`
+                      );
                       dispatch(loadSingleListInHomepage(list.id, "todo"));
                     }}
                   >
