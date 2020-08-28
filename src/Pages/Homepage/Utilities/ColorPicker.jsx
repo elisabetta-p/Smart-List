@@ -6,7 +6,7 @@ const ColorPicker = (props) => {
 
   const { categoryColor } = props;
   useEffect(() => {
-    if (color) categoryColor(color.rgb);
+    if (color) categoryColor(color);
   }, [categoryColor, color]);
 
   return (
@@ -14,7 +14,8 @@ const ColorPicker = (props) => {
       <ChromePicker
         color={color}
         onChangeComplete={(color) => {
-          setColor(color);
+          console.log(color);
+          setColor(color.rgb);
         }}
       />
     </div>

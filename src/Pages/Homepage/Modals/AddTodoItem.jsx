@@ -43,7 +43,9 @@ const SelectCategories = (props) => {
         placeholder="Select the category..."
         options={categoriesInsideList}
         onChange={(event) => {
-          if (event) {
+          if (!event) {
+            setSelectedCategories(null);
+          } else {
             if (!event.__isNew__) setSelectedCategories(event.value);
             else {
               const alreadyThere = categoryNames.includes(event.label);
@@ -230,10 +232,8 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
                 value="Add the new task"
                 onClick={(e) => {
                   const error = checkIfThereAreErrors();
-                  if (error) e.preventDefault();
-                  else {
-                    onClose();
-                  }
+                  if (error || categories === null) e.preventDefault();
+                  else onClose();
                 }}
                 style={{ display: "flex", justifyContent: "center" }}
               />

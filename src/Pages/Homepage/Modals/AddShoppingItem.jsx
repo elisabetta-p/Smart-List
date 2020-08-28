@@ -40,7 +40,9 @@ const SelectCategories = (props) => {
         id="select-categories"
         options={categoriesInsideList}
         onChange={(event) => {
-          if (event) {
+          if (!event) {
+            setSelectedCategories(null);
+          } else {
             if (!event.__isNew__) setSelectedCategories(event.value);
             else {
               const alreadyThere = categoryNames.includes(event.label);
@@ -99,6 +101,7 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
   const dispatch = useDispatch();
   const onSubmit = (formData, event) => {
     event.preventDefault();
+
     dispatch(
       addShoppingItem(listId, itemName, formData.description, isFav, categories)
     );
@@ -202,9 +205,17 @@ const AddShoppingItem = ({ createShoppingList, onClose, ...rest }) => {
                 className="button"
                 value="Add the new item"
                 onClick={(e) => {
+                  setErrorItemLength(null);
+                  setErrorItemLength(null);
+
                   const error = checkIfThereAreErrors();
-                  if (error && !errorItemNameLength) e.preventDefault();
-                  else {
+                  if (
+                    error ||
+                    errorItemNameLength !== null ||
+                    categories === null
+                  ) {
+                    e.preventDefault();
+                  } else {
                     onClose();
                   }
                 }}
