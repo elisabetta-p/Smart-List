@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { HeartTwoTone } from "@ant-design/icons";
 import { checkItem, deleteItem } from "../../Redux";
 import { useDispatch } from "react-redux";
-
+import chroma from "chroma-js";
 const DisplayListContent = (props) => {
   const allCategories = useSelector((store) => store.user.categories);
   const dispatch = useDispatch();
@@ -21,6 +21,10 @@ const DisplayListContent = (props) => {
     return [...uniqueSet];
   };
 
+  useEffect(() => {
+    console.log("items", items);
+  }, [items]);
+
   /**
    * Returns the names of the categories contained in the specific list associated with their id.
    * It also uses the generic list of categories to find the names.
@@ -32,10 +36,10 @@ const DisplayListContent = (props) => {
     let names = [];
     categories.forEach((category) => {
       return allCategories.map((cat) => {
-        if (cat.id === category) {
+        if (cat.value === category) {
           return (names = [
             ...names,
-            { name: cat.name, id: cat.id, color: cat.color },
+            { name: cat.name, value: cat.value, color: cat.color },
           ]);
         }
       });
@@ -93,6 +97,7 @@ const DisplayListContent = (props) => {
   const categories = removeDuplicatesFromCategories(props.list);
   const categoryNames = [...getTheNamesOfTheCategories(categories)];
 
+  console.log(categoryNames);
   return (
     <div id="display-list">
       <table>
@@ -103,8 +108,8 @@ const DisplayListContent = (props) => {
               style={{
                 backgroundImage: `linear-gradient(
       180deg,
-      ${cat.color},
-      ${cat.color}
+      ${chroma(cat.color).alpha(0.5)},
+      ${chroma(cat.color).alpha(0.5)}
     )
   `,
                 color: "black",
@@ -112,7 +117,7 @@ const DisplayListContent = (props) => {
             >
               {cat.name}
             </thead>
-            <tbody>{loadTheItems(cat.id)}</tbody>
+            <tbody>{loadTheItems(cat.value)}</tbody>
           </React.Fragment>
         ))}
       </table>

@@ -91,9 +91,9 @@ export const loadShoppingLists = () => {
         },
       ],
       categories: [
-        { id: 0, label: "Food" },
-        { id: 1, label: "Clothes" },
-        { id: 2, label: "Stuff" },
+        { value: 0, label: "Food" },
+        { value: 1, label: "Clothes" },
+        { value: 2, label: "Stuff" },
       ],
       sharedWith: ["prokkius", "boba"],
     },
@@ -107,9 +107,9 @@ export const loadShoppingLists = () => {
       id: 2,
       name: "AAA",
       categories: [
-        { id: 0, label: "Food" },
-        { id: 1, label: "Clothes" },
-        { id: 2, label: "Stuff" },
+        { value: 0, label: "Food" },
+        { value: 1, label: "Clothes" },
+        { value: 2, label: "Stuff" },
       ],
       items: [
         {
@@ -182,7 +182,7 @@ export const loadShoppingLists = () => {
     {
       id: 3,
       name: "BBB",
-      categories: [{ id: 0, label: "Food" }],
+      categories: [{ value: 0, label: "Food" }],
       items: [
         {
           id: 0,
@@ -230,7 +230,7 @@ export const loadShoppingLists = () => {
     {
       id: 4,
       name: "CCC",
-      categories: [{ id: 0, label: "Food" }],
+      categories: [{ value: 0, label: "Food" }],
       items: [
         {
           id: 0,
@@ -271,9 +271,9 @@ export const loadShoppingLists = () => {
       id: 5,
       name: "DDD",
       categories: [
-        { id: 0, label: "Food" },
-        { id: 1, label: "Clothes" },
-        { id: 2, label: "Stuff" },
+        { value: 0, label: "Food" },
+        { value: 1, label: "Clothes" },
+        { value: 2, label: "Stuff" },
       ],
       items: [
         {

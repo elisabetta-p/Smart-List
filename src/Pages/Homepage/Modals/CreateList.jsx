@@ -50,7 +50,7 @@ const SelectCategories = (props) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
   const reduxCategories = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.name };
+    return { value: cat.value, label: cat.name };
   });
   /*useEffect(() => {
     console.log(selectedCategories);

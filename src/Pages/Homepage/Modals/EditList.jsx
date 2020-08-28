@@ -10,7 +10,7 @@ import ShareWithUsers from "../Utilities/ShareWithUsers";
 const EditSelectedCategories = (props) => {
   const reduxCategories = useSelector((state) =>
     state.user.categories.map((cat) => {
-      return { value: cat.id, label: cat.name };
+      return { value: cat.value, label: cat.name };
     })
   );
 
@@ -21,7 +21,7 @@ const EditSelectedCategories = (props) => {
   );
 
   const defaultValues = categoriesAlreadyAssociated.map((cat) => {
-    return { value: cat.id, label: cat.label };
+    return { value: cat.value, label: cat.label };
   });
 
   const [selectedCategories, setSelectedCategories] = useState([

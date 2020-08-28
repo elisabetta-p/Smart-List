@@ -25,7 +25,8 @@ const SelectCategories = (props) => {
     ...store.lists.listDisplayed.categories,
   ]);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.label };
+    console.log(cat);
+    return { value: cat.value, label: cat.label };
   });
   const { categories } = props;
 

@@ -5,10 +5,10 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 
 export const getCategories = () => {
   const categories = [
-    { id: 0, name: "Food", color: "rgba(255, 61, 139, 0.5)" },
-    { id: 1, name: "Clothes", color: "rgba(106, 255, 61, 0.5)" },
-    { id: 2, name: "Stuff", color: "rgba(61, 155, 255,0.5)" },
-    { id: 3, name: "AAA", color: "rgba(255, 216, 61, 0.5)" },
+    { value: 0, name: "Food", color: "rgba(255, 61, 139, 0.5)" },
+    { value: 1, name: "Clothes", color: "rgba(106, 255, 61, 0.5)" },
+    { value: 2, name: "Stuff", color: "rgba(61, 155, 255,0.5)" },
+    { value: 3, name: "AAA", color: "rgba(255, 216, 61, 0.5)" },
   ];
   return {
     type: GET_CATEGORIES,
@@ -32,7 +32,7 @@ export const addNewCategory = (categoryName, categoryColor) => {
     const allCategories = [
       ...getState().user.categories,
       {
-        id: getState().user.categories.length,
+        value: getState().user.categories.length,
         name: categoryName,
         color: categoryColor,
       },
@@ -56,7 +56,7 @@ export const editCategory = (id, newName, categoryColor) => {
   return (dispatch, getState) => {
     const existingCategories = [...getState().user.categories];
     existingCategories.forEach((cat) => {
-      if (cat.id === id) {
+      if (cat.value === id) {
         if (newName) cat.name = newName;
         if (categoryColor) cat.category = categoryColor;
       }
@@ -78,7 +78,7 @@ export const deleteCategory = (id) => {
   return (dispatch, getState) => {
     const existingCategories = [...getState().user.categories];
     const filteredCategories = existingCategories.filter(
-      (cat) => cat.id !== id
+      (cat) => cat.value !== id
     );
     dispatch({
       type: DELETE_CATEGORY,

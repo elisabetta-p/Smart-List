@@ -5,6 +5,7 @@ import { addNewCategory, deleteCategory, editCategory } from "../../../Redux";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import Select from "react-select";
 import Accordion from "react-bootstrap/Accordion";
+import ColorPicker from "../Utilities/ColorPicker";
 
 const EditCategory = (props) => {
   // selectedCategory contains the id of the category selected
@@ -18,7 +19,7 @@ const EditCategory = (props) => {
   );
   const [errorNameModifiedCategory, setErrorModifiedCategory] = useState(null);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.name };
+    return { value: cat.value, label: cat.name };
   });
   const {
     category,
@@ -93,7 +94,7 @@ const DeleteCategory = (props) => {
     ...store.user.categories,
   ]);
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.name };
+    return { value: cat.value, label: cat.name };
   });
   const { category } = props;
   useEffect(() => {
@@ -144,13 +145,27 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
     store.user.categories.map((cat) => cat.name)
   );
 
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [categoryColor, setCategoryColor] = useState(null);
+
   const onSubmit = (formData, event) => {
     event.preventDefault();
-    if (newCategory) {
-      dispatch(addNewCategory(newCategory));
+    if (newCategory && categoryColor) {
+      dispatch(
+        addNewCategory(
+          newCategory,
+          `rgba(${categoryColor.r}, ${categoryColor.g}, ${categoryColor.b}, ${categoryColor.a})`
+        )
+      );
     }
     if (idToEdit) {
-      dispatch(editCategory(idToEdit, newEditedName));
+      dispatch(
+        editCategory(
+          idToEdit,
+          newEditedName,
+          `rgba(${categoryColor.r} ${categoryColor.g} ${categoryColor.b} ${categoryColor.a})`
+        )
+      );
     }
     if (idToDelete) {
       dispatch(deleteCategory(idToDelete));
@@ -201,24 +216,45 @@ const ManageCategories = ({ createShoppingList, onClose, ...rest }) => {
                   <label htmlFor="name" style={{ display: "none" }}>
                     Insert the name of the new category
                   </label>
-                  <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="Insert the name of the new category"
-                    className="input input-new-item"
-                    style={{ margin: "0" }}
-                    onChange={(event) => {
-                      if (categoryNames.includes(event.target.value)) {
-                        setErrorCategoryAlreadyExists(
-                          "A category with that name already exists!"
-                        );
-                      } else {
-                        setErrorCategoryAlreadyExists(null);
-                        setNewCategory(event.target.value);
-                      }
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
                     }}
-                  />
+                  >
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      placeholder="Insert the name of the new category"
+                      className="input input-new-item"
+                      style={{ margin: "0" }}
+                      onChange={(event) => {
+                        if (categoryNames.includes(event.target.value)) {
+                          setErrorCategoryAlreadyExists(
+                            "A category with that name already exists!"
+                          );
+                        } else {
+                          setErrorCategoryAlreadyExists(null);
+                          setNewCategory(event.target.value);
+                        }
+                      }}
+                    />
+                    <button
+                      className="button"
+                      style={{ width: "8rem" }}
+                      onClick={() => {
+                        setDisplayColorPicker(!displayColorPicker);
+                      }}
+                    >
+                      Set color
+                    </button>
+                  </div>
+                  {displayColorPicker ? (
+                    <ColorPicker categoryColor={setCategoryColor} />
+                  ) : null}
+
                   <p className="error-message">{errorCategoryAlreadyExists}</p>
                 </div>
               </Accordion.Collapse>

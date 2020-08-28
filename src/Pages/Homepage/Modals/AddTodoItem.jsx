@@ -29,7 +29,7 @@ const SelectCategories = (props) => {
       : []
   );
   const categoriesInsideList = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.label };
+    return { value: cat.value, label: cat.label };
   });
   const { categories } = props;
   useEffect(() => {
