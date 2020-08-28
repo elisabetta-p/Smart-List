@@ -5,10 +5,10 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 
 export const getCategories = () => {
   const categories = [
-    { id: 0, name: "Food" },
-    { id: 1, name: "Clothes" },
-    { id: 2, name: "Stuff" },
-    { id: 3, name: "AAA" },
+    { id: 0, name: "Food", color: "rgba(255, 61, 139, 0.5)" },
+    { id: 1, name: "Clothes", color: "rgba(106, 255, 61, 0.5)" },
+    { id: 2, name: "Stuff", color: "rgba(61, 155, 255,0.5)" },
+    { id: 3, name: "AAA", color: "rgba(255, 216, 61, 0.5)" },
   ];
   return {
     type: GET_CATEGORIES,
@@ -19,18 +19,23 @@ export const getCategories = () => {
 /**
  * Adds new category to the user and also associates it to the list currently on display
  * @param {string} categoryName name of the new category
+ * @param {string} categoryColor color of the category
  * @returns {function(*): {payload: *[], type: string}}
  */
 
-export const addNewCategory = (categoryName) => {
+export const addNewCategory = (categoryName, categoryColor) => {
   return (dispatch, getState) => {
     /**
-     * adding to all catergories in redux is useless.
+     * adding to all categories in redux is useless.
      * I'll replace this with an api call to add this in the db
      */
     const allCategories = [
       ...getState().user.categories,
-      { id: getState().user.categories.length, name: categoryName },
+      {
+        id: getState().user.categories.length,
+        name: categoryName,
+        color: categoryColor,
+      },
     ];
     //dispatch(addCategoryToDisplayedList(categoryName));
     dispatch({
@@ -44,14 +49,16 @@ export const addNewCategory = (categoryName) => {
  * Edits the name of an existing category
  * @param {number} id id of the category to edit
  * @param {string} newName new name of the category
+ * @param {string} categoryColor color of the category
  * @returns {function(...[*]=)}
  */
-export const editCategory = (id, newName) => {
+export const editCategory = (id, newName, categoryColor) => {
   return (dispatch, getState) => {
     const existingCategories = [...getState().user.categories];
     existingCategories.forEach((cat) => {
       if (cat.id === id) {
-        cat.name = newName;
+        if (newName) cat.name = newName;
+        if (categoryColor) cat.category = categoryColor;
       }
     });
     dispatch({

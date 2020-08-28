@@ -57,7 +57,7 @@ const SelectCategories = (props) => {
             }
           }
         }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9998 }) }}
         isSearchable
         isClearable
         menuPortalTarget={document.body}

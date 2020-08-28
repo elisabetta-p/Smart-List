@@ -60,7 +60,7 @@ const SelectCategories = (props) => {
             }
           }
         }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9998 }) }}
         isSearchable
         isClearable
         menuPortalTarget={document.body}
@@ -216,7 +216,7 @@ const AddTodoItem = ({ createShoppingList, onClose, ...rest }) => {
               dateFormat="MMMM d, yyyy h:mm aa"
               style={{
                 position: "relative",
-                zIndex: "9999",
+                zIndex: "9998",
               }}
               withPortal
               placeholderText="Select a due date and time"

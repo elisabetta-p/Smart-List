@@ -30,16 +30,6 @@ const Header = () => {
       onClose={hideManageCategories}
     />
   ));
-  /*const [
-    showCreateShoppingList,
-    hideCreateShoppingList,
-  ] = useModal(({ in: open, onExited }) => (
-    <CreateShoppingList
-      open={open}
-      onExited={onExited}
-      onClose={hideCreateShoppingList}
-    />
-  ));*/
 
   return (
     <div className="header-container">

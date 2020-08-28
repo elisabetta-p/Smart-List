@@ -8,22 +8,22 @@ import Select from "react-select";
 import ShareWithUsers from "../Utilities/ShareWithUsers";
 
 const EditSelectedCategories = (props) => {
-  const categoriesFromRedux = useSelector((state) => state.user.categories);
+  const reduxCategories = useSelector((state) =>
+    state.user.categories.map((cat) => {
+      return { value: cat.id, label: cat.name };
+    })
+  );
 
   //const [categories, selectCategories] = useState([...categoriesFromRedux]);
-  const reduxCategories = categoriesFromRedux.map((cat) => {
-    return { value: cat.id, label: cat.name };
-  });
+
   const categoriesAlreadyAssociated = useSelector(
     (state) => state.lists.listDisplayed.categories
   );
+
   const defaultValues = categoriesAlreadyAssociated.map((cat) => {
-    const obj = {
-      value: cat.id,
-      label: cat.label,
-    };
-    return { ...obj };
+    return { value: cat.id, label: cat.label };
   });
+
   const [selectedCategories, setSelectedCategories] = useState([
     ...categoriesAlreadyAssociated,
   ]);
@@ -43,7 +43,7 @@ const EditSelectedCategories = (props) => {
         onChange={(event) => {
           setSelectedCategories([...event]);
         }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9998 }) }}
         isSearchable
         menuPortalTarget={document.body}
         className="select-add-list"

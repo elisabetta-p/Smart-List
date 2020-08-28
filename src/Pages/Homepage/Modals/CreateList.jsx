@@ -35,7 +35,7 @@ const SelectListType = (props) => {
             changeSelected(event.value);
           }
         }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9998 }) }}
         isSearchable
         menuPortalTarget={document.body}
         className="select-add-list"
@@ -82,7 +82,7 @@ const SelectCategories = (props) => {
             ]);
           }
         }}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9998 }) }}
         isSearchable
         menuPortalTarget={document.body}
         className="select-add-list"

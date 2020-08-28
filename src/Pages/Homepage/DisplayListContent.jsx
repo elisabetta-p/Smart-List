@@ -33,7 +33,10 @@ const DisplayListContent = (props) => {
     categories.forEach((category) => {
       return allCategories.map((cat) => {
         if (cat.id === category) {
-          return (names = [...names, { name: cat.name, id: cat.id }]);
+          return (names = [
+            ...names,
+            { name: cat.name, id: cat.id, color: cat.color },
+          ]);
         }
       });
     });
@@ -89,12 +92,24 @@ const DisplayListContent = (props) => {
 
   const categories = removeDuplicatesFromCategories(props.list);
   const categoryNames = [...getTheNamesOfTheCategories(categories)];
+
   return (
     <div id="display-list">
       <table>
         {categoryNames.map((cat, index) => (
           <React.Fragment key={index}>
-            <thead className="list-name-homepage category-name-display">
+            <thead
+              className="list-name-homepage category-name-display cute-underline"
+              style={{
+                backgroundImage: `linear-gradient(
+      180deg,
+      ${cat.color},
+      ${cat.color}
+    )
+  `,
+                color: "black",
+              }}
+            >
               {cat.name}
             </thead>
             <tbody>{loadTheItems(cat.id)}</tbody>
