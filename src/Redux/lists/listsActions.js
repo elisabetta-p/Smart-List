@@ -343,15 +343,15 @@ export const getTodoLists = () => {
         },
       ],
       categories: [
-        { id: 0, label: "Food" },
-        { id: 1, label: "AAA" },
+        { value: 0, label: "Food" },
+        { value: 1, label: "Clothes" },
       ],
     },
     {
       id: 1,
       name: "todo list 2",
       items: [],
-      categories: [{ id: 0, label: "Food" }],
+      categories: [{ value: 0, label: "Food" }],
     },
   ];
   return {

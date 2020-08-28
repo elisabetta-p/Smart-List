@@ -6,7 +6,6 @@ const ColorPicker = (props) => {
 
   const { categoryColor } = props;
   useEffect(() => {
-    console.log(color);
     if (color) categoryColor(color.rgb);
   }, [categoryColor, color]);
 
@@ -16,7 +15,6 @@ const ColorPicker = (props) => {
         color={color}
         onChangeComplete={(color) => {
           setColor(color);
-          console.log(color);
         }}
       />
     </div>

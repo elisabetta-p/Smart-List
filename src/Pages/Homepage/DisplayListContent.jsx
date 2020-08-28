@@ -21,10 +21,6 @@ const DisplayListContent = (props) => {
     return [...uniqueSet];
   };
 
-  useEffect(() => {
-    console.log("items", items);
-  }, [items]);
-
   /**
    * Returns the names of the categories contained in the specific list associated with their id.
    * It also uses the generic list of categories to find the names.
@@ -70,9 +66,11 @@ const DisplayListContent = (props) => {
           {typeOfList === "todo" ? (
             <td style={{ minWidth: "3rem" }}>
               <span className="inside-td" style={{ width: "100%" }}>
-                {item.dueDate.getDate()}-{item.dueDate.getMonth() + 1}-
-                {item.dueDate.getFullYear()} {item.dueDate.getHours()}:
-                {item.dueDate.getMinutes()}
+                {item.dueDate
+                  ? `${item.dueDate.getDate()}-${item.dueDate.getMonth() + 1}-
+                ${item.dueDate.getFullYear()} ${item.dueDate.getHours()}:
+                ${item.dueDate.getMinutes()}`
+                  : null}
               </span>
             </td>
           ) : null}
@@ -97,7 +95,6 @@ const DisplayListContent = (props) => {
   const categories = removeDuplicatesFromCategories(props.list);
   const categoryNames = [...getTheNamesOfTheCategories(categories)];
 
-  console.log(categoryNames);
   return (
     <div id="display-list">
       <table>
