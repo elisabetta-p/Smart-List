@@ -340,8 +340,7 @@ table {
   //height: 50%;
   overflow-y: scroll;
   margin: 0.5rem;
-  //-ms-overflow-style: none;
-  //scrollbar-width: none;
+
 }
 
 .scroll-items::-webkit-scrollbar {
@@ -380,7 +379,6 @@ table {
     radial-gradient(circle at top right, $normal-pink, transparent);
   color: white;
   font-weight: 400;
-  //margin: 0 auto;
   align-self: flex-end;
 }
 
