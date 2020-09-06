@@ -622,7 +622,6 @@ input[type="radio"]:checked:before {
     );
   box-decoration-break: clone;
   background-repeat: no-repeat;
-  //color: #1221ff;
   background-position-x: calc(
       var(--underline-cap-width) * var(--underline-width-scale)
     ),

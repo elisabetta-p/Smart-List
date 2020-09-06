@@ -14,7 +14,6 @@ const ColorPicker = (props) => {
       <ChromePicker
         color={color}
         onChangeComplete={(color) => {
-          console.log(color);
           setColor(color.rgb);
         }}
       />
