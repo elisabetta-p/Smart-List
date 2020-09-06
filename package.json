@@ -34,6 +34,7 @@
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
     "react-tag-input": "^6.4.3",
+    "react-toastify": "^6.0.8",
     "react-transition-group": "^4.4.1",
     "reactcss": "^1.2.3",
     "redux": "^4.0.5",
