@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { useModal } from "react-modal-hook";
 import CreateList from "./Modals/CreateList";
 import ManageCategories from "./Modals/ManageCategories";
+import ManageUserProfile from "./Modals/ManageUserProfile";
 
 const Header = () => {
   const history = useHistory();
@@ -28,6 +29,17 @@ const Header = () => {
       open={open}
       onExited={onExited}
       onClose={hideManageCategories}
+    />
+  ));
+
+  const [
+    showYourProfile,
+    hideShowYourProfile,
+  ] = useModal(({ in: open, onExited }) => (
+    <ManageUserProfile
+      open={open}
+      onExited={onExited}
+      onClose={hideShowYourProfile}
     />
   ));
 
@@ -105,7 +117,9 @@ const Header = () => {
             <button className="button header-button" onClick={showCreateList}>
               Create a new list
             </button>
-
+            <button className="button header-button" onClick={showYourProfile}>
+              Manage your profile
+            </button>
             <LogoutOutlined
               className="header-icon"
               onClick={() => {

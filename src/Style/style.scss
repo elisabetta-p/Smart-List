@@ -199,7 +199,7 @@ h1 {
   position: relative;
   height: 10vh;
   top: 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px $opacity-pink;
 }
 
 .content-header-container {
@@ -245,27 +245,6 @@ header {
   max-width: 100vw;
   margin: 2em auto;
 }
-/*
-.list-columns {
-  -moz-column-count: 3;
-  -moz-column-gap: 3%;
-  -moz-column-width: calc(100vw / 3);
-  -webkit-column-count: 3;
-  -webkit-column-gap: 3%;
-  -webkit-column-width: calc(100vw / 3);
-  column-count: 3;
-  column-gap: 3%;
-  column-width: calc(100vw / 3);
-  break-inside: avoid;
-}
-
-.card {
-  margin: 0;
-  -webkit-column-break-inside: avoid;  Chrome, Safari
-  page-break-inside: avoid;  Theoretically FF 20+
-  break-inside: avoid-column; IE 11
-  display: table;
-}*/
 
 .header-right {
   display: flex;
@@ -361,8 +340,6 @@ table {
   //height: 50%;
   overflow-y: scroll;
   margin: 0.5rem;
-  //-ms-overflow-style: none;
-  //scrollbar-width: none;
 }
 
 .scroll-items::-webkit-scrollbar {
@@ -401,7 +378,6 @@ table {
     radial-gradient(circle at top right, $normal-pink, transparent);
   color: white;
   font-weight: 400;
-  //margin: 0 auto;
   align-self: flex-end;
 }
 
@@ -645,7 +621,6 @@ input[type="radio"]:checked:before {
     );
   box-decoration-break: clone;
   background-repeat: no-repeat;
-  //color: #1221ff;
   background-position-x: calc(
       var(--underline-cap-width) * var(--underline-width-scale)
     ),
