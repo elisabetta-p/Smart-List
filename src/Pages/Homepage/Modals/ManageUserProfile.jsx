@@ -7,7 +7,7 @@ import Select from "react-select";
 import Accordion from "react-bootstrap/Accordion";
 import ColorPicker from "../Utilities/ColorPicker";
 
-const ManageUserProfile = ({ createShoppintList, onClose, ...rest }) => {
+const ManageUserProfile = ({ onClose, ...rest }) => {
   const [profileName, setProfileName] = useState(null);
   const { handleSubmit } = useForm();
 
