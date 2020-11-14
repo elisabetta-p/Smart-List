@@ -172,7 +172,7 @@ h1 {
   position: relative;
   height: 10vh;
   top: 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(250, 172, 168, 0.5);
 }
 
 .content-header-container {
@@ -223,27 +223,6 @@ header {
   margin: 2em auto;
 }
 
-/*
-.list-columns {
-  -moz-column-count: 3;
-  -moz-column-gap: 3%;
-  -moz-column-width: calc(100vw / 3);
-  -webkit-column-count: 3;
-  -webkit-column-gap: 3%;
-  -webkit-column-width: calc(100vw / 3);
-  column-count: 3;
-  column-gap: 3%;
-  column-width: calc(100vw / 3);
-  break-inside: avoid;
-}
-
-.card {
-  margin: 0;
-  -webkit-column-break-inside: avoid;  Chrome, Safari
-  page-break-inside: avoid;  Theoretically FF 20+
-  break-inside: avoid-column; IE 11
-  display: table;
-}*/
 .header-right {
   display: flex;
   align-items: center;
