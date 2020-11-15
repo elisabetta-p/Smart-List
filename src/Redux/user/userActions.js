@@ -1,7 +1,11 @@
+import ProfileImage from "../../img/profile.jpg";
+
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const EDIT_CATEGORY = "EDIT_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_CATEGORIES = "GET_CATEGORIES";
+export const GET_USER_DATA = "GET_USER_DATA";
+export const EDIT_USER_DATA = "EDIT_USER_DATA";
 
 export const getCategories = () => {
   const categories = [
@@ -84,5 +88,14 @@ export const deleteCategory = (id) => {
       type: DELETE_CATEGORY,
       payload: [...filteredCategories],
     });
+  };
+};
+
+export const getUserData = (userId, username) => {
+  return {
+    type: GET_USER_DATA,
+    username: username,
+    email: "email@email.com",
+    profilePic: ProfileImage,
   };
 };

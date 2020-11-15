@@ -3,10 +3,14 @@ import {
   EDIT_CATEGORY,
   DELETE_CATEGORY,
   GET_CATEGORIES,
+  GET_USER_DATA,
 } from "./userActions";
 
 const initialState = {
   categories: [],
+  username: null,
+  email: null,
+  profilePic: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -30,6 +34,13 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         categories: action.payload,
+      };
+    case GET_USER_DATA:
+      return {
+        ...state,
+        username: action.username,
+        profilePic: action.profilePic,
+        email: action.email,
       };
     default:
       return state;
