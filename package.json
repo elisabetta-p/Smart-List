@@ -44,9 +44,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "set \"CI=false\" && react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start http://localhost:3000 cy:run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -67,6 +69,8 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
     "@babel/preset-flow": "^7.10.4",
-    "flow-bin": "^0.127.0"
+    "cypress": "^7.1.0",
+    "flow-bin": "^0.127.0",
+    "start-server-and-test": "^1.12.1"
   }
 }
